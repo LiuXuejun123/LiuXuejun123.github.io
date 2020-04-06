@@ -36,7 +36,16 @@
             <ul class="markdownIt-TOC">
 <li>
 <ul>
-<li><a href="#%E5%BC%80%E5%A7%8B%E6%88%91%E7%9A%84%E5%8D%9A%E5%AE%A2">开始我的博客</a></li>
+<li><a href="#1functional-requirement">1.functional requirement</a></li>
+<li><a href="#2implementation-process">2.Implementation process</a>
+<ul>
+<li><a href="#1hardware-circuit-construction">1.Hardware circuit construction</a></li>
+<li><a href="#2port-initialization">2.Port initialization</a></li>
+<li><a href="#3code">3.code</a></li>
+<li><a href="#4experimental-results">4.Experimental results</a></li>
+</ul>
+</li>
+<li><a href="#conclusion">Conclusion</a></li>
 </ul>
 </li>
 </ul>
@@ -85,13 +94,99 @@
 <div class="mask" onclick="closeMenu()">
 </div>
       <div class="content-wrapper py-32 lg:p-8 lg:w-3/4 post-detail animated fadeIn">
-        <h1 class="text-3xl font-bold lg:mt-16">hello world</h1>
+        <h1 class="text-3xl font-bold lg:mt-16">任务一  STM32F401RE 二进制加减器</h1>
         <div class="text-sm text-gray-700 lg:my-8">
-          2020-04-06 / 1 min read
+          2020-04-06 / 3 min read
         </div>
         
         <div class="post-content yue">
-          <h2 id="开始我的博客">开始我的博客</h2>
+          <h2 id="1functional-requirement">1.functional requirement</h2>
+<ul>
+<li>
+<p>In the initial state, all LEDs are off.</p>
+</li>
+<li>
+<p>When you press «up» button, the value of the 8-bit number increases, the corresponding LEDs light up.</p>
+</li>
+<li>
+<p>When you press «down» button, the value of the 8-bit number decreases, the corresponding LEDs light up.</p>
+</li>
+</ul>
+<h2 id="2implementation-process">2.Implementation process</h2>
+<h3 id="1hardware-circuit-construction">1.Hardware circuit construction</h3>
+<p>​     We need 8 pins for connecting the LED, 2 pins for the switch, and the pin connected to the LED outputs high level to light up the LED,and the pin connected to the switch can be triggered by a low level.</p>
+<p>The schematic diagram is as follows:<br>
+<img src="https://liuxuejun123.github.io//post-images/1586173799153.PNG" alt="" loading="lazy"><br>
+I chose PIN0-PIN7 of GPIOB as 8-bit LED output,adnPIN8 and PIN9 of GPIOA as key signal input.</p>
+<h3 id="2port-initialization">2.Port initialization</h3>
+<p>Set GPIOB_PIN0-PIN7 output mode,GPIOA_PIN8 and PIN9 input mode.</p>
+<p>Looking up the technical manual, we can know the chip uses two bits of data in the register to control the mode of the port.</p>
+<p>As shown below：<br>
+<img src="https://liuxuejun123.github.io//post-images/1586173826302.PNG" alt="" loading="lazy"></p>
+<p>we can known GPIOB MODER register control word is 0x000‭55550‬.</p>
+<p>GPIOA MODER register control word is 0x00000000.</p>
+<h3 id="3code">3.code</h3>
+<pre><code class="language-c">#include&quot;stm32f4xx.h&quot;
+void delay_ms(uint16_t time)//delay function
+{    
+   uint16_t i=0;  
+   while(time--)
+   {
+      i=12000;  
+      while(i--) ;    
+   }
+}
+void gpio_init()           //GPIO initialization
+{
+RCC-&gt;AHB1ENR|=RCC_AHB1ENR_GPIOAEN|//Turn on the clock of gpioa and gpiob
+	            RCC_AHB1ENR_GPIOBEN;
+GPIOB -&gt; MODER = 0x00005555;//GPIOB 0-7  output
+GPIOA -&gt; MODER = 0x00000000;//GPIOA INPUT
+}
+void LEDdisplay(int a)
+{
+	GPIOB-&gt;ODR=a;
+}
+unsigned char   a=0;//flag a=0x00 a 0~255;
+
+int main()
+{ 
+   gpio_init();//GPIO initialization
+   while(1){	
+	
+	           if(!(GPIOA-&gt;IDR&amp;GPIO_IDR_ID8))//if gpioa_pin8 low ,enter if function
+	             {
+		           delay_ms(5);                //Eliminate key jitter
+		           if(!(GPIOA-&gt;IDR&amp;GPIO_IDR_ID8))
+		              {
+										a++;
+										LEDdisplay(a);
+										while(!(GPIOA-&gt;IDR&amp;GPIO_IDR_ID8));//Wait for the                                                                           key to rebound
+		              }
+	             }
+             if(!(GPIOA-&gt;IDR&amp;GPIO_IDR_ID9))////Eliminate key jitter
+							{
+							delay_ms(5);   
+							if(!(GPIOA-&gt;IDR&amp;GPIO_IDR_ID9))	
+								 {  
+									 a--;
+								   LEDdisplay(a);
+								   while(!(GPIOA-&gt;IDR&amp;GPIO_IDR_ID9));
+								 }
+							}
+           }
+
+}
+</code></pre>
+<h3 id="4experimental-results">4.Experimental results</h3>
+<p>At the beginning of simulation, the initial value is 0, and the 8-bit LED is not on<br>
+<img src="https://liuxuejun123.github.io//post-images/1586173840804.PNG" alt="" loading="lazy"></p>
+<p>Press the ADDITION button to increase the value to 7. At this time, the eight bit LED displays its binary as follows</p>
+<figure data-type="image" tabindex="1"><img src="https://liuxuejun123.github.io//post-images/1586173846367.PNG" alt="" loading="lazy"></figure>
+<p>Press the SUBTRACTION button once, the value will be reduced to 6, and the LED will display as follows<br>
+<img src="https://liuxuejun123.github.io//post-images/1586173853148.PNG" alt="" loading="lazy"></p>
+<h2 id="conclusion">Conclusion</h2>
+<p>Through this experiment, I learned the initialization of the io and the control of the high and low level of the io port, and learned to use the io pin to control other io.</p>
 
         </div>
 
@@ -100,16 +195,16 @@
 
         <div class="flex justify-between py-8">
           
-            <div class="prev-post">
-              <a href="https://liuxuejun123.github.io/post/ren-wu-yi-stm32f401re-er-jin-zhi-jia-jian-qi/">
+
+          
+            <div class="next-post">
+              <a href="https://liuxuejun123.github.io/post/hello-world/">
                 <h3 class="post-title">
-                  <i class="ri-arrow-left-line"></i>
-                  任务一  STM32F401RE 二进制加减器
+                  hello world
+                  <i class="ri-arrow-right-line"></i>
                 </h3>
               </a>
             </div>
-          
-
           
         </div>
 
