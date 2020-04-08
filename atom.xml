@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://liuxuejun123.github.io/</id>
     <title>iNNovation</title>
-    <updated>2020-04-06T12:25:32.826Z</updated>
+    <updated>2020-04-08T12:23:59.867Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://liuxuejun123.github.io/"/>
     <link rel="self" href="https://liuxuejun123.github.io/atom.xml"/>
@@ -11,7 +11,7 @@
     <icon>https://liuxuejun123.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, iNNovation</rights>
     <entry>
-        <title type="html"><![CDATA[任务一  STM32F401RE 二进制加减器]]></title>
+        <title type="html"><![CDATA[微控制器任务一  STM32F401RE 二进制加减器]]></title>
         <id>https://liuxuejun123.github.io/post/ren-wu-yi-stm32f401re-er-jin-zhi-jia-jian-qi/</id>
         <link href="https://liuxuejun123.github.io/post/ren-wu-yi-stm32f401re-er-jin-zhi-jia-jian-qi/">
         </link>
