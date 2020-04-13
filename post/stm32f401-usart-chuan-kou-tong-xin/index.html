@@ -1,22 +1,119 @@
-<?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom">
-    <id>https://liuxuejun123.github.io/</id>
-    <title>Liu Xuejun&apos;s Blog</title>
-    <updated>2020-04-13T08:56:10.078Z</updated>
-    <generator>https://github.com/jpmonette/feed</generator>
-    <link rel="alternate" href="https://liuxuejun123.github.io/"/>
-    <link rel="self" href="https://liuxuejun123.github.io/atom.xml"/>
-    <subtitle>念念不忘，必有回响</subtitle>
-    <logo>https://liuxuejun123.github.io/images/avatar.png</logo>
-    <icon>https://liuxuejun123.github.io/favicon.ico</icon>
-    <rights>All rights reserved 2020, Liu Xuejun&apos;s Blog</rights>
-    <entry>
-        <title type="html"><![CDATA[STM32F401 USART 串口通信]]></title>
-        <id>https://liuxuejun123.github.io/post/stm32f401-usart-chuan-kou-tong-xin/</id>
-        <link href="https://liuxuejun123.github.io/post/stm32f401-usart-chuan-kou-tong-xin/">
-        </link>
-        <updated>2020-04-13T08:49:43.000Z</updated>
-        <content type="html"><![CDATA[<h2 id="1functional-requirement">1.functional requirement</h2>
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Liu Xuejun&#39;s Blog</title>
+<meta name="description" content="念念不忘，必有回响" />
+<link rel="shortcut icon" href="https://liuxuejun123.github.io//favicon.ico?v=1586768159639">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+<link rel="stylesheet" href="https://liuxuejun123.github.io//styles/main.css">
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main px-4 flex flex-col lg:flex-row">
+      <div id="sidebar" class="sidebar-wrapper lg:static lg:w-1/4">
+  <div class="lg:sticky top-0">
+    <div class="sidebar-content">
+      <div class="flex lg:block p-4 lg:px-0 items-center fixed lg:static lg:block top-0 right-0 left-0 bg-white z-50">
+        <i class="ri-menu-2-line lg:mt-4 text-2xl cursor-pointer animated fadeIn" onclick="openMenu()"></i>
+        <a href="https://liuxuejun123.github.io/">
+          <img class="animated fadeInLeft avatar rounded-lg mx-4 lg:mt-32 lg:mx-0 mt-0 lg:w-24 lg:h-24 w-12 w-12" src="https://liuxuejun123.github.io//images/avatar.png?v=1586768159639" alt="">
+        </a>
+        <h1 class="animated fadeInLeft lg:text-4xl font-extrabold lg:mt-8 mt-0 text-xl" style="animation-delay: 0.2s">Liu Xuejun&#39;s Blog</h1>
+      </div>
+      
+        <div class="animated fadeInLeft" style="animation-delay: 0.4s">
+          <p class="my-4 text-gray-600 font-light hidden lg:block">
+            文章目录
+          </p>
+          <div class="toc-container hidden lg:block">
+            <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#1functional-requirement">1.functional requirement</a></li>
+<li><a href="#2imliementation-process">2.Imliementation process</a>
+<ul>
+<li><a href="#i">I</a></li>
+<li><a href="#ii">II</a>
+<ul>
+<li><a href="#baud-rate-registerusart_brr">Baud rate register(USART_BRR)</a></li>
+<li><a href="#status-register-sr">Status register (SR)</a>
+<ul>
+<li><a href="#bit-6-tc-transmission-complete">Bit 6 TC: Transmission complete</a></li>
+<li><a href="#bit-5-rxne-read-data-register-not-empty">Bit 5 RXNE: Read data register not empty</a></li>
+</ul>
+</li>
+<li><a href="#data-register-usart_dr">Data register (USART_DR)</a></li>
+<li><a href="#control-register-1-usart_cr1">Control register 1 (USART_CR1)</a></li>
+</ul>
+</li>
+<li><a href="#iii-general-steps-of-serial-port-operation">III General steps of serial port operation</a></li>
+</ul>
+</li>
+<li><a href="#code">Code</a></li>
+<li><a href="#simulation">Simulation</a></li>
+<li><a href="#conclusion">Conclusion</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+<div class="menu-container">
+  <i class="ri-arrow-left-line text-2xl cursor-pointer animated fadeIn close-menu-btn" onclick="closeMenu()"></i>
+  <div>
+    
+      
+        <a href="/" class="menu" style="animation-delay: 0s">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu" style="animation-delay: 0.2s">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu" style="animation-delay: 0.4s">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu" style="animation-delay: 0.6000000000000001s">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="site-footer">
+    <div class="py-4 text-gray-700">Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a></div>
+    <a class="rss" href="https://liuxuejun123.github.io//atom.xml" target="_blank">RSS</a>
+  </div>
+</div>
+<div class="mask" onclick="closeMenu()">
+</div>
+      <div class="content-wrapper py-32 lg:p-8 lg:w-3/4 post-detail animated fadeIn">
+        <h1 class="text-3xl font-bold lg:mt-16">STM32F401 USART 串口通信</h1>
+        <div class="text-sm text-gray-700 lg:my-8">
+          2020-04-13 / 7 min read
+        </div>
+        
+        <div class="post-content yue">
+          <h2 id="1functional-requirement">1.functional requirement</h2>
 <ol>
 <li>
 <p>Create function for send byte packet(array) via USART. In this function you need:<br>
@@ -218,110 +315,129 @@ int main()
 <p>Keyboard input k LED0 is off<br>
 <img src="https://liuxuejun123.github.io//post-images/1586768081298.PNG" alt="" loading="lazy"></p>
 <h2 id="conclusion">Conclusion</h2>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[ STM32F401RE 二进制加减器]]></title>
-        <id>https://liuxuejun123.github.io/post/ren-wu-yi-stm32f401re-er-jin-zhi-jia-jian-qi/</id>
-        <link href="https://liuxuejun123.github.io/post/ren-wu-yi-stm32f401re-er-jin-zhi-jia-jian-qi/">
-        </link>
-        <updated>2020-04-06T11:44:42.000Z</updated>
-        <content type="html"><![CDATA[<h2 id="1functional-requirement">1.functional requirement</h2>
-<ul>
-<li>
-<p>In the initial state, all LEDs are off.</p>
-</li>
-<li>
-<p>When you press «up» button, the value of the 8-bit number increases, the corresponding LEDs light up.</p>
-</li>
-<li>
-<p>When you press «down» button, the value of the 8-bit number decreases, the corresponding LEDs light up.</p>
-</li>
-</ul>
-<h2 id="2implementation-process">2.Implementation process</h2>
-<h3 id="1hardware-circuit-construction">1.Hardware circuit construction</h3>
-<p>​     We need 8 pins for connecting the LED, 2 pins for the switch, and the pin connected to the LED outputs high level to light up the LED,and the pin connected to the switch can be triggered by a low level.</p>
-<p>The schematic diagram is as follows:<br>
-<img src="https://liuxuejun123.github.io//post-images/1586173799153.PNG" alt="" loading="lazy"><br>
-I chose PIN0-PIN7 of GPIOB as 8-bit LED output,adnPIN8 and PIN9 of GPIOA as key signal input.</p>
-<h3 id="2port-initialization">2.Port initialization</h3>
-<p>Set GPIOB_PIN0-PIN7 output mode,GPIOA_PIN8 and PIN9 input mode.</p>
-<p>Looking up the technical manual, we can know the chip uses two bits of data in the register to control the mode of the port.</p>
-<p>As shown below：<br>
-<img src="https://liuxuejun123.github.io//post-images/1586173826302.PNG" alt="" loading="lazy"></p>
-<p>we can known GPIOB MODER register control word is 0x000‭55550‬.</p>
-<p>GPIOA MODER register control word is 0x00000000.</p>
-<h3 id="3code">3.code</h3>
-<pre><code class="language-c">#include&quot;stm32f4xx.h&quot;
-void delay_ms(uint16_t time)//delay function
-{    
-   uint16_t i=0;  
-   while(time--)
-   {
-      i=12000;  
-      while(i--) ;    
-   }
-}
-void gpio_init()           //GPIO initialization
-{
-RCC-&gt;AHB1ENR|=RCC_AHB1ENR_GPIOAEN|//Turn on the clock of gpioa and gpiob
-	            RCC_AHB1ENR_GPIOBEN;
-GPIOB -&gt; MODER = 0x00005555;//GPIOB 0-7  output
-GPIOA -&gt; MODER = 0x00000000;//GPIOA INPUT
-}
-void LEDdisplay(int a)
-{
-	GPIOB-&gt;ODR=a;
-}
-unsigned char   a=0;//flag a=0x00 a 0~255;
 
-int main()
-{ 
-   gpio_init();//GPIO initialization
-   while(1){	
-	
-	           if(!(GPIOA-&gt;IDR&amp;GPIO_IDR_ID8))//if gpioa_pin8 low ,enter if function
-	             {
-		           delay_ms(5);                //Eliminate key jitter
-		           if(!(GPIOA-&gt;IDR&amp;GPIO_IDR_ID8))
-		              {
-										a++;
-										LEDdisplay(a);
-										while(!(GPIOA-&gt;IDR&amp;GPIO_IDR_ID8));//Wait for the                                                                           key to rebound
-		              }
-	             }
-             if(!(GPIOA-&gt;IDR&amp;GPIO_IDR_ID9))////Eliminate key jitter
-							{
-							delay_ms(5);   
-							if(!(GPIOA-&gt;IDR&amp;GPIO_IDR_ID9))	
-								 {  
-									 a--;
-								   LEDdisplay(a);
-								   while(!(GPIOA-&gt;IDR&amp;GPIO_IDR_ID9));
-								 }
-							}
-           }
+        </div>
 
+        
+
+
+        <div class="flex justify-between py-8">
+          
+
+          
+            <div class="next-post">
+              <a href="https://liuxuejun123.github.io/post/ren-wu-yi-stm32f401re-er-jin-zhi-jia-jian-qi/">
+                <h3 class="post-title">
+                   STM32F401RE 二进制加减器
+                  <i class="ri-arrow-right-line"></i>
+                </h3>
+              </a>
+            </div>
+          
+        </div>
+
+        
+
+      </div>
+    </div>
+
+    <script src="https://liuxuejun123.github.io//media/prism.js"></script>  
+<script>
+
+Prism.highlightAll()
+let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+// This should probably be throttled.
+// Especially because it triggers during smooth scrolling.
+// https://lodash.com/docs/4.17.10#throttle
+// You could do like...
+// window.addEventListener("scroll", () => {
+//    _.throttle(doThatStuff, 100);
+// });
+// Only not doing it here to keep this Pen dependency-free.
+
+window.addEventListener("scroll", event => {
+  let fromTop = window.scrollY;
+
+  mainNavLinks.forEach((link, index) => {
+    let section = document.getElementById(decodeURI(link.hash).substring(1));
+    let nextSection = null
+    if (mainNavLinks[index + 1]) {
+      nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+    }
+    if (section.offsetTop <= fromTop) {
+      if (nextSection) {
+        if (nextSection.offsetTop > fromTop) {
+          link.classList.add("current");
+        } else {
+          link.classList.remove("current");    
+        }
+      } else {
+        link.classList.add("current");
+      }
+    } else {
+      link.classList.remove("current");
+    }
+  });
+});
+
+
+document.addEventListener("DOMContentLoaded", function() {
+  var lazyImages = [].slice.call(document.querySelectorAll(".post-feature-image.lazy"));
+
+  if ("IntersectionObserver" in window) {
+    let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          let lazyImage = entry.target
+          lazyImage.style.backgroundImage = `url(${lazyImage.dataset.bg})`
+          lazyImage.classList.remove("lazy")
+          lazyImageObserver.unobserve(lazyImage)
+        }
+      });
+    });
+
+    lazyImages.forEach(function(lazyImage) {
+      lazyImageObserver.observe(lazyImage)
+    })
+  } else {
+    // Possibly fall back to a more compatible method here
+  }
+});
+
+const menuContainer = document.querySelector('.menu-container')
+const menus = document.querySelectorAll('.menu-container .menu')
+const mask = document.querySelector('.mask')
+const contentWrapper = document.querySelector('.content-wrapper')
+const latestArticle = document.querySelector('.latest-article')
+const readMore = document.querySelector('.read-more')
+const indexPage = document.querySelector('.index-page')
+
+const isHome = location.pathname === '/'
+if (latestArticle) {
+  latestArticle.style.display = isHome ? 'block' : 'none'
+  readMore.style.display = isHome ? 'block' : 'none'
+  indexPage.style.display = isHome ? 'none' : 'block'
 }
-</code></pre>
-<h3 id="4experimental-results">4.Experimental results</h3>
-<p>At the beginning of simulation, the initial value is 0, and the 8-bit LED is not on<br>
-<img src="https://liuxuejun123.github.io//post-images/1586173840804.PNG" alt="" loading="lazy"></p>
-<p>Press the ADDITION button to increase the value to 7. At this time, the eight bit LED displays its binary as follows</p>
-<figure data-type="image" tabindex="1"><img src="https://liuxuejun123.github.io//post-images/1586173846367.PNG" alt="" loading="lazy"></figure>
-<p>Press the SUBTRACTION button once, the value will be reduced to 6, and the LED will display as follows<br>
-<img src="https://liuxuejun123.github.io//post-images/1586173853148.PNG" alt="" loading="lazy"></p>
-<h2 id="conclusion">Conclusion</h2>
-<p>Through this experiment, I learned the initialization of the io and the control of the high and low level of the io port, and learned to use the io pin to control other io.</p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[hello world]]></title>
-        <id>https://liuxuejun123.github.io/post/hello-world/</id>
-        <link href="https://liuxuejun123.github.io/post/hello-world/">
-        </link>
-        <updated>2020-04-06T09:26:33.000Z</updated>
-        <content type="html"><![CDATA[<h2 id="开始我的博客">开始我的博客</h2>
-]]></content>
-    </entry>
-</feed>
+
+const openMenu = () => {
+  menuContainer.classList.add('open')
+  menus.forEach(menu => {
+    menu.classList.add('animated', 'fadeInLeft')
+  })
+  mask.classList.add('open')
+  contentWrapper.classList.add('is-second')
+}
+
+const closeMenu = () => {
+  menuContainer.classList.remove('open')
+  menus.forEach(menu => {
+    menu.classList.remove('animated', 'fadeInLeft')
+  })
+  mask.classList.remove('open')
+  contentWrapper.classList.remove('is-second')
+}
+</script>
+  
+  </body>
+</html>
