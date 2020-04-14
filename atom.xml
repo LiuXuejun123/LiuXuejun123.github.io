@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://liuxuejun123.github.io/</id>
     <title>Liu Xuejun&apos;s Blog</title>
-    <updated>2020-04-13T08:56:10.078Z</updated>
+    <updated>2020-04-14T09:15:45.321Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://liuxuejun123.github.io/"/>
     <link rel="self" href="https://liuxuejun123.github.io/atom.xml"/>
@@ -10,6 +10,184 @@
     <logo>https://liuxuejun123.github.io/images/avatar.png</logo>
     <icon>https://liuxuejun123.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, Liu Xuejun&apos;s Blog</rights>
+    <entry>
+        <title type="html"><![CDATA[STM32F401RE PWM输出]]></title>
+        <id>https://liuxuejun123.github.io/post/stm32f401re-pwm-shu-chu/</id>
+        <link href="https://liuxuejun123.github.io/post/stm32f401re-pwm-shu-chu/">
+        </link>
+        <updated>2020-04-14T09:06:39.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="task-requirements">Task requirements</h1>
+<ol>
+<li>Set flash memory latency.</li>
+<li>Set PLL clock source.</li>
+<li>Set PLL prescallers.</li>
+<li>Enable PLL.</li>
+<li>Set main clock source.</li>
+<li>Start SysTick Timer with frequency 10kHz. Make SysTick interrupt handler.</li>
+<li>In SysTick interrupt handler change state of GPIO pin.</li>
+<li>In Proteus with oscilloscope evaluate output frequency from GPIO pin from previous step.</li>
+</ol>
+<h1 id="code">Code</h1>
+<p>Two ways to Meet the requirements<br>
+Code main part<br>
+122</p>
+<pre><code class="language-c">//2020.04.02
+//code by Xuejun Liu
+//pwm OUTPUT PD2
+#include &quot;stm32f4xx.h&quot;
+#include &quot;stm32f4xx_hal_gpio.h&quot;
+#include &quot;stm32f4xx_hal_rcc.h&quot;
+#define XTAL 16000000UL
+//define busses prescalers
+#define AHB_PRE 1
+#define APB1_PRE 2
+#define APB2_PRE 1
+#define SysTickClk 20000
+//calculate peripheral frequencies
+#define SYSCLK 73000000
+#define AHB SYSCLK/AHB_PRE
+#define APB1 AHB/APB1_PRE
+#define APB1_TIM APB1*2
+#define APB2 AHB/APB2_PRE
+#define APB2_TIM APB2*1
+#define SysTicks AHB/SysTickClk
+void gpio_init() //GPIO initialization
+{
+RCC-&gt;AHB1ENR|=RCC_AHB1ENR_GPIOAEN|//Turn on the clock of gpioa and gpiob and
+gpiod
+RCC_AHB1ENR_GPIOBEN|
+RCC_AHB1ENR_GPIODEN;
+GPIOB -&gt; MODER = 0x00005555;//GPIOB 0-7 output
+GPIOD -&gt; MODER = 0x00000055;//GPIOD 0-3 OUTPUT
+}
+void clock_set()
+{
+FLASH-&gt;ACR|=FLASH_ACR_PRFTEN;
+FLASH-&gt;ACR|=FLASH_ACR_LATENCY_2WS;//FLASH PREFETCH
+RCC-&gt;CFGR&amp;=~RCC_CFGR_HPRE_Msk;
+RCC-&gt;CFGR|=RCC_CFGR_HPRE_DIV1;
+RCC-&gt;CFGR&amp;=~RCC_CFGR_PPRE1_Msk;
+RCC-&gt;CFGR|=RCC_CFGR_PPRE1_DIV1;
+RCC-&gt;CFGR&amp;=~RCC_CFGR_PPRE2_Msk;
+RCC-&gt;CFGR|=RCC_CFGR_PPRE2_DIV1;//set AHB APB1 APB2
+RCC-&gt;PLLCFGR&amp;=~RCC_PLLCFGR_PLLM_Msk;
+RCC-&gt;PLLCFGR|=8&lt;&lt;RCC_PLLCFGR_PLLM_Pos;
+RCC-&gt;PLLCFGR&amp;=~RCC_PLLCFGR_PLLN_Msk;
+RCC-&gt;PLLCFGR|=73&lt;&lt;RCC_PLLCFGR_PLLN_Pos;
+RCC-&gt;PLLCFGR&amp;=~RCC_PLLCFGR_PLLP_Msk; //SET PLLM PLLN PLLP
+RCC-&gt;CR|=RCC_CR_PLLON;//OPEN PLL
+while((RCC-&gt;CR&amp;RCC_CR_PLLRDY)==0)//WAIT PLL START
+{}
+RCC-&gt;CFGR&amp;=(uint32_t)((uint32_t)~(RCC_CFGR_SW));
+RCC-&gt;CFGR|=RCC_CFGR_SW_PLL;
+while((RCC-&gt;CFGR&amp;RCC_CFGR_SWS)!=RCC_CFGR_SWS_PLL)
+{}
+}
+</code></pre>
+<h2 id="method-1">Method 1</h2>
+<pre><code class="language-c">void SysTick_Handler(void)
+{
+if(GPIOD-&gt;ODR&amp;GPIO_ODR_OD2)
+{
+GPIOD-&gt;BSRR|=GPIO_BSRR_BR2;
+}
+else
+{
+GPIOD-&gt;BSRR|=GPIO_BSRR_BS2;
+}
+}
+int main()
+{
+clock_set();
+gpio_init();
+GPIOD-&gt;ODR=0X00000001;
+SysTick_Config(SysTicks);
+while(1)
+{
+};
+}
+</code></pre>
+<h2 id="method-2">Method 2</h2>
+<pre><code class="language-c">void MY_NVIC_SetVectorTable(uint32_t NVIC_VectTab,uint32_t Offset)
+{
+SCB-&gt;VTOR=NVIC_VectTab|(Offset&amp;(uint32_t)0xFFFFFE00);//Set the vector table
+offset register of NVIC,
+//the lower 9 bits of
+vtor are reserved, that is, [8:0] is reserved.
+}
+//Set NVIC group
+//NVIC_Group:NVIC group 0-4 5 groups in total
+void MY_NVIC_PriorityGroupConfig(uint16_t NVIC_Group)
+{
+uint32_t temp,temp1;
+temp1=(~NVIC_Group)&amp;0x07;//Take the last three position.
+temp1&lt;&lt;=8;
+temp=SCB-&gt;AIRCR; //Read previous settings
+temp&amp;=0X0000F8FF; //clear previous group
+temp|=0X05FA0000;
+temp|=temp1;
+SCB-&gt;AIRCR=temp;
+}
+//设置NVIC
+//NVIC_PreemptionPriority:
+//NVIC_SubPriority
+//NVIC_Channel
+//NVIC_Group
+void MY_NVIC_Init(uint16_t NVIC_PreemptionPriority,uint16_t
+NVIC_SubPriority,uint16_t NVIC_Channel,uint16_t NVIC_Group)
+{
+uint32_t temp;
+MY_NVIC_PriorityGroupConfig(NVIC_Group);
+temp=NVIC_PreemptionPriority&lt;&lt;(4-NVIC_Group);
+temp|=NVIC_SubPriority&amp;(0x0f&gt;&gt;NVIC_Group);
+temp&amp;=0xf;
+NVIC-&gt;ISER[NVIC_Channel/32]|=1&lt;&lt;NVIC_Channel%32;
+NVIC-&gt;IP[NVIC_Channel]|=temp&lt;&lt;4;
+}
+//Interrupt vector setting function
+//Timer 3 interrupt service routine
+void TIM3_IRQHandler(void)
+{
+if(TIM3-&gt;SR&amp;0X0001)//Overflow interrupt
+{
+if(GPIOD-&gt;ODR&amp;GPIO_ODR_OD2)
+{
+GPIOD-&gt;BSRR|=GPIO_BSRR_BR2;
+}
+else
+{
+GPIOD-&gt;BSRR|=GPIO_BSRR_BS2;
+}
+}
+TIM3-&gt;SR&amp;=~(1&lt;&lt;0);//Clear interrupt flag bit
+}
+//Universal timer 3 interrupt initialization
+//Here, the clock selection is 2 times of APB1, while APB1 is 36.5m
+//arr
+//psc：
+//Calculation method of timer overflow time:Tout=((arr+1)*(psc+1))/Ft us.
+void TIM3_Int_Init(uint16_t arr,uint16_t psc)
+{
+RCC-&gt;APB1ENR|=1&lt;&lt;1; //Tim3 clock enable
+TIM3-&gt;ARR=arr;
+TIM3-&gt;PSC=psc;
+TIM3-&gt;DIER|=1&lt;&lt;0; //Allow update interrupt
+TIM3-&gt;CR1|=0x01; //start tim3
+MY_NVIC_Init(1,3,TIM3_IRQn,2); //Preempt 1, subpriority 3, group 2
+}
+int main()
+{
+clock_set();
+gpio_init();
+TIM3_Int_Init(73-1,50-1);//20khz
+GPIOD-&gt;ODR=0X00000001;
+while(1)
+{
+};
+}
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[STM32F401 USART 串口通信]]></title>
         <id>https://liuxuejun123.github.io/post/stm32f401-usart-chuan-kou-tong-xin/</id>
