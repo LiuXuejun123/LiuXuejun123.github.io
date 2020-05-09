@@ -36,30 +36,22 @@
             <ul class="markdownIt-TOC">
 <li>
 <ul>
+<li>
+<ul>
+<li>
+<ul>
 <li><a href="#problem-description">Problem Description</a></li>
-<li><a href="#task-analysis">Task analysis</a></li>
-<li><a href="#tim-pwm-mode-and-configuration-method">Tim PWM mode and configuration method</a></li>
-<li><a href="#encoder-interface-mode">Encoder interface mode</a></li>
-<li><a href="#timx-capturecompare-mode-register-1-timx_ccmr1">TIMx capture/compare mode register 1 (TIMx_CCMR1)</a><br>
-*
-<ul>
-<li><a href="#bits-98-cc2s10-capturecompare-2-selection">Bits 9:8 CC2S[1:0]: Capture/Compare 2 selection</a></li>
-<li><a href="#bits-10-cc1s-capturecompare-1-selection">Bits 1:0 CC1S: Capture/Compare 1 selection</a></li>
+<li><a href="#the-simulation-block-diagram-is-as-follows">The simulation block diagram is as follows</a></li>
+<li><a href="#introduction-to-adc">Introduction to ADC</a></li>
+<li><a href="#adc-cr1">ADC-CR1</a></li>
+<li><a href="#adc-cr2">ADC-CR2</a></li>
+<li><a href="#adc-smpr1">ADC-SMPR1</a></li>
 </ul>
 </li>
-<li><a href="#timx-capturecompare-enable-register-timx_ccer">TIMx capture/compare enable register (TIMx_CCER)</a><br>
-*
-<ul>
-<li><a href="#bit-4-cc2e-capturecompare-2-output-enable">Bit 4 CC2E: Capture/Compare 2 output enable.</a></li>
-<li><a href="#bit-0-cc1e-capturecompare-1-output-enable">Bit 0 CC1E: Capture/Compare 1 output enable.</a></li>
+<li><a href="#code">Code</a></li>
+<li><a href="#simulation-results">Simulation results</a></li>
 </ul>
 </li>
-<li><a href="#code">Code</a>
-<ul>
-<li><a href="#simulation">Simulation</a></li>
-</ul>
-</li>
-<li><a href="#conclusion">Conclusion</a></li>
 </ul>
 </li>
 </ul>
@@ -108,67 +100,35 @@
 <div class="mask" onclick="closeMenu()">
 </div>
       <div class="content-wrapper py-32 lg:p-8 lg:w-3/4 post-detail animated fadeIn">
-        <h1 class="text-3xl font-bold lg:mt-16">STM32 H桥驱动电机，串口控制接收，Matlab+Proteus 联合调试</h1>
+        <h1 class="text-3xl font-bold lg:mt-16">STM32 控制伺服电机</h1>
         <div class="text-sm text-gray-700 lg:my-8">
-          2020-04-29 / 12 min read
+          2020-05-09 / 9 min read
         </div>
         
         <div class="post-content yue">
-          <figure data-type="image" tabindex="1"><img src="https://liuxuejun123.github.io//post-images/1588173952599.PNG" alt="" loading="lazy"></figure>
-<h2 id="problem-description">Problem Description</h2>
-<ol>
-<li>Create motor control system<br>
-a. Setup first timer. It must have 2 output PWM lines for control motor speed of motion.<br>
-b. In Simulink add Serial send block. For set speed of motion (PWM period %) use slider gain (with values from -100 to 100).<br>
-c. On reading byte from Simulink set control signals for motor.</li>
-<li>Setup second timer. It must have 2 input line from encoder.</li>
-<li>Counted pulses from encoder send to Simulink.<br>
-For receive data from microcontroller use Simulink model, and show received data in scope.</li>
-</ol>
-<h2 id="task-analysis">Task analysis</h2>
-<p>After analyzing the entire task, the main solution：</p>
-<p>Enable TIM3 PWM output mode Configure channel 1 (PA6), channel 2 (PA7), and control the high and low levels of PA5 and PA6. Matlab sends a number of -100-100 to indicate the direction and speed of the motor. After the serial port receives the data, it controls the motor after the data is processed, and then processes the encoded signal output by the motor through the TIM4 encoding function to obtain the speed of the motor, and Resend to Matlab via serial communication</p>
-<h2 id="tim-pwm-mode-and-configuration-method">Tim PWM mode and configuration method</h2>
-<p><img src="https://liuxuejun123.github.io//post-images/1588173937637.png" alt="" loading="lazy"><br>
-The general-purpose timer can use the GPIO pin for pulse output. When it is configured as a comparison output or a PWM output function, the capture / compare register TIMx_CCR is used as a comparison function, which is referred to as a comparison register below.<br>
-Here is a direct example to illustrate the working process of the PWM output of the timer: if the pulse counter TIMx_CNT is configured to count up, and the reload register TIMx_ARR is configured to N, that is, the current count value X of the TIMx_CNT is continuously accumulated under the drive of the TIMxCLK clock source When the value X of TIMx_CNT is greater than N, the value of TIMx_CNT will be reset to 0 and counted again.<br>
-While counting TIMxCNT, the count value X of TIMxCNT will be compared with the value A pre-stored in the comparison register TIMx_CCR. When the value X of the pulse counter TIMx_CNT is less than the value A of the comparison register TIMx_CCR, the high level (or low Level), conversely, when the value X of the pulse counter is greater than or equal to the value A of the comparison register, a low level (or high level) is output.<br>
-In this way, the output pulse period is the value (N + 1) stored in the reload register TIMx_ARR multiplied by the clock period of the trigger pulse, and the pulse width is the value A of the comparison register TIMx_CCR multiplied by the clock period of the trigger pulse, that is The duty cycle of the output PWM is A / (N + 1).</p>
-<h2 id="encoder-interface-mode">Encoder interface mode</h2>
-<p><img src="https://liuxuejun123.github.io//post-images/1588173997249.PNG" alt="" loading="lazy"><br>
-When both AB are the same, a square wave is output, and the phase difference is 90 °. We can judge the forward and reverse by judging the order of the level transition of the two phases of AB, and we can also determine the number of level transitions of any one phase. Rotation speed</p>
-<h2 id="timx-capturecompare-mode-register-1-timx_ccmr1">TIMx capture/compare mode register 1 (TIMx_CCMR1)</h2>
-<figure data-type="image" tabindex="2"><img src="https://liuxuejun123.github.io//post-images/1588174028343.PNG" alt="" loading="lazy"></figure>
-<h4 id="bits-98-cc2s10-capturecompare-2-selection">Bits 9:8 CC2S[1:0]: Capture/Compare 2 selection</h4>
-<p>This bit-field defines the direction of the channel (input/output) as well as the used input.<br>
-00: CC2 channel is configured as output<br>
-01: CC2 channel is configured as input, IC2 is mapped on TI2<br>
-10: CC2 channel is configured as input, IC2 is mapped on TI1<br>
-11: CC2 channel is configured as input, IC2 is mapped on TRC. This mode is working only if<br>
-an internal trigger input is selected through the TS bit (TIMx_SMCR register)<br>
-Note: CC2S bits are writable only when the channel is OFF (CC2E = 0 in TIMx_CCER).</p>
-<h4 id="bits-10-cc1s-capturecompare-1-selection">Bits 1:0 CC1S: Capture/Compare 1 selection</h4>
-<p>This bit-field defines the direction of the channel (input/output) as well as the used input.<br>
-00: CC1 channel is configured as output.<br>
-01: CC1 channel is configured as input, IC1 is mapped on TI1.<br>
-10: CC1 channel is configured as input, IC1 is mapped on TI2.<br>
-11: CC1 channel is configured as input, IC1 is mapped on TRC. This mode is working only if<br>
-an internal trigger input is selected through TS bit (TIMx_SMCR register)<br>
-Note: CC1S bits are writable only when the channel is OFF (CC1E = 0 in TIMx_CCER).</p>
-<h2 id="timx-capturecompare-enable-register-timx_ccer">TIMx capture/compare enable register (TIMx_CCER)</h2>
-<figure data-type="image" tabindex="3"><img src="https://liuxuejun123.github.io//post-images/1588174071967.PNG" alt="" loading="lazy"></figure>
-<h4 id="bit-4-cc2e-capturecompare-2-output-enable">Bit 4 CC2E: Capture/Compare 2 output enable.</h4>
-<p>refer to CC1E description</p>
-<h4 id="bit-0-cc1e-capturecompare-1-output-enable">Bit 0 CC1E: Capture/Compare 1 output enable.</h4>
-<p>CC1 channel configured as output:<br>
-0: Off - OC1 is not active<br>
-1: On - OC1 signal is output on the corresponding output pin<br>
-CC1 channel configured as input:<br>
-This bit determines if a capture of the counter value can actually be done into the input<br>
-capture/compare register 1 (TIMx_CCR1) or not.<br>
-0: Capture disabled<br>
-1: Capture enabled</p>
-<h2 id="code">Code</h2>
+          <h4 id="problem-description">Problem Description</h4>
+<p>Create a folder for the six lab. Copy all the files from the previous laboratory.<br>
+In Proteus in an existing project, change MOTOR-ENCODER to MOTOR-SERVO. Connect signal from MOTOR-SERVO sensor to MC ADC input.<br>
+In Keil, supplement the project for the microcontroller. Setup ADC for continuous mode and send value of MOTOR-SERVO sensor to Simulink.</p>
+<h4 id="the-simulation-block-diagram-is-as-follows">The simulation block diagram is as follows</h4>
+<figure data-type="image" tabindex="1"><img src="https://liuxuejun123.github.io//post-images/1589019498905.PNG" alt="" loading="lazy"></figure>
+<h4 id="introduction-to-adc">Introduction to ADC</h4>
+<p>The STM32F4xx series generally have 3 ADCs. These ADCs can be used independently or in dual / triple mode (increasing the sampling rate). The STM32F4 ADC is a 12-bit successive approximation type analog-to-digital converter. It has 19 channels and can measure signals from 16 external sources, 2 internal sources, and Vbat channels. The A / D conversion of these channels can be performed in single, continuous, scan or discontinuous mode. The result of ADC can be stored in 16-bit data register with left or right alignment. The analog watchdog feature allows the application to detect whether the input voltage exceeds a user-defined high / low threshold.</p>
+<h4 id="adc-cr1">ADC-CR1</h4>
+<p><img src="https://liuxuejun123.github.io//post-images/1589020471888.png" alt="" loading="lazy"><br>
+The SCAN bit of ADC_CR1, which is used to set the scan mode, is set and cleared by software. If it is set to 1, the scan mode is used, if it is 0, the scan mode is turned off. In scan mode, the channel selected by the ADC_SQRx or ADC_JSQRx register is converted. If EOCIE or JEOCIE is set, the EOC or JEOC interrupt will be generated only after the last channel conversion is completed.</p>
+<p>ADC_CR1 [25:24] is used to set the resolution of the ADC, the detailed correspondence is shown in the figure<br>
+<img src="https://liuxuejun123.github.io//post-images/1589020492776.png" alt="" loading="lazy"></p>
+<h4 id="adc-cr2">ADC-CR2</h4>
+<p><img src="https://liuxuejun123.github.io//post-images/1589020513687.png" alt="" loading="lazy"><br>
+The ADON bit is used to switch the AD converter. The CONT bit is used to set whether to perform continuous conversion, we use a single conversion, so the CONT bit must be 0. ALIGN is used to set the data alignment, we use right alignment, this bit is set to 0.</p>
+<p>EXTEN [1: 0] is used to set the external trigger enable of the regular channel, the detailed setting relationship is shown in the figure<br>
+<img src="https://liuxuejun123.github.io//post-images/1589020533397.png" alt="" loading="lazy"></p>
+<h4 id="adc-smpr1">ADC-SMPR1</h4>
+<p><img src="https://liuxuejun123.github.io//post-images/1589020550607.png" alt="" loading="lazy"><br>
+Here we list the correspondence between the pins of ADC1 ~ ADC3 and the channels. The correspondence between the 16 external sources is as follows:<br>
+<img src="https://liuxuejun123.github.io//post-images/1589020566976.png" alt="" loading="lazy"></p>
+<h3 id="code">Code</h3>
 <pre><code class="language-c">#include &quot;stm32f4xx.h&quot;
 #include &quot;stm32f4xx_hal_gpio.h&quot;
 #include &quot;stm32f4xx_hal_rcc.h&quot;
@@ -193,7 +153,7 @@ capture/compare register 1 (TIMx_CCR1) or not.<br>
 
 //usart
 #define USART_BAUDRATE 19200
-#define BUFFER_LENGTH 100
+#define BUFFER_LENGTH 3
 uint16_t buffer_size=0,current_send_byte;
 uint8_t buffer[BUFFER_LENGTH];
 //math
@@ -201,8 +161,11 @@ uint8_t buffer[BUFFER_LENGTH];
 uint16_t T_pwm;
 int8_t motor_speed;
 uint8_t S[]={100,100,101};
+//adc//
 
-/*******    Clock settings    ***********/
+
+
+//*******    Clock settings    ***********/
 void clock_set()
 {
 FLASH-&gt;ACR|=FLASH_ACR_PRFTEN;
@@ -257,34 +220,34 @@ void delay_ms(uint16_t time)
 /********* Motor control detection section *************/
 //TIM4_Encoder_Init,Tim4_CH1(PB6);Tim4_CH2(PB7)
 
-void TIM4_Encoder_Init(uint16_t arr,uint16_t psc)
-{
+//void TIM4_Encoder_Init(uint16_t arr,uint16_t psc)
+//{
 
- RCC-&gt;APB1ENR |= (4&lt;&lt;0);  //TIM4 clock enabled
- GPIOB-&gt;MODER |= 1 &lt;&lt; (6*2 + 1) | 1 &lt;&lt; (7*2 + 1); ; // Reuse output mode
- GPIOB-&gt;AFR[0] |= (uint32_t)0x22000000; // Reuse as TIM4	
- TIM4-&gt;ARR=arr;            
- TIM4-&gt;PSC=psc;  
-	
- TIM4-&gt;CCMR1 &amp;= 0xFCFC;//clear 0
- TIM4-&gt;CCMR1 |= TIM_CCMR1_CC1S_0;//Capture/Compare 1 Selection
- TIM4-&gt;CCMR1 |= TIM_CCMR1_CC2S_0;
+// RCC-&gt;APB1ENR |= (4&lt;&lt;0);  //TIM4 clock enabled
+// GPIOB-&gt;MODER |= 1 &lt;&lt; (6*2 + 1) | 1 &lt;&lt; (7*2 + 1); ; // Reuse output mode
+// GPIOB-&gt;AFR[0] |= (uint32_t)0x22000000; // Reuse as TIM4	
+// TIM4-&gt;ARR=arr;            
+// TIM4-&gt;PSC=psc;  
+//	
+// TIM4-&gt;CCMR1 &amp;= 0xFCFC;//clear 0
+// TIM4-&gt;CCMR1 |= TIM_CCMR1_CC1S_0;//Capture/Compare 1 Selection
+// TIM4-&gt;CCMR1 |= TIM_CCMR1_CC2S_0;
 
- TIM4-&gt;CCMR1 |= TIM_CCMR1_OC1M_0;//Output Compare 1 Mode
- TIM4-&gt;CCMR1 |= TIM_CCMR1_OC1M_1;
-	
- TIM4-&gt;CCER |= TIM_CCER_CC1E; // Enable comparison output
- TIM4-&gt;CCER |= TIM_CCER_CC2E;
- 
- TIM4-&gt;EGR |= TIM_EGR_UG;  //Update
+// TIM4-&gt;CCMR1 |= TIM_CCMR1_OC1M_0;//Output Compare 1 Mode
+// TIM4-&gt;CCMR1 |= TIM_CCMR1_OC1M_1;
+//	
+// TIM4-&gt;CCER |= TIM_CCER_CC1E; // Enable comparison output
+// TIM4-&gt;CCER |= TIM_CCER_CC2E;
+// 
+// TIM4-&gt;EGR |= TIM_EGR_UG;  //Update
 
- TIM4-&gt;SMCR &amp;= 0xFFF8;
- TIM4-&gt;SMCR |= TIM_SMCR_SMS_0;
- TIM4-&gt;SMCR |= TIM_SMCR_SMS_1;
- 
- TIM4-&gt;CNT = 0;
- TIM4-&gt;CR1 |= TIM_CR1_CEN;  // Counter enable            
-}
+// TIM4-&gt;SMCR &amp;= 0xFFF8;
+// TIM4-&gt;SMCR |= TIM_SMCR_SMS_0;
+// TIM4-&gt;SMCR |= TIM_SMCR_SMS_1;
+// 
+// TIM4-&gt;CNT = 0;
+// TIM4-&gt;CR1 |= TIM_CR1_CEN;  // Counter enable            
+//}
 
 
 /********   TIM3 Two PWM output control speed *************/
@@ -338,12 +301,12 @@ void Motor_Speed_Control(int8_t motorSpeed)
 }
 
 //Read count
-int TIM4_Encoder_Read(void)
-{
+//int TIM4_Encoder_Read(void)
+//{
 
-    return  (int)TIM4 -&gt;CNT;;           //Data type conversion
-                             // Record the number of edge changes (a grid is recorded 4 times)
-}
+//    return  (int)TIM4 -&gt;CNT;;           //Data type conversion
+//                             // Record the number of edge changes (a grid is recorded 4 times)
+//}
 
 
 
@@ -407,43 +370,54 @@ void TIM1_UP_TIM10_IRQHandler(void)
 TIM10-&gt;SR &amp;=~TIM_SR_UIF;
 static uint8_t i=0;
 if(++i==100) i=0;
-int8_t s= TIM4_Encoder_Read();
+
 buffer[0]='A';
 buffer[1]=i;
-buffer[2]=s;
-if(1)
-{
+buffer[2]=(int8_t)ADC1-&gt;DR;;
+USART2-&gt;CR1 |= USART_CR1_TXEIE;
 Send_buffer(buffer,3);
+
 }
+void ADC1_IN10_Config(void)
+{
+	RCC-&gt;AHB1ENR |= RCC_AHB1ENR_GPIOCEN;
+	GPIOC-&gt;MODER |= 0x3 &lt;&lt; 0;		//	Analog mode
+	GPIOC-&gt;PUPDR &amp;= ~GPIO_PUPDR_PUPD0;	//	No pull-up, pull-down 
+
+	/***ADC1***/
+	RCC-&gt;APB2ENR |= RCC_APB2ENR_ADC1EN;
+	// Because there is only one replacement, find SQ1 first.
+	// Then correspond to the corresponding channel number.
+	ADC1-&gt;SQR3 = 10 &lt;&lt; ADC_SQR3_SQ1_Pos;			//	The first channel is ADC1_in10
+	ADC1-&gt;CR1 &amp;= 0x00000000;
+	ADC1-&gt;CR1 |= ADC_CR1_RES_1;			// Set to 8-bit resolution
+	ADC1-&gt;CR2 &amp;= 0x00000000;  
+	ADC1-&gt;CR2 |= ADC_CR2_CONT;			/*!&lt;Continuous Conversion */
+	ADC1-&gt;CR2 |= ADC_CR2_ADON;			/*!&lt;A/D Converter ON*/
+	ADC1-&gt;CR2 |= ADC_CR2_SWSTART;		/*!&lt;Start Conversion of regular channels */
 }
 
 int main()
 {
 
-T_pwm=1000/100;
+T_pwm=10000/100;
 clock_set();
 usart2_Init(USART_BAUDRATE);
-init_TIM3_PWM(84-1,1000);//1khz	
-TIM4_Encoder_Init(255,0);//255
+init_TIM3_PWM(84-1,10000);//10khz	
+//TIM4_Encoder_Init(255,0);//255
 Init_tim10(10000,84-1);
+ADC1_IN10_Config();
+
 while(1)
 {
 }	
 }
 
 </code></pre>
-<h3 id="simulation">Simulation</h3>
-<p>Matlab block diagram is as follows<br>
-<img src="https://liuxuejun123.github.io//post-images/1588174118895.PNG" alt="" loading="lazy"><br>
-Proteus block diagram is as follows:<br>
-<img src="https://liuxuejun123.github.io//post-images/1588174155802.png" alt="" loading="lazy"><br>
-The upper virtual terminal displays the output data, and the lower virtual terminal actually inputs<br>
-<img src="https://liuxuejun123.github.io//post-images/1588174192302.png" alt="" loading="lazy"><br>
-<img src="https://liuxuejun123.github.io//post-images/1588174202296.png" alt="" loading="lazy"><br>
-<img src="https://liuxuejun123.github.io//post-images/1588174210262.png" alt="" loading="lazy"><br>
-<img src="https://liuxuejun123.github.io//post-images/1588174223917.PNG" alt="" loading="lazy"></p>
-<h2 id="conclusion">Conclusion</h2>
-<p>Through this experiment, I mainly learned to use the stm32 output PWM to control the motor, use the data received by the serial port to modify the PWM duty cycle, thereby changing the speed of the motor, and use the encoder function of stm32 to carry out the speed of the motor. Detect and send through the serial port.</p>
+<h3 id="simulation-results">Simulation results</h3>
+<p><img src="https://liuxuejun123.github.io//post-images/1589020684510.PNG" alt="" loading="lazy"><br>
+<img src="https://liuxuejun123.github.io//post-images/1589020690747.PNG" alt="" loading="lazy"><br>
+<img src="https://liuxuejun123.github.io//post-images/1589020696109.PNG" alt="" loading="lazy"></p>
 
         </div>
 
@@ -452,21 +426,12 @@ The upper virtual terminal displays the output data, and the lower virtual termi
 
         <div class="flex justify-between py-8">
           
-            <div class="prev-post">
-              <a href="https://liuxuejun123.github.io/post/stm32-kong-zhi-si-fu-dian-ji/">
-                <h3 class="post-title">
-                  <i class="ri-arrow-left-line"></i>
-                  STM32 控制伺服电机
-                </h3>
-              </a>
-            </div>
-          
 
           
             <div class="next-post">
-              <a href="https://liuxuejun123.github.io/post/stm-32-ding-shi-qi-de-shi-yong/">
+              <a href="https://liuxuejun123.github.io/post/stm32-h-qiao-qu-dong-dian-ji-chuan-kou-kong-zhi-jie-shou-matlabproteus-lian-he-diao-shi/">
                 <h3 class="post-title">
-                  STM 32 定时器的使用
+                  STM32 H桥驱动电机，串口控制接收，Matlab+Proteus 联合调试
                   <i class="ri-arrow-right-line"></i>
                 </h3>
               </a>

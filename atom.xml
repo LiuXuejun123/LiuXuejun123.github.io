@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://liuxuejun123.github.io/</id>
     <title>Liu Xuejun&apos;s Blog</title>
-    <updated>2020-04-29T15:36:19.717Z</updated>
+    <updated>2020-05-09T10:39:37.352Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://liuxuejun123.github.io/"/>
     <link rel="self" href="https://liuxuejun123.github.io/atom.xml"/>
@@ -10,6 +10,326 @@
     <logo>https://liuxuejun123.github.io/images/avatar.png</logo>
     <icon>https://liuxuejun123.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, Liu Xuejun&apos;s Blog</rights>
+    <entry>
+        <title type="html"><![CDATA[STM32 控制伺服电机]]></title>
+        <id>https://liuxuejun123.github.io/post/stm32-kong-zhi-si-fu-dian-ji/</id>
+        <link href="https://liuxuejun123.github.io/post/stm32-kong-zhi-si-fu-dian-ji/">
+        </link>
+        <updated>2020-05-09T10:15:51.000Z</updated>
+        <content type="html"><![CDATA[<h4 id="problem-description">Problem Description</h4>
+<p>Create a folder for the six lab. Copy all the files from the previous laboratory.<br>
+In Proteus in an existing project, change MOTOR-ENCODER to MOTOR-SERVO. Connect signal from MOTOR-SERVO sensor to MC ADC input.<br>
+In Keil, supplement the project for the microcontroller. Setup ADC for continuous mode and send value of MOTOR-SERVO sensor to Simulink.</p>
+<h4 id="the-simulation-block-diagram-is-as-follows">The simulation block diagram is as follows</h4>
+<figure data-type="image" tabindex="1"><img src="https://liuxuejun123.github.io//post-images/1589019498905.PNG" alt="" loading="lazy"></figure>
+<h4 id="introduction-to-adc">Introduction to ADC</h4>
+<p>The STM32F4xx series generally have 3 ADCs. These ADCs can be used independently or in dual / triple mode (increasing the sampling rate). The STM32F4 ADC is a 12-bit successive approximation type analog-to-digital converter. It has 19 channels and can measure signals from 16 external sources, 2 internal sources, and Vbat channels. The A / D conversion of these channels can be performed in single, continuous, scan or discontinuous mode. The result of ADC can be stored in 16-bit data register with left or right alignment. The analog watchdog feature allows the application to detect whether the input voltage exceeds a user-defined high / low threshold.</p>
+<h4 id="adc-cr1">ADC-CR1</h4>
+<p><img src="https://liuxuejun123.github.io//post-images/1589020471888.png" alt="" loading="lazy"><br>
+The SCAN bit of ADC_CR1, which is used to set the scan mode, is set and cleared by software. If it is set to 1, the scan mode is used, if it is 0, the scan mode is turned off. In scan mode, the channel selected by the ADC_SQRx or ADC_JSQRx register is converted. If EOCIE or JEOCIE is set, the EOC or JEOC interrupt will be generated only after the last channel conversion is completed.</p>
+<p>ADC_CR1 [25:24] is used to set the resolution of the ADC, the detailed correspondence is shown in the figure<br>
+<img src="https://liuxuejun123.github.io//post-images/1589020492776.png" alt="" loading="lazy"></p>
+<h4 id="adc-cr2">ADC-CR2</h4>
+<p><img src="https://liuxuejun123.github.io//post-images/1589020513687.png" alt="" loading="lazy"><br>
+The ADON bit is used to switch the AD converter. The CONT bit is used to set whether to perform continuous conversion, we use a single conversion, so the CONT bit must be 0. ALIGN is used to set the data alignment, we use right alignment, this bit is set to 0.</p>
+<p>EXTEN [1: 0] is used to set the external trigger enable of the regular channel, the detailed setting relationship is shown in the figure<br>
+<img src="https://liuxuejun123.github.io//post-images/1589020533397.png" alt="" loading="lazy"></p>
+<h4 id="adc-smpr1">ADC-SMPR1</h4>
+<p><img src="https://liuxuejun123.github.io//post-images/1589020550607.png" alt="" loading="lazy"><br>
+Here we list the correspondence between the pins of ADC1 ~ ADC3 and the channels. The correspondence between the 16 external sources is as follows:<br>
+<img src="https://liuxuejun123.github.io//post-images/1589020566976.png" alt="" loading="lazy"></p>
+<h3 id="code">Code</h3>
+<pre><code class="language-c">#include &quot;stm32f4xx.h&quot;
+#include &quot;stm32f4xx_hal_gpio.h&quot;
+#include &quot;stm32f4xx_hal_rcc.h&quot;
+#include &lt;math.h&gt;
+//define Internal RC frequencies
+#define XTAL 16000000UL
+
+//define busses prescalers
+#define AHB_PRE 1
+#define APB1_PRE 2
+#define APB2_PRE 1
+#define SysTickClk 10000
+
+//calculate peripheral frequencies
+#define SYSCLK 84000000
+#define AHB SYSCLK/AHB_PRE
+#define APB1 AHB/APB1_PRE
+#define APB1_TIM APB1*2
+#define APB2 AHB/APB2_PRE
+#define APB2_TIM APB2*1
+#define SysTicks AHB/SysTickClk
+
+//usart
+#define USART_BAUDRATE 19200
+#define BUFFER_LENGTH 3
+uint16_t buffer_size=0,current_send_byte;
+uint8_t buffer[BUFFER_LENGTH];
+//math
+#define M_pi 3.1415926535897323846
+uint16_t T_pwm;
+int8_t motor_speed;
+uint8_t S[]={100,100,101};
+//adc//
+
+
+
+//*******    Clock settings    ***********/
+void clock_set()
+{
+FLASH-&gt;ACR|=FLASH_ACR_PRFTEN;
+FLASH-&gt;ACR|=FLASH_ACR_LATENCY_2WS;//FLASH PREFETCH
+RCC-&gt;CFGR&amp;=~RCC_CFGR_HPRE_Msk;
+RCC-&gt;CFGR|=RCC_CFGR_HPRE_DIV1;
+RCC-&gt;CFGR&amp;=~RCC_CFGR_PPRE1_Msk;
+RCC-&gt;CFGR|=RCC_CFGR_PPRE1_DIV2;
+RCC-&gt;CFGR&amp;=~RCC_CFGR_PPRE2_Msk;
+RCC-&gt;CFGR|=RCC_CFGR_PPRE2_DIV1;//set AHB APB1 APB2
+RCC-&gt;PLLCFGR&amp;=~RCC_PLLCFGR_PLLM_Msk;
+RCC-&gt;PLLCFGR|=8&lt;&lt;RCC_PLLCFGR_PLLM_Pos;
+RCC-&gt;PLLCFGR&amp;=~RCC_PLLCFGR_PLLN_Msk;
+RCC-&gt;PLLCFGR|=84&lt;&lt;RCC_PLLCFGR_PLLN_Pos;
+RCC-&gt;PLLCFGR&amp;=~RCC_PLLCFGR_PLLP_Msk; //SET PLLM PLLN PLLP
+RCC-&gt;CR|=RCC_CR_PLLON;//OPEN PLL
+while((RCC-&gt;CR&amp;RCC_CR_PLLRDY)==0)//WAIT PLL START
+{}
+RCC-&gt;CFGR&amp;=(uint32_t)((uint32_t)~(RCC_CFGR_SW));
+RCC-&gt;CFGR|=RCC_CFGR_SW_PLL;
+while((RCC-&gt;CFGR&amp;RCC_CFGR_SWS)!=RCC_CFGR_SWS_PLL)
+{}
+}
+
+/****  Serial port initialization  ******/
+/**** pa2 pa3 multiplexing function****/
+void usart2_Init(uint32_t baud)
+{
+RCC-&gt;AHB1ENR |= RCC_AHB1ENR_GPIOAEN|
+	              RCC_AHB1ENR_GPIOBEN;//open clock
+GPIOA-&gt;MODER =0x000000A0;//Multiple function mode 	
+GPIOA-&gt;AFR[0]=0x00007700;//
+RCC-&gt;APB1ENR |= RCC_APB1ENR_USART2EN;//usart2 enable
+USART2-&gt;BRR = APB1/baud;//Baud rate
+USART2-&gt;CR1 = USART_CR1_UE|//usart2 enbale
+	            USART_CR1_TE|//
+	            USART_CR1_RE|//Send and receive enable
+	            USART_CR1_RXNEIE;//Interrupt enable
+NVIC_EnableIRQ(USART2_IRQn);//Configuration interrupt		
+}
+
+/**** delay function ****/
+void delay_ms(uint16_t time)     
+{    
+  uint16_t i=0;    
+  while(time--)     
+  {    
+    i=12000;    
+    while(i--);    
+  }    
+}
+/********* Motor control detection section *************/
+//TIM4_Encoder_Init,Tim4_CH1(PB6);Tim4_CH2(PB7)
+
+//void TIM4_Encoder_Init(uint16_t arr,uint16_t psc)
+//{
+
+// RCC-&gt;APB1ENR |= (4&lt;&lt;0);  //TIM4 clock enabled
+// GPIOB-&gt;MODER |= 1 &lt;&lt; (6*2 + 1) | 1 &lt;&lt; (7*2 + 1); ; // Reuse output mode
+// GPIOB-&gt;AFR[0] |= (uint32_t)0x22000000; // Reuse as TIM4	
+// TIM4-&gt;ARR=arr;            
+// TIM4-&gt;PSC=psc;  
+//	
+// TIM4-&gt;CCMR1 &amp;= 0xFCFC;//clear 0
+// TIM4-&gt;CCMR1 |= TIM_CCMR1_CC1S_0;//Capture/Compare 1 Selection
+// TIM4-&gt;CCMR1 |= TIM_CCMR1_CC2S_0;
+
+// TIM4-&gt;CCMR1 |= TIM_CCMR1_OC1M_0;//Output Compare 1 Mode
+// TIM4-&gt;CCMR1 |= TIM_CCMR1_OC1M_1;
+//	
+// TIM4-&gt;CCER |= TIM_CCER_CC1E; // Enable comparison output
+// TIM4-&gt;CCER |= TIM_CCER_CC2E;
+// 
+// TIM4-&gt;EGR |= TIM_EGR_UG;  //Update
+
+// TIM4-&gt;SMCR &amp;= 0xFFF8;
+// TIM4-&gt;SMCR |= TIM_SMCR_SMS_0;
+// TIM4-&gt;SMCR |= TIM_SMCR_SMS_1;
+// 
+// TIM4-&gt;CNT = 0;
+// TIM4-&gt;CR1 |= TIM_CR1_CEN;  // Counter enable            
+//}
+
+
+/********   TIM3 Two PWM output control speed *************/
+void init_TIM3_PWM(uint16_t psc,uint16_t arr)//control pin 67 //psc arr fre set，ch1 ch2 Duty cycle
+{
+  SCB-&gt;AIRCR = 0x05FA0000 | 0x400;  //Interrupt priority group preemption: response = 3: 1
+  GPIOA-&gt;MODER |= 0X0001A400;//pc67 second function 5 8 out
+        
+  GPIOA-&gt;OSPEEDR |= 0x0000f000;//speed 100m
+  GPIOA-&gt;PUPDR |= 0x00005000;//up   
+  GPIOA-&gt;AFR[0] |= 0x22000000;//pc67 second function AF2
+  RCC-&gt;APB1ENR |= (1&lt;&lt;1); //open TIM3 clock
+  TIM3-&gt;PSC = psc; //
+  TIM3-&gt;ARR = arr;  //
+  TIM3-&gt;EGR |= 1; //Generate an update event
+  TIM3-&gt;CCMR1 |= 0x6060;//PWM mode 1
+  TIM3-&gt;CCER |= 0x1111;//Enable comparison output
+  TIM3-&gt;CCMR1 |= 0x0808;//Start preload
+  TIM3-&gt;CR1 |= 1; //start
+}
+
+/********* Motor speed and reverse control function********/
+void Motor_Speed_Control(int8_t motorSpeed)         
+{
+    int16_t speed = 0 ;        
+        
+       if(motorSpeed&gt;100)  speed = 100;
+	else if (motorSpeed&lt;-100)  speed = -100;
+     else  speed = motorSpeed;
+        if(speed == 0)
+        {
+        GPIOA-&gt;ODR |=GPIO_ODR_OD5;//pa5 high level
+				GPIOA-&gt;ODR |=GPIO_ODR_OD8;//Pa8 high level 
+				TIM3-&gt;CCR1 = speed *0;//ch1 no output  
+				TIM3-&gt;CCR2 = speed *0;//ch2 no output	
+        }
+            else if(speed &gt; 0)//Forward rotation, 
+                {
+									GPIOA-&gt;ODR |=GPIO_ODR_OD5;
+									GPIOA-&gt;ODR &amp;=~(GPIO_ODR_OD8);//
+									TIM3-&gt;CCR1 = speed *T_pwm;//ch1  pwm 
+									TIM3-&gt;CCR2 = speed *0;//ch2 
+                }
+						else
+								{
+									GPIOA-&gt;ODR |=GPIO_ODR_OD8;//backgroud
+									GPIOA-&gt;ODR &amp;=~(GPIO_ODR_OD5);
+									TIM3-&gt;CCR1 = -speed * 0;//ch1
+									TIM3-&gt;CCR2 = -speed * T_pwm;//ch2
+								}
+}
+
+//Read count
+//int TIM4_Encoder_Read(void)
+//{
+
+//    return  (int)TIM4 -&gt;CNT;;           //Data type conversion
+//                             // Record the number of edge changes (a grid is recorded 4 times)
+//}
+
+
+
+
+/****** Serial interrupt function******/
+void USART2_IRQHandler(void)
+{
+	
+	//Send part	
+	if (USART2-&gt;SR &amp; USART_SR_TXE)//Txe register is empty Send data
+{
+if(buffer_size &gt; current_send_byte)
+{
+USART2-&gt;DR = buffer[current_send_byte];
+current_send_byte++;
+}
+else
+{
+USART2-&gt;CR2 &amp;= ~USART_CR1_TXEIE;
+current_send_byte = 0;
+buffer_size = 0;
+}
+}
+
+if(USART2-&gt;SR &amp; USART_SR_RXNE)//Receive interrupt indicator Trigger receive
+{
+//Receiving part//
+Motor_Speed_Control(USART2-&gt;DR);
+}
+}
+
+
+/***** Serial port sending function******/
+void Send_buffer(uint8_t *buff, uint16_t count)
+{
+for(uint16_t i = 0; i &lt; count; i++)
+{
+buffer[buffer_size + i] = buff[i];
+}
+buffer_size += count;
+USART2-&gt;CR1 |= USART_CR1_TXEIE;
+}
+
+/******Speed real-time transmission function*********/
+void Init_tim10(uint16_t arr,uint16_t psc)
+{
+//OPEN TIM10
+RCC-&gt;APB2ENR |=1&lt;&lt;17;
+TIM10-&gt;CNT=0;//CLEAR
+TIM10-&gt;PSC = psc;
+TIM10-&gt;ARR = arr;
+/*Allow update interrupt enable*/
+TIM10-&gt;DIER |= 1&lt;&lt;0;
+/*Enable basic timer interrupt*/
+NVIC_EnableIRQ(TIM1_UP_TIM10_IRQn);
+/*Turn on counter enable*/
+TIM10-&gt;CR1 |= 1&lt;&lt;0;
+}
+void TIM1_UP_TIM10_IRQHandler(void)
+{
+TIM10-&gt;SR &amp;=~TIM_SR_UIF;
+static uint8_t i=0;
+if(++i==100) i=0;
+
+buffer[0]='A';
+buffer[1]=i;
+buffer[2]=(int8_t)ADC1-&gt;DR;;
+USART2-&gt;CR1 |= USART_CR1_TXEIE;
+Send_buffer(buffer,3);
+
+}
+void ADC1_IN10_Config(void)
+{
+	RCC-&gt;AHB1ENR |= RCC_AHB1ENR_GPIOCEN;
+	GPIOC-&gt;MODER |= 0x3 &lt;&lt; 0;		//	Analog mode
+	GPIOC-&gt;PUPDR &amp;= ~GPIO_PUPDR_PUPD0;	//	No pull-up, pull-down 
+
+	/***ADC1***/
+	RCC-&gt;APB2ENR |= RCC_APB2ENR_ADC1EN;
+	// Because there is only one replacement, find SQ1 first.
+	// Then correspond to the corresponding channel number.
+	ADC1-&gt;SQR3 = 10 &lt;&lt; ADC_SQR3_SQ1_Pos;			//	The first channel is ADC1_in10
+	ADC1-&gt;CR1 &amp;= 0x00000000;
+	ADC1-&gt;CR1 |= ADC_CR1_RES_1;			// Set to 8-bit resolution
+	ADC1-&gt;CR2 &amp;= 0x00000000;  
+	ADC1-&gt;CR2 |= ADC_CR2_CONT;			/*!&lt;Continuous Conversion */
+	ADC1-&gt;CR2 |= ADC_CR2_ADON;			/*!&lt;A/D Converter ON*/
+	ADC1-&gt;CR2 |= ADC_CR2_SWSTART;		/*!&lt;Start Conversion of regular channels */
+}
+
+int main()
+{
+
+T_pwm=10000/100;
+clock_set();
+usart2_Init(USART_BAUDRATE);
+init_TIM3_PWM(84-1,10000);//10khz	
+//TIM4_Encoder_Init(255,0);//255
+Init_tim10(10000,84-1);
+ADC1_IN10_Config();
+
+while(1)
+{
+}	
+}
+
+</code></pre>
+<h3 id="simulation-results">Simulation results</h3>
+<p><img src="https://liuxuejun123.github.io//post-images/1589020684510.PNG" alt="" loading="lazy"><br>
+<img src="https://liuxuejun123.github.io//post-images/1589020690747.PNG" alt="" loading="lazy"><br>
+<img src="https://liuxuejun123.github.io//post-images/1589020696109.PNG" alt="" loading="lazy"></p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[STM32 H桥驱动电机，串口控制接收，Matlab+Proteus 联合调试]]></title>
         <id>https://liuxuejun123.github.io/post/stm32-h-qiao-qu-dong-dian-ji-chuan-kou-kong-zhi-jie-shou-matlabproteus-lian-he-diao-shi/</id>
