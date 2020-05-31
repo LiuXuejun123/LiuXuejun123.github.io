@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://liuxuejun123.github.io/</id>
     <title>Liu Xuejun&apos;s Blog</title>
-    <updated>2020-05-15T09:24:32.653Z</updated>
+    <updated>2020-05-31T09:33:26.436Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://liuxuejun123.github.io/"/>
     <link rel="self" href="https://liuxuejun123.github.io/atom.xml"/>
@@ -10,6 +10,48 @@
     <logo>https://liuxuejun123.github.io/images/avatar.png</logo>
     <icon>https://liuxuejun123.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, Liu Xuejun&apos;s Blog</rights>
+    <entry>
+        <title type="html"><![CDATA[数学动画引擎Manim (windows 保姆级安装教程)]]></title>
+        <id>https://liuxuejun123.github.io/post/shu-xue-dong-hua-yin-qing-manim-windows-bao-mu-ji-an-zhuang-jiao-cheng/</id>
+        <link href="https://liuxuejun123.github.io/post/shu-xue-dong-hua-yin-qing-manim-windows-bao-mu-ji-an-zhuang-jiao-cheng/">
+        </link>
+        <updated>2020-05-31T09:00:46.000Z</updated>
+        <content type="html"><![CDATA[<h4 id="1-下载python3738没尝试过感兴趣的大佬可以尝试下">1. 下载Python3.7(3.8没尝试过，感兴趣的大佬可以尝试下)</h4>
+<pre><code class="language-http">https://www.python.org/
+</code></pre>
+<p><img src="https://liuxuejun123.github.io//post-images/1590915994706.PNG" alt="" loading="lazy"><br>
+<img src="https://liuxuejun123.github.io//post-images/1590916106544.PNG" alt="" loading="lazy"><br>
+选择 3.7.7<br>
+接下的安装环节不多赘述。<br>
+安装后 WIN+R 输入CMD<br>
+输入Python 查看版本号，quit(); 退出。</p>
+<h4 id="2安装pip">2.安装pip</h4>
+<p>网址如下：</p>
+<pre><code class="language-http">https://pypi.org/project/pip/
+</code></pre>
+<p>Navigation -&gt; Download files -&gt; pip-20.1.1.tar.gz<br>
+<img src="https://liuxuejun123.github.io//post-images/1590916399879.PNG" alt="" loading="lazy"></p>
+<h4 id="3下载依赖提供了某盘下载链接需要可直接下载">3.下载依赖，提供了某盘下载链接需要可直接下载：</h4>
+<pre><code class="language-http">https://pan.baidu.com/s/1_nGR8KRybJAeHil53KJ6jg  {ij4j} 
+</code></pre>
+<p>盘内有：FFmpeg , pycairo, MikTex , SoX</p>
+<h5 id="ffmpeg">FFmpeg</h5>
+<p>将下载的 ffmpeg.exe , ffplay.exe , ffprobe.exe 三个程序复制到 C:\Windows\System32目录下即可。</p>
+<h5 id="pycairo">Pycairo</h5>
+<p>进入到 pycairo-1.19.1-cp37-cp37m-win_amd64.whl 所在目录，使用 pip 来安装：</p>
+<pre><code class="language-c">pip install .\pycairo-1.19.1-cp37-cp37m-win_amd64.whl
+</code></pre>
+<h5 id="miktex-sox">MikTex SoX</h5>
+<p>这两个就是exe  直接安装即可</p>
+<h4 id="4安装python包">4.安装python包</h4>
+<p>cd 到manim 路劲：<br>
+pip install -r requirements.txt<br>
+至此window下安装完成<br>
+运行测试案例</p>
+<pre><code class="language-python">python manim.py example_scenes.py SquareToCircle -pl
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[STM32 控制伺服电机]]></title>
         <id>https://liuxuejun123.github.io/post/stm32-kong-zhi-si-fu-dian-ji/</id>
