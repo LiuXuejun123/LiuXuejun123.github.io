@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://liuxuejun123.github.io/</id>
     <title>Liu Xuejun&apos;s Blog</title>
-    <updated>2020-11-10T13:40:16.979Z</updated>
+    <updated>2020-11-10T13:42:01.981Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://liuxuejun123.github.io/"/>
     <link rel="self" href="https://liuxuejun123.github.io/atom.xml"/>
@@ -10,6 +10,247 @@
     <logo>https://liuxuejun123.github.io/images/avatar.png</logo>
     <icon>https://liuxuejun123.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, Liu Xuejun&apos;s Blog</rights>
+    <entry>
+        <title type="html"><![CDATA[单向链表]]></title>
+        <id>https://liuxuejun123.github.io/post/dan-xiang-lian-biao/</id>
+        <link href="https://liuxuejun123.github.io/post/dan-xiang-lian-biao/">
+        </link>
+        <updated>2020-11-10T11:59:54.000Z</updated>
+        <content type="html"><![CDATA[<h4 id="节点类">节点类：</h4>
+<pre><code class="language-C++">/*节点类*/
+class Node{
+public:
+    int data;//数据
+    Node* next;//指针
+    /*构造*/
+    Node() :data(0),next(nullptr){};
+    Node(int data): data(data),next(nullptr){};
+    /*析构*/
+    ~Node(){};
+};
+</code></pre>
+<h4 id="链表类">链表类</h4>
+<pre><code class="language-C++">class Linklist{
+private:
+    Node* head;
+};
+</code></pre>
+<p>链表中主要的就是头指针。其内部成员函数受链表结构影响 稍有不同，详见如下</p>
+<h3 id="1带头节点">1.带头节点</h3>
+<p><img src="https://liuxuejun123.github.io//post-images/1605009793172.png" alt="" loading="lazy"><br>
+特点 ：头指针指向一个节点，但这个节点不存储数据，真正的链表节点从1号节点开始。头指针中存储的是头节点的地址。</p>
+<pre><code class="language-C++">class Linklist{
+public:
+    Linklist();//构造
+    ~Linklist();//析构
+    int GetLength();//链表长度
+    int CreateLinkList(int size);//创建链表
+    void showLinkList();//显示
+    Node* FindInList(int data);//查找
+    void InsertElemAtEnd(int data);            //在尾部插入指定的元素
+    void InsertElemAtIndex(int data,int n);    //在指定位置插入指定元素
+    void InsertElemAtHead(int data);           //在头部插入指定元素
+    void DeleteElemAtEnd();       //在尾部删除元素
+    void DeleteElemAtPoint(int data);     //删除指定的数据
+    void DeleteElemAtHead();      //在头部删除节点
+    Node* reserverlinklist();     //反转链表
+private:
+    Node* head;
+};
+</code></pre>
+<h5 id="构造函数初始化链表linklist">构造函数（初始化链表Linklist();）</h5>
+<p>由于是带头节点  所以析构函数  Linklist();</p>
+<pre><code class="language-C++">Linklist::Linklist() {//初始化部分
+    cout&lt;&lt;&quot;linklist Constructor&quot;&lt;&lt;endl;
+    head=new Node;
+    head-&gt;data=0;
+    head-&gt;next= nullptr;
+
+</code></pre>
+<p>链表初始化后结构为<br>
+<img src="https://liuxuejun123.github.io//post-images/1605009876411.png" alt="" loading="lazy"></p>
+<ul>
+<li>头指针指向一个节点</li>
+<li>节点内不存放任何数据（当然也可作为节点个数的计数器）</li>
+</ul>
+<h5 id="创建链表-createlinklist">创建链表（ CreateLinkList）</h5>
+<pre><code class="language-C++">int Linklist::CreateLinkList(int size) {
+   /*输入判断*/
+    if(size&lt;0)
+    {
+        cout&lt;&lt;&quot;input error&quot;&lt;&lt;endl;
+        exit(-1);
+    }
+   /*输入合法*/
+    Node* ptemp= nullptr;
+    Node* pnew= nullptr;
+   0 ptemp=head;
+    for(int i=0;i&lt;size;i++)
+    {
+   1     pnew=new Node;
+   2     cout&lt;&lt;&quot;intput the No &quot;&lt;&lt;i+1&lt;&lt;&quot; element&quot;&lt;&lt;endl;
+   3     cin&gt;&gt;pnew-&gt;data;
+   4     pnew-&gt;next= nullptr;
+   5     ptemp-&gt;next=pnew;
+   6     ptemp=pnew;
+    }
+    cout&lt;&lt;&quot;创建完成&quot;&lt;&lt;endl;
+    return 0;
+}
+</code></pre>
+<p>由上解释0-6实现原理</p>
+<ul>
+<li>
+<ol start="0">
+<li>将头指针给<strong>ptemp</strong><br>
+<img src="https://liuxuejun123.github.io//post-images/1605009913013.png" alt="" loading="lazy"></li>
+</ol>
+</li>
+<li>
+<ol>
+<li>创建一个新的节点，地址给<strong>pnew</strong><br>
+<img src="https://liuxuejun123.github.io//post-images/1605009983581.png" alt="" loading="lazy"></li>
+</ol>
+</li>
+<li>3-4. 对这个节点的数据输入，和<strong>next</strong>指针定向.</li>
+<li>
+<ol start="5">
+<li>将<strong>pnew</strong>,也就是新节点地址给<strong>ptemp-&gt;next</strong><br>
+<img src="https://liuxuejun123.github.io//post-images/1605010043341.png" alt="" loading="lazy"></li>
+</ol>
+</li>
+<li>
+<ol start="6">
+<li><strong>Ptemp</strong>指向刚刚生成的节点<br>
+<img src="https://liuxuejun123.github.io//post-images/1605010072535.png" alt="" loading="lazy"></li>
+</ol>
+</li>
+</ul>
+<h5 id="获取链表长度int-getlength">获取链表长度<strong>int GetLength();</strong></h5>
+<pre><code class="language-C++">int Linklist::GetLength() {//获得链表长度
+    int size=0;//计数
+    Node* p=head-&gt;next;//
+    while(p!= nullptr)
+    {
+        size++;
+        p=p-&gt;next;
+    }
+    return size;
+}
+</code></pre>
+<p>将头节点的<strong>next</strong>（指向下一个节点地址）</p>
+<p>while循环保证某个节点后面还有节点</p>
+<p>计数并将<strong>p</strong>指向下一个节点地址</p>
+<h5 id="显示链表里的内容showlinklist">显示链表里的内容showLinklist()</h5>
+<pre><code class="language-C++">void Linklist::showLinkList() {
+    if(head-&gt;next==nullptr)//头为空
+    {
+        cout&lt;&lt;&quot;The Linklist is empty&quot;&lt;&lt;endl;
+    }
+    Node * p =head-&gt;next;
+    while (p!=nullptr)
+    {
+        cout&lt;&lt;p-&gt;data&lt;&lt;&quot;-&gt;&quot;;
+        p = p-&gt;next;
+    }
+    cout&lt;&lt;&quot;null&quot;&lt;&lt;endl;
+}
+</code></pre>
+<p>判断节点是否为空：</p>
+<p>然后如同计数一样一样循环显示即可</p>
+<h5 id="找到链表中某个数的位置">找到链表中某个数的位置</h5>
+<pre><code class="language-C++">Node* Linklist::FindInList(int data) {
+    Node * p = head;
+    if (p==nullptr)
+    {
+        cout&lt;&lt;&quot;The Linklist is empty&quot;&lt;&lt;endl;
+        return nullptr;
+    }
+    else
+    {
+        while(p-&gt;next!= nullptr)
+        {
+            if(p-&gt;data == data)
+            {
+                return p;
+            }
+            p=p-&gt;next;
+        }
+    }
+    if(p-&gt;data == data)//头节点也有数据
+    {
+        return p;
+    }
+    else
+    {
+        return nullptr;
+    }
+}
+</code></pre>
+<p>思想和计数以及显示类似不过多赘述</p>
+<h5 id="在尾部添加节点-insertelematendint-data">在尾部添加节点 InsertElemAtEnd(int data)</h5>
+<pre><code class="language-c++">void Linklist::InsertElemAtEnd(int data)          //在尾部插入指定的元素
+{
+    Node* newnode=new Node;
+    newnode-&gt;next= nullptr;
+    newnode-&gt;data=data;
+    Node* p=head;
+    if(head-&gt;next== nullptr)
+    {
+        head-&gt;next=newnode;
+    }
+    while(p-&gt;next!= nullptr)
+    {
+        p=p-&gt;next;
+    }
+    p-&gt;next=newnode;
+}
+</code></pre>
+<p>首先先生成节点并存储数据后</p>
+<p>之后确定当前链表的最后位置在哪里，将生成的新节点添加在原链表的最后面；</p>
+<h5 id="指定位置添加-insertelematindexint-dataint-n">指定位置添加 InsertElemAtIndex(int data,int n)</h5>
+<pre><code class="language-C++">void Linklist::InsertElemAtIndex(int data,int n)   //在指定位置插入指定元素
+{
+    if(n&lt;1||n&gt;GetLength())
+    {
+        cout&lt;&lt;&quot;input error&quot;&lt;&lt;endl;
+    }
+    else
+    {   Node* newnode=new Node;
+        newnode-&gt;data=data;
+        Node* p=head-&gt;next;//p指向第一个节点的地址
+        int i=1;
+        while (n&gt;i)
+        {
+            i++;
+            p=p-&gt;next;
+        }
+        newnode-&gt;next=p-&gt;next;//p指向的是第n个节点p-&gt;next存放着n+1节点的地址
+        p-&gt;next=newnode;
+    }
+}
+</code></pre>
+<p>首先对输入的合法性进行判断</p>
+<p>创建一个新节点 对数据存储后 找到第n个节点的地址。将<strong>n+1</strong>个节点的地址给新创建的节点的<strong>next</strong>，原本存放<strong>n+1</strong>地址的<strong>p-&gt;next</strong> 这时候要存新节点的地址</p>
+<h5 id="头部添加-insertelematheadint-data">头部添加 InsertElemAtHead（int data）</h5>
+<pre><code class="language-C++">void Linklist::InsertElemAtHead(int data)    //在头部插入指定元素
+{
+    Node* newnode=new Node;
+    newnode-&gt;data=data;
+    Node* p=head-&gt;next;
+    if(head== nullptr)
+    {
+        head=newnode;
+    }
+    newnode-&gt;next=p-&gt;next;
+    p-&gt;next=newnode;
+}
+</code></pre>
+<p>p指向头节点的地址，p-&gt;next 是第一个节点的地址</p>
+<p>将第一个节点的位置给新节点的next</p>
+<p>新节点地址赋给头节点的next</p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[使用Gridea 搭建个人blog（Github服务器）]]></title>
         <id>https://liuxuejun123.github.io/post/shi-yong-gridea-da-jian-ge-ren-bloggithub-fu-wu-qi/</id>
@@ -1595,216 +1836,6 @@ while(1)
 };
 }
 </code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[STM32F401 USART 串口通信]]></title>
-        <id>https://liuxuejun123.github.io/post/stm32f401-usart-chuan-kou-tong-xin/</id>
-        <link href="https://liuxuejun123.github.io/post/stm32f401-usart-chuan-kou-tong-xin/">
-        </link>
-        <updated>2020-04-13T08:49:43.000Z</updated>
-        <content type="html"><![CDATA[<h2 id="1functional-requirement">1.functional requirement</h2>
-<ol>
-<li>
-<p>Create function for send byte packet(array) via USART. In this function you need:<br>
-a. Set output array counter variable equal numbers of bytes for send;<br>
-b. Enable interrupt on Transmit buffer empty event;</p>
-</li>
-<li>
-<p>In the USART Interrupt Handler on TXE flag send next byte until end, on the end disable interrupt on TXE;</p>
-</li>
-<li>
-<p>On pressing button, launch send function (which created in step 1) and send some array;</p>
-</li>
-<li>
-<p>In the USART Interrupt Handler on RXNE flag read byte and turn on/off LED, if it values equal to you variant.</p>
-</li>
-</ol>
-<h2 id="2imliementation-process">2.Imliementation process</h2>
-<figure data-type="image" tabindex="1"><img src="https://liuxuejun123.github.io//post-images/1586767962203.PNG" alt="" loading="lazy"></figure>
-<h3 id="i">I</h3>
-<p>The serial port of urasrt2, PA2 is TX, PA3 is RX .Set PA2 PA3 to alternate function mode through MODER register, set to usart2 function through AFR register</p>
-<p><img src="https://liuxuejun123.github.io//post-images/1586767970236.PNG" alt="" loading="lazy">!</p>
-<h3 id="ii">II</h3>
-<p>Through USART block diagram</p>
-<h4 id="baud-rate-registerusart_brr">Baud rate register(USART_BRR)</h4>
-<figure data-type="image" tabindex="2"><img src="https://liuxuejun123.github.io//post-images/1586768017916.PNG" alt="" loading="lazy"></figure>
-<p>Used to divide the clock to get the required baud rate.</p>
-<p>The baud rate register includes two parts defined: DIV_Mantissa (integer part) and DIV_Fraction (decimal part).</p>
-<h4 id="status-register-sr">Status register (SR)</h4>
-<figure data-type="image" tabindex="3"><img src="https://liuxuejun123.github.io//post-images/1586768026986.PNG" alt="" loading="lazy"></figure>
-<p>The status register is suitable for detecting the state of the serial port at this time. The states it can detect are: send register empty bit, send complete bit, read data register non-empty bit, detected main line idle bit, overload error, etc.</p>
-<p>Here we mainly focus on two bits: RXNE and TC (bits 5 and 6).</p>
-<h5 id="bit-6-tc-transmission-complete">Bit 6 TC: Transmission complete</h5>
-<p>This bit is set by hardware if the transmission of a frame containing data is complete and if<br>
-TXE is set. An interrupt is generated if TCIE=1 in the USART_CR1 register. It is cleared by<br>
-a software sequence (a read from the USART_SR register followed by a write to the<br>
-USART_DR register). The TC bit can also be cleared by writing a '0' to it. This clearing<br>
-sequence is recommended only for multibuffer communication.<br>
-0: Transmission is not complete<br>
-1: Transmission is complete</p>
-<h5 id="bit-5-rxne-read-data-register-not-empty">Bit 5 RXNE: Read data register not empty</h5>
-<p>This bit is set by hardware when the content of the RDR shift register has been transferred<br>
-to the USART_DR register. An interrupt is generated if RXNEIE=1 in the USART_CR1<br>
-register. It is cleared by a read to the USART_DR register. The RXNE flag can also be<br>
-cleared by writing a zero to it. This clearing sequence is recommended only for multibuffer<br>
-communication.<br>
-0: Data is not received<br>
-1: Received data is ready to be read.</p>
-<h4 id="data-register-usart_dr">Data register (USART_DR)</h4>
-<p>USART_DR actually contains two registers, one dedicated to TDR for sending and one dedicated to RDR for receiving. When sending data, writing data to USART_DR will be automatically stored in TDR; when reading data, reading data from USART_DR will automatically extract RDR data.</p>
-<p>Serial communication transmits one bit at a time, so the TDR and RDR registers are between the system bus and the shift register; the TDR content is transferred to the transmit shift register when sending data, and the receive is when receiving data Each bit that arrives is sequentially stored in the receive shift register and then transferred to the RDR.</p>
-<h4 id="control-register-1-usart_cr1">Control register 1 (USART_CR1)</h4>
-<figure data-type="image" tabindex="4"><img src="https://liuxuejun123.github.io//post-images/1586768045079.PNG" alt="" loading="lazy"></figure>
-<p>The control register is mainly used to set USART enable, check control enable, check selection (odd parity even check), PE interrupt enable, send buffer empty interrupt enable, send complete interrupt enable, receive buffer is not empty Enable, send enable, receive enable, word length, etc.</p>
-<h3 id="iii-general-steps-of-serial-port-operation">III General steps of serial port operation</h3>
-<p>1.GPIO clock enable, serial port clock enable<br>
-2.Port mode setting under GPIO peripheral function<br>
-3.Serial port parameter initialization<br>
-4.Turn on interrupt and initialize NVIC</p>
-<h2 id="code">Code</h2>
-<pre><code class="language-c">#include &quot;stm32f4xx.h&quot;
-#include &quot;stm32f4xx_hal_gpio.h&quot;
-#include &quot;stm32f4xx_hal_rcc.h&quot;
-#include &lt;stdio.h&gt;
-//define busses prescalers
-#define AHB_PRE 1
-#define APB1_PRE 2
-#define APB2_PRE 1
-#define SysTickClk 10000
-//calculate peripheral frequencies
-#define SYSCLK 84000000
-#define AHB SYSCLK/AHB_PRE
-#define APB1 AHB/APB1_PRE
-#define APB1_TIM APB1*2
-#define APB2 AHB/APB2_PRE
-#define APB2_TIM APB2*1
-#define SysTicks AHB/SysTickClk
-
-//usart
-#define USART_BAUDRATE 19200
-#define BUFFER_LENGTH 1000
-uint16_t buffer_size=0,current_send_byte;
-uint8_t buffer[BUFFER_LENGTH];
-
-void clock_set()
-{
-FLASH-&gt;ACR|=FLASH_ACR_PRFTEN;
-FLASH-&gt;ACR|=FLASH_ACR_LATENCY_2WS;//FLASH PREFETCH
-RCC-&gt;CFGR&amp;=~RCC_CFGR_HPRE_Msk;
-RCC-&gt;CFGR|=RCC_CFGR_HPRE_DIV1;
-RCC-&gt;CFGR&amp;=~RCC_CFGR_PPRE1_Msk;
-RCC-&gt;CFGR|=RCC_CFGR_PPRE1_DIV2;
-RCC-&gt;CFGR&amp;=~RCC_CFGR_PPRE2_Msk;
-RCC-&gt;CFGR|=RCC_CFGR_PPRE2_DIV1;//set AHB APB1 APB2
-RCC-&gt;PLLCFGR&amp;=~RCC_PLLCFGR_PLLM_Msk;
-RCC-&gt;PLLCFGR|=8&lt;&lt;RCC_PLLCFGR_PLLM_Pos;
-RCC-&gt;PLLCFGR&amp;=~RCC_PLLCFGR_PLLN_Msk;
-RCC-&gt;PLLCFGR|=84&lt;&lt;RCC_PLLCFGR_PLLN_Pos;
-RCC-&gt;PLLCFGR&amp;=~RCC_PLLCFGR_PLLP_Msk; //SET PLLM PLLN PLLP
-RCC-&gt;CR|=RCC_CR_PLLON;//OPEN PLL
-while((RCC-&gt;CR&amp;RCC_CR_PLLRDY)==0)//WAIT PLL START
-{}
-RCC-&gt;CFGR&amp;=(uint32_t)((uint32_t)~(RCC_CFGR_SW));
-RCC-&gt;CFGR|=RCC_CFGR_SW_PLL;
-while((RCC-&gt;CFGR&amp;RCC_CFGR_SWS)!=RCC_CFGR_SWS_PLL)
-{}
-}
-
-void usart2_Init(uint32_t baud)
-{
-RCC-&gt;AHB1ENR |= RCC_AHB1ENR_GPIOAEN|
-	              RCC_AHB1ENR_GPIOBEN;//open clock
-GPIOA-&gt;MODER =0x000000A0;//pa2 pa3 alternate function mode 
-GPIOA-&gt;AFR[0]=0x00007700;//
-GPIOB-&gt;MODER=0x00005555;//GPIOB
-RCC-&gt;APB1ENR |= RCC_APB1ENR_USART2EN;//usart2 enable
-USART2-&gt;BRR = APB1/baud;//Baud rate
-USART2-&gt;CR1 = USART_CR1_UE|//usart2 enable
-	            USART_CR1_TE|//
-	            USART_CR1_RE|//Send and receive enable
-	            USART_CR1_RXNEIE;//Interrupt enable
-NVIC_EnableIRQ(USART2_IRQn);//配置中断		
-}
-
-void SendByte(uint8_t dat)
-{
-	USART2-&gt;DR = dat;
-	while((USART2-&gt;SR &amp; USART_SR_TC) == 0);
-}
-
-void Send_buffer(uint8_t *buff,uint16_t count)
-{
-for (int i=0;i&lt;count;i++)
-	{
-		SendByte(*buff);
-		*buff++;
-	}
-}
-void delay_ms(uint16_t time)     
-{    
-  uint16_t i=0;    
-  while(time--)     
-  {    
-    i=12000;    
-    while(i--);    
-  }    
-}
-void USART2_IRQHandler(void)
-{
-	if(USART2-&gt;SR &amp; USART_SR_RXNE)
-	{
-		buffer[buffer_size] = USART2-&gt;DR;
-		buffer_size++;
-		if(buffer[buffer_size-1] == 'k')
-		{
-			GPIOB-&gt;ODR &amp;= ~(1 &lt;&lt;0); //LEN0 OFF
-			buffer_size = 0;
-			USART2-&gt;CR1 &amp;= ~USART_CR1_RE;
-		}
-		else if(USART2-&gt;DR == 'l')
-		{
-			GPIOB-&gt;ODR |= 1 &lt;&lt; 0; // LED0 ON
-			buffer_size = 0;
-			USART2-&gt;CR1 &amp;= ~USART_CR1_RE;
-		}
-	}
-}
-int main()
-{
-	clock_set();
-	usart2_Init(USART_BAUDRATE);
-	uint8_t s[]=&quot;k off l open &quot;;
-	current_send_byte=sizeof(s);
-	GPIOB-&gt;ODR=0x00000000;//gpiob all pin low
-	while(1)
-	{
-
-		 if(!(GPIOB-&gt;IDR &amp; GPIO_IDR_ID9))//if gpioa_pin9 low ,enter if function
-			 {
-			 delay_ms(5);                //Eliminate key jitter
-			 if(!(GPIOB-&gt;IDR&amp;GPIO_IDR_ID9))
-					{
-						Send_buffer(s,current_send_byte);
-						USART2-&gt;CR1 |= USART_CR1_RE;
-						GPIOB-&gt;ODR |= 1 &lt;&lt; 1; // LED1 ON
-						while(!(GPIOB-&gt;IDR&amp;GPIO_IDR_ID9));//Wait for  key to rebound                                                                       
-					}
-			 }
- 
-	}
-}
-</code></pre>
-<h2 id="simulation">Simulation</h2>
-<p>The devices in proteus are built as follows</p>
-<figure data-type="image" tabindex="5"><img src="https://liuxuejun123.github.io//post-images/1586768061207.PNG" alt="" loading="lazy"></figure>
-<p>Start the simulation, press the button, the LED lights up, and the serial port outputs information<br>
-<img src="https://liuxuejun123.github.io//post-images/1586768067660.PNG" alt="" loading="lazy"></p>
-<p>Keyboard input (small letter L) LED0 is on</p>
-<figure data-type="image" tabindex="6"><img src="https://liuxuejun123.github.io//post-images/1586768074621.PNG" alt="" loading="lazy"></figure>
-<p>Keyboard input k LED0 is off<br>
-<img src="https://liuxuejun123.github.io//post-images/1586768081298.PNG" alt="" loading="lazy"></p>
-<h2 id="conclusion">Conclusion</h2>
 ]]></content>
     </entry>
 </feed>
