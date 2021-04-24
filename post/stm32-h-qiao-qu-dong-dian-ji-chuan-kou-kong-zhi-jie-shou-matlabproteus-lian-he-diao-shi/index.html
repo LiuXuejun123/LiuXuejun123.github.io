@@ -4,13 +4,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Liu Xuejun&#39;s Blog</title>
 <meta name="description" content="念念不忘，必有回响" />
-<link rel="shortcut icon" href="https://liuxuejun123.github.io//favicon.ico?v=1619259101705">
+<link rel="shortcut icon" href="https://liuxuejun123.github.io/favicon.ico?v=1619260564153">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
 
-<link rel="stylesheet" href="https://liuxuejun123.github.io//styles/main.css">
+<link rel="stylesheet" href="https://liuxuejun123.github.io/styles/main.css">
 <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
 
 
@@ -22,8 +22,8 @@
     <div class="sidebar-content">
       <div class="flex lg:block p-4 lg:px-0 items-center fixed lg:static lg:block top-0 right-0 left-0 bg-white z-50">
         <i class="ri-menu-2-line lg:mt-4 text-2xl cursor-pointer animated fadeIn" onclick="openMenu()"></i>
-        <a href="https://liuxuejun123.github.io/">
-          <img class="animated fadeInLeft avatar rounded-lg mx-4 lg:mt-32 lg:mx-0 mt-0 lg:w-24 lg:h-24 w-12 w-12" src="https://liuxuejun123.github.io//images/avatar.png?v=1619259101705" alt="">
+        <a href="https://liuxuejun123.github.io">
+          <img class="animated fadeInLeft avatar rounded-lg mx-4 lg:mt-32 lg:mx-0 mt-0 lg:w-24 lg:h-24 w-12 w-12" src="https://liuxuejun123.github.io/images/avatar.png?v=1619260564153" alt="">
         </a>
         <h1 class="animated fadeInLeft lg:text-4xl font-extrabold lg:mt-8 mt-0 text-xl" style="animation-delay: 0.2s">Liu Xuejun&#39;s Blog</h1>
       </div>
@@ -110,7 +110,7 @@ Copyright 2020 &copy
 <br><br>
 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="blank"
 <span style="color:orange">本博客采用 CC BY-NC-SA 4.0 进行许可</span></a></div>
-    <a class="rss" href="https://liuxuejun123.github.io//atom.xml" target="_blank">RSS</a>
+    <a class="rss" href="https://liuxuejun123.github.io/atom.xml" target="_blank">RSS</a>
   </div>
 </div>
 <div class="mask" onclick="closeMenu()">
@@ -122,7 +122,7 @@ Copyright 2020 &copy
         </div>
         
         <div class="post-content yue">
-          <figure data-type="image" tabindex="1"><img src="https://liuxuejun123.github.io//post-images/1588173952599.PNG" alt="" loading="lazy"></figure>
+          <figure data-type="image" tabindex="1"><img src="https://liuxuejun123.github.io/post-images/1588173952599.PNG" alt="" loading="lazy"></figure>
 <h2 id="problem-description">Problem Description</h2>
 <ol>
 <li>Create motor control system<br>
@@ -137,16 +137,16 @@ For receive data from microcontroller use Simulink model, and show received data
 <p>After analyzing the entire task, the main solution：</p>
 <p>Enable TIM3 PWM output mode Configure channel 1 (PA6), channel 2 (PA7), and control the high and low levels of PA5 and PA6. Matlab sends a number of -100-100 to indicate the direction and speed of the motor. After the serial port receives the data, it controls the motor after the data is processed, and then processes the encoded signal output by the motor through the TIM4 encoding function to obtain the speed of the motor, and Resend to Matlab via serial communication</p>
 <h2 id="tim-pwm-mode-and-configuration-method">Tim PWM mode and configuration method</h2>
-<p><img src="https://liuxuejun123.github.io//post-images/1588173937637.png" alt="" loading="lazy"><br>
+<p><img src="https://liuxuejun123.github.io/post-images/1588173937637.png" alt="" loading="lazy"><br>
 The general-purpose timer can use the GPIO pin for pulse output. When it is configured as a comparison output or a PWM output function, the capture / compare register TIMx_CCR is used as a comparison function, which is referred to as a comparison register below.<br>
 Here is a direct example to illustrate the working process of the PWM output of the timer: if the pulse counter TIMx_CNT is configured to count up, and the reload register TIMx_ARR is configured to N, that is, the current count value X of the TIMx_CNT is continuously accumulated under the drive of the TIMxCLK clock source When the value X of TIMx_CNT is greater than N, the value of TIMx_CNT will be reset to 0 and counted again.<br>
 While counting TIMxCNT, the count value X of TIMxCNT will be compared with the value A pre-stored in the comparison register TIMx_CCR. When the value X of the pulse counter TIMx_CNT is less than the value A of the comparison register TIMx_CCR, the high level (or low Level), conversely, when the value X of the pulse counter is greater than or equal to the value A of the comparison register, a low level (or high level) is output.<br>
 In this way, the output pulse period is the value (N + 1) stored in the reload register TIMx_ARR multiplied by the clock period of the trigger pulse, and the pulse width is the value A of the comparison register TIMx_CCR multiplied by the clock period of the trigger pulse, that is The duty cycle of the output PWM is A / (N + 1).</p>
 <h2 id="encoder-interface-mode">Encoder interface mode</h2>
-<p><img src="https://liuxuejun123.github.io//post-images/1588173997249.PNG" alt="" loading="lazy"><br>
+<p><img src="https://liuxuejun123.github.io/post-images/1588173997249.PNG" alt="" loading="lazy"><br>
 When both AB are the same, a square wave is output, and the phase difference is 90 °. We can judge the forward and reverse by judging the order of the level transition of the two phases of AB, and we can also determine the number of level transitions of any one phase. Rotation speed</p>
 <h2 id="timx-capturecompare-mode-register-1-timx_ccmr1">TIMx capture/compare mode register 1 (TIMx_CCMR1)</h2>
-<figure data-type="image" tabindex="2"><img src="https://liuxuejun123.github.io//post-images/1588174028343.PNG" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="2"><img src="https://liuxuejun123.github.io/post-images/1588174028343.PNG" alt="" loading="lazy"></figure>
 <h4 id="bits-98-cc2s10-capturecompare-2-selection">Bits 9:8 CC2S[1:0]: Capture/Compare 2 selection</h4>
 <p>This bit-field defines the direction of the channel (input/output) as well as the used input.<br>
 00: CC2 channel is configured as output<br>
@@ -164,7 +164,7 @@ Note: CC2S bits are writable only when the channel is OFF (CC2E = 0 in TIMx_CCER
 an internal trigger input is selected through TS bit (TIMx_SMCR register)<br>
 Note: CC1S bits are writable only when the channel is OFF (CC1E = 0 in TIMx_CCER).</p>
 <h2 id="timx-capturecompare-enable-register-timx_ccer">TIMx capture/compare enable register (TIMx_CCER)</h2>
-<figure data-type="image" tabindex="3"><img src="https://liuxuejun123.github.io//post-images/1588174071967.PNG" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="3"><img src="https://liuxuejun123.github.io/post-images/1588174071967.PNG" alt="" loading="lazy"></figure>
 <h4 id="bit-4-cc2e-capturecompare-2-output-enable">Bit 4 CC2E: Capture/Compare 2 output enable.</h4>
 <p>refer to CC1E description</p>
 <h4 id="bit-0-cc1e-capturecompare-1-output-enable">Bit 0 CC1E: Capture/Compare 1 output enable.</h4>
@@ -442,14 +442,14 @@ while(1)
 </code></pre>
 <h3 id="simulation">Simulation</h3>
 <p>Matlab block diagram is as follows<br>
-<img src="https://liuxuejun123.github.io//post-images/1588174118895.PNG" alt="" loading="lazy"><br>
+<img src="https://liuxuejun123.github.io/post-images/1588174118895.PNG" alt="" loading="lazy"><br>
 Proteus block diagram is as follows:<br>
-<img src="https://liuxuejun123.github.io//post-images/1588174155802.png" alt="" loading="lazy"><br>
+<img src="https://liuxuejun123.github.io/post-images/1588174155802.png" alt="" loading="lazy"><br>
 The upper virtual terminal displays the output data, and the lower virtual terminal actually inputs<br>
-<img src="https://liuxuejun123.github.io//post-images/1588174192302.png" alt="" loading="lazy"><br>
-<img src="https://liuxuejun123.github.io//post-images/1588174202296.png" alt="" loading="lazy"><br>
-<img src="https://liuxuejun123.github.io//post-images/1588174210262.png" alt="" loading="lazy"><br>
-<img src="https://liuxuejun123.github.io//post-images/1588174223917.PNG" alt="" loading="lazy"></p>
+<img src="https://liuxuejun123.github.io/post-images/1588174192302.png" alt="" loading="lazy"><br>
+<img src="https://liuxuejun123.github.io/post-images/1588174202296.png" alt="" loading="lazy"><br>
+<img src="https://liuxuejun123.github.io/post-images/1588174210262.png" alt="" loading="lazy"><br>
+<img src="https://liuxuejun123.github.io/post-images/1588174223917.PNG" alt="" loading="lazy"></p>
 <h2 id="conclusion">Conclusion</h2>
 <p>Through this experiment, I mainly learned to use the stm32 output PWM to control the motor, use the data received by the serial port to modify the PWM duty cycle, thereby changing the speed of the motor, and use the encoder function of stm32 to carry out the speed of the motor. Detect and send through the serial port.</p>
 
@@ -494,7 +494,7 @@ The upper virtual terminal displays the output data, and the lower virtual termi
       </div>
     </div>
 
-    <script src="https://liuxuejun123.github.io//media/prism.js"></script>  
+    <script src="https://liuxuejun123.github.io/media/prism.js"></script>  
 <script>
 
 Prism.highlightAll()

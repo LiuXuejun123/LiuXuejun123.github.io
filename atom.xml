@@ -1,22 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-    <id>https://liuxuejun123.github.io/</id>
+    <id>https://liuxuejun123.github.io</id>
     <title>Liu Xuejun&apos;s Blog</title>
-    <updated>2021-04-24T10:11:47.360Z</updated>
+    <updated>2021-04-24T10:36:09.110Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
-    <link rel="alternate" href="https://liuxuejun123.github.io/"/>
+    <link rel="alternate" href="https://liuxuejun123.github.io"/>
     <link rel="self" href="https://liuxuejun123.github.io/atom.xml"/>
     <subtitle>念念不忘，必有回响</subtitle>
     <logo>https://liuxuejun123.github.io/images/avatar.png</logo>
     <icon>https://liuxuejun123.github.io/favicon.ico</icon>
     <rights>All rights reserved 2021, Liu Xuejun&apos;s Blog</rights>
     <entry>
-        <title type="html"><![CDATA[leetcode 每日一题 （368）]]></title>
+        <title type="html"><![CDATA[ Leetcode 每日一题 (368)]]></title>
         <id>https://liuxuejun123.github.io/post/leetcode-mei-ri-yi-ti-368/</id>
         <link href="https://liuxuejun123.github.io/post/leetcode-mei-ri-yi-ti-368/">
         </link>
-        <updated>2021-04-24T05:37:35.000Z</updated>
-        <content type="html"><![CDATA[<h4 id="368-最大整除子集"><a href="https://leetcode-cn.com/problems/largest-divisible-subset/">368. 最大整除子集</a></h4>
+        <updated>2021-04-24T10:17:18.000Z</updated>
+        <content type="html"><![CDATA[<h4 id="leetcode-每日一题">leetcode 每日一题</h4>
+<h4 id="368-最大整除子集"><a href="https://leetcode-cn.com/problems/largest-divisible-subset/">368. 最大整除子集</a></h4>
 <p>给你一个由 无重复 正整数组成的集合 nums ，请你找出并返回其中最大的整除子集 answer ，子集中每一元素对 (answer[i], answer[j]) 都应当满足：</p>
 <ul>
 <li>answer[i] % answer[j] == 0 ，或</li>
@@ -43,9 +44,12 @@
 <p>那么 subset ,针对新的元素n，满足如下条件</p>
 <p>n可以被subset内所有元素整除，也就是subset中最大的元素可以整除新元素n</p>
 <p>题意中需要输出最长的subset,那么需要实时记录当前最长subset的大小。</p>
-<p>dp：算法流程<br>
-<img src="https://liuxuejun123.github.io//post-images/1619242717948.PNG" alt="" loading="lazy"></p>
-<p>dp:算法</p>
+<p>dp:算法流程<br>
+<img src="https://liuxuejun123.github.io/post-images/1619259490324.PNG" alt="" loading="lazy"><br>
+<img src="https://liuxuejun123.github.io/post-images/1619259495354.PNG" alt="" loading="lazy"><br>
+<img src="https://liuxuejun123.github.io/post-images/1619259499607.PNG" alt="" loading="lazy"><br>
+<img src="https://liuxuejun123.github.io/post-images/1619259503320.PNG" alt="" loading="lazy"></p>
+<p>dp算法：</p>
 <pre><code class="language-C++">class Solution {
 public:
 vector&lt;int&gt; largestDivisibleSubset(vector&lt;int&gt;&amp; nums) {
@@ -110,7 +114,7 @@ private:
 </code></pre>
 <p>链表中主要的就是头指针。其内部成员函数受链表结构影响 稍有不同，详见如下</p>
 <h3 id="1带头节点">1.带头节点</h3>
-<p><img src="https://liuxuejun123.github.io//post-images/1605009793172.png" alt="" loading="lazy"><br>
+<p><img src="https://liuxuejun123.github.io/post-images/1605009793172.png" alt="" loading="lazy"><br>
 特点 ：头指针指向一个节点，但这个节点不存储数据，真正的链表节点从1号节点开始。头指针中存储的是头节点的地址。</p>
 <pre><code class="language-C++">class Linklist{
 public:
@@ -141,7 +145,7 @@ private:
 
 </code></pre>
 <p>链表初始化后结构为<br>
-<img src="https://liuxuejun123.github.io//post-images/1605009876411.png" alt="" loading="lazy"></p>
+<img src="https://liuxuejun123.github.io/post-images/1605009876411.png" alt="" loading="lazy"></p>
 <ul>
 <li>头指针指向一个节点</li>
 <li>节点内不存放任何数据（当然也可作为节点个数的计数器）</li>
@@ -176,26 +180,26 @@ private:
 <li>
 <ol start="0">
 <li>将头指针给<strong>ptemp</strong><br>
-<img src="https://liuxuejun123.github.io//post-images/1605009913013.png" alt="" loading="lazy"></li>
+<img src="https://liuxuejun123.github.io/post-images/1605009913013.png" alt="" loading="lazy"></li>
 </ol>
 </li>
 <li>
 <ol>
 <li>创建一个新的节点，地址给<strong>pnew</strong><br>
-<img src="https://liuxuejun123.github.io//post-images/1605009983581.png" alt="" loading="lazy"></li>
+<img src="https://liuxuejun123.github.io/post-images/1605009983581.png" alt="" loading="lazy"></li>
 </ol>
 </li>
 <li>3-4. 对这个节点的数据输入，和<strong>next</strong>指针定向.</li>
 <li>
 <ol start="5">
 <li>将<strong>pnew</strong>,也就是新节点地址给<strong>ptemp-&gt;next</strong><br>
-<img src="https://liuxuejun123.github.io//post-images/1605010043341.png" alt="" loading="lazy"></li>
+<img src="https://liuxuejun123.github.io/post-images/1605010043341.png" alt="" loading="lazy"></li>
 </ol>
 </li>
 <li>
 <ol start="6">
 <li><strong>Ptemp</strong>指向刚刚生成的节点<br>
-<img src="https://liuxuejun123.github.io//post-images/1605010072535.png" alt="" loading="lazy"></li>
+<img src="https://liuxuejun123.github.io/post-images/1605010072535.png" alt="" loading="lazy"></li>
 </ol>
 </li>
 </ul>
@@ -332,33 +336,33 @@ private:
         <updated>2020-10-01T07:39:15.000Z</updated>
         <content type="html"><![CDATA[<h4 id="1创建github-账号本教程不过多赘述">1.创建Github 账号：（本教程不过多赘述）</h4>
 <h4 id="2新建博客仓库">2.新建博客仓库：</h4>
-<p><img src="https://liuxuejun123.github.io//post-images/1601538146622.PNG" alt="" loading="lazy"><br>
+<p><img src="https://liuxuejun123.github.io/post-images/1601538146622.PNG" alt="" loading="lazy"><br>
 点击右上角头像附近的+号，新建一个仓库<br>
-<img src="https://liuxuejun123.github.io//post-images/1601538329901.PNG" alt="" loading="lazy"></p>
+<img src="https://liuxuejun123.github.io/post-images/1601538329901.PNG" alt="" loading="lazy"></p>
 <ul>
 <li>仓库名称具有固定的格式！！！（ 用户名.github.io）</li>
 <li>仓库描述可写可不写</li>
 <li>其他部分可以默认<br>
 创建后就可以的得到一个新的仓库<br>
-<img src="https://liuxuejun123.github.io//post-images/1601538583019.PNG" alt="" loading="lazy"><br>
+<img src="https://liuxuejun123.github.io/post-images/1601538583019.PNG" alt="" loading="lazy"><br>
 点击该仓库的<strong>setting</strong>,确认<strong>github pages <strong>开启<br>
 点击</strong>setting</strong>,下滑至Github pages,点击连接（只要不出现404 就行，多刷新几次）</li>
 </ul>
 <h4 id="3创建token">3.创建Token</h4>
-<p><img src="https://liuxuejun123.github.io//post-images/1601539564619.PNG" alt="" loading="lazy"><br>
+<p><img src="https://liuxuejun123.github.io/post-images/1601539564619.PNG" alt="" loading="lazy"><br>
 点击自己的头像，选择<strong>Settings</strong><br>
 点击路径：Settings-&gt;Developer settings-&gt;Personal access tokens<br>
-<img src="https://liuxuejun123.github.io//post-images/1601539792446.PNG" alt="" loading="lazy"><br>
+<img src="https://liuxuejun123.github.io/post-images/1601539792446.PNG" alt="" loading="lazy"><br>
 Note: 表明用途，勾选repo 拉到最下面后生成：<br>
-<img src="https://liuxuejun123.github.io//post-images/1601539969430.PNG" alt="" loading="lazy"><br>
+<img src="https://liuxuejun123.github.io/post-images/1601539969430.PNG" alt="" loading="lazy"><br>
 得到这个页面，该页面暂时不要关闭！！！！</p>
 <h4 id="4安装gridea">4.安装Gridea</h4>
 <p>https://gridea.dev/<br>
-<img src="https://liuxuejun123.github.io//post-images/1601540458974.PNG" alt="" loading="lazy"><br>
+<img src="https://liuxuejun123.github.io/post-images/1601540458974.PNG" alt="" loading="lazy"><br>
 将参数配置好就行。<br>
-<img src="https://liuxuejun123.github.io//post-images/1601540770643.PNG" alt="" loading="lazy"><br>
+<img src="https://liuxuejun123.github.io/post-images/1601540770643.PNG" alt="" loading="lazy"><br>
 使用markdown语法进行编写，语法见https://www.runoob.com/markdown/md-tutorial.html<br>
-<img src="https://liuxuejun123.github.io//post-images/1601541630444.PNG" alt="" loading="lazy"><br>
+<img src="https://liuxuejun123.github.io/post-images/1601541630444.PNG" alt="" loading="lazy"><br>
 写完后可在本地预览；或者直接同步，然后就可以去之前github pages 的连接查看网页。</p>
 ]]></content>
     </entry>
@@ -579,7 +583,7 @@ p(x)=\frac{1}{\sqrt{2 \pi} \sigma} e^{-\frac{1}{2} \frac{(x-\mu)^{2}}{\sigma^{2}
 -221c5.3,-9.3,12,-14,20,-14H400000v40H845.2724s-225.272,467,-225.272,467
 s-235,486,-235,486c-2.7,4.7,-9,7,-19,7c-6,0,-10,-1,-12,-3s-194,-422,-194,-422
 s-65,47,-65,47z M834 80H400000v40H845z'/></svg></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.13278em;"><span></span></span></span></span></span><span class="mord mathdefault" style="margin-right:0.03588em;">σ</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.93em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mord"><span class="mord mathdefault">e</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:1.32909em;"><span style="top:-3.4534200000000004em;margin-right:0.05em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">−</span><span class="mord mtight"><span class="mopen nulldelimiter sizing reset-size3 size6"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8443142857142858em;"><span style="top:-2.656em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span><span style="top:-3.2255000000000003em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line mtight" style="border-bottom-width:0.049em;"></span></span><span style="top:-3.384em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight"><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.344em;"><span></span></span></span></span></span><span class="mclose nulldelimiter sizing reset-size3 size6"></span></span><span class="mord mtight"><span class="mopen nulldelimiter sizing reset-size3 size6"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.250957142857143em;"><span style="top:-2.5061857142857145em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.03588em;">σ</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.9384399999999999em;"><span style="top:-2.93844em;margin-right:0.1em;"><span class="pstrut" style="height:2.64444em;"></span><span class="mord mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span></span><span style="top:-3.2255000000000003em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line mtight" style="border-bottom-width:0.049em;"></span></span><span style="top:-3.5020714285714285em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight"><span class="mopen mtight">(</span><span class="mord mathdefault mtight">x</span><span class="mbin mtight">−</span><span class="mord mathdefault mtight">μ</span><span class="mclose mtight"><span class="mclose mtight">)</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:1.04844em;"><span style="top:-3.04844em;margin-right:0.1em;"><span class="pstrut" style="height:2.64444em;"></span><span class="mord mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.49381428571428565em;"><span></span></span></span></span></span><span class="mclose nulldelimiter sizing reset-size3 size6"></span></span></span></span></span></span></span></span></span></span></span></span></span></span></p>
-<figure data-type="image" tabindex="1"><img src="https://liuxuejun123.github.io//post-images/1593592027315.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="1"><img src="https://liuxuejun123.github.io/post-images/1593592027315.png" alt="" loading="lazy"></figure>
 <h4 id="多变量">多变量：</h4>
 <p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mtable><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mi>p</mi><mo>(</mo><mi mathvariant="bold">x</mi><mo>)</mo><mo>∼</mo><mi>N</mi><mo>(</mo><mi>μ</mi><mo separator="true">,</mo><mi mathvariant="normal">Σ</mi><mo>)</mo><mo>:</mo></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mi>p</mi><mo>(</mo><mi mathvariant="bold">x</mi><mo>)</mo><mo>=</mo><mfrac><mn>1</mn><mrow><mo>(</mo><mn>2</mn><mi>π</mi><msup><mo>)</mo><mrow><mi>d</mi><mi mathvariant="normal">/</mi><mn>2</mn></mrow></msup><mi mathvariant="normal">∣</mi><mi mathvariant="normal">Σ</mi><msup><mi mathvariant="normal">∣</mi><mrow><mn>1</mn><mi mathvariant="normal">/</mi><mn>2</mn></mrow></msup></mrow></mfrac><msup><mi>e</mi><mrow><mo>−</mo><mfrac><mn>1</mn><mn>2</mn></mfrac><mo>(</mo><mi mathvariant="bold">x</mi><mo>−</mo><mi>μ</mi><msup><mo>)</mo><mi>t</mi></msup><msup><mi mathvariant="normal">Σ</mi><mrow><mo>−</mo><mn>1</mn></mrow></msup><mo>(</mo><mi mathvariant="bold">x</mi><mo>−</mo><mi>μ</mi><mo>)</mo></mrow></msup></mrow></mstyle></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{array}{l}
 p(\mathbf{x}) \sim N(\mu, \Sigma): \\
@@ -587,14 +591,14 @@ p(\mathbf{x})=\frac{1}{(2 \pi)^{d / 2}|\Sigma|^{1 / 2}} e^{-\frac{1}{2}(\mathbf{
 \end{array}
 </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:2.747345em;vertical-align:-1.1236725em;"></span><span class="mord"><span class="mtable"><span class="arraycolsep" style="width:0.5em;"></span><span class="col-align-l"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.6236725em;"><span style="top:-3.7836724999999998em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault">p</span><span class="mopen">(</span><span class="mord"><span class="mord mathbf">x</span></span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">∼</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mord mathdefault" style="margin-right:0.10903em;">N</span><span class="mopen">(</span><span class="mord mathdefault">μ</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">Σ</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">:</span></span></span><span style="top:-2.4367525em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault">p</span><span class="mopen">(</span><span class="mord"><span class="mord mathbf">x</span></span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.845108em;"><span style="top:-2.614575em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mopen mtight">(</span><span class="mord mtight">2</span><span class="mord mathdefault mtight" style="margin-right:0.03588em;">π</span><span class="mclose mtight"><span class="mclose mtight">)</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8220357142857143em;"><span style="top:-2.8220357142857138em;margin-right:0.07142857142857144em;"><span class="pstrut" style="height:2.5357142857142856em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">d</span><span class="mord mtight">/</span><span class="mord mtight">2</span></span></span></span></span></span></span></span></span><span class="mord mtight">∣</span><span class="mord mtight">Σ</span><span class="mord mtight"><span class="mord mtight">∣</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8220357142857143em;"><span style="top:-2.8220357142857138em;margin-right:0.07142857142857144em;"><span class="pstrut" style="height:2.5357142857142856em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight"><span class="mord mtight">1</span><span class="mord mtight">/</span><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.560425em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mord"><span class="mord mathdefault">e</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.98692em;"><span style="top:-3.363em;margin-right:0.05em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">−</span><span class="mord mtight"><span class="mopen nulldelimiter sizing reset-size3 size6"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8443142857142858em;"><span style="top:-2.656em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span><span style="top:-3.2255000000000003em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line mtight" style="border-bottom-width:0.049em;"></span></span><span style="top:-3.384em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight"><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.344em;"><span></span></span></span></span></span><span class="mclose nulldelimiter sizing reset-size3 size6"></span></span><span class="mopen mtight">(</span><span class="mord mtight"><span class="mord mathbf mtight">x</span></span><span class="mbin mtight">−</span><span class="mord mathdefault mtight">μ</span><span class="mclose mtight"><span class="mclose mtight">)</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8703428571428571em;"><span style="top:-2.931em;margin-right:0.07142857142857144em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">t</span></span></span></span></span></span></span></span></span><span class="mord mtight"><span class="mord mtight">Σ</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8913142857142857em;"><span style="top:-2.931em;margin-right:0.07142857142857144em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight"><span class="mord mtight">−</span><span class="mord mtight">1</span></span></span></span></span></span></span></span></span><span class="mopen mtight">(</span><span class="mord mtight"><span class="mord mathbf mtight">x</span></span><span class="mbin mtight">−</span><span class="mord mathdefault mtight">μ</span><span class="mclose mtight">)</span></span></span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.1236725em;"><span></span></span></span></span></span><span class="arraycolsep" style="width:0.5em;"></span></span></span></span></span></span></span></p>
 <p>这边的 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi mathvariant="normal">Σ</mi></mrow><annotation encoding="application/x-tex">\Sigma</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord">Σ</span></span></span></span> 表示 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi mathvariant="bold">x</mi></mrow><annotation encoding="application/x-tex">\mathbf{x}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.44444em;vertical-align:0em;"></span><span class="mord"><span class="mord mathbf">x</span></span></span></span></span> 中多个参数之间的协方差。<br>
-<img src="https://liuxuejun123.github.io//post-images/1593592056727.png" alt="" loading="lazy"></p>
+<img src="https://liuxuejun123.github.io/post-images/1593592056727.png" alt="" loading="lazy"></p>
 <h4 id="物理上的意义">物理上的意义</h4>
 <h5 id="1d">1D</h5>
-<figure data-type="image" tabindex="2"><img src="https://liuxuejun123.github.io//post-images/1593592076025.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="2"><img src="https://liuxuejun123.github.io/post-images/1593592076025.png" alt="" loading="lazy"></figure>
 <h5 id="2d">2D</h5>
-<figure data-type="image" tabindex="3"><img src="https://liuxuejun123.github.io//post-images/1593592263914.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="3"><img src="https://liuxuejun123.github.io/post-images/1593592263914.png" alt="" loading="lazy"></figure>
 <h5 id="3d">3D</h5>
-<figure data-type="image" tabindex="4"><img src="https://liuxuejun123.github.io//post-images/1593592125063.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="4"><img src="https://liuxuejun123.github.io/post-images/1593592125063.png" alt="" loading="lazy"></figure>
 <h4 id="例子离散卡尔曼滤波">例子：离散卡尔曼滤波</h4>
 <h5 id="状态">状态：</h5>
 <p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>x</mi><mi>t</mi></msub><mo>=</mo><msub><mi>A</mi><mi>t</mi></msub><msub><mi>x</mi><mrow><mi>t</mi><mo>−</mo><mn>1</mn></mrow></msub><mo>+</mo><msub><mi>B</mi><mi>t</mi></msub><msub><mi>u</mi><mi>t</mi></msub><mo>+</mo><msub><mi>ε</mi><mi>t</mi></msub></mrow><annotation encoding="application/x-tex">x_{t}=A_{t} x_{t-1}+B_{t} u_{t}+\varepsilon_{t}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2805559999999999em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">t</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.891661em;vertical-align:-0.208331em;"></span><span class="mord"><span class="mord mathdefault">A</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2805559999999999em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">t</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord"><span class="mord mathdefault">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.301108em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">t</span><span class="mbin mtight">−</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.208331em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.05017em;">B</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2805559999999999em;"><span style="top:-2.5500000000000003em;margin-left:-0.05017em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">t</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord"><span class="mord mathdefault">u</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2805559999999999em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">t</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">ε</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2805559999999999em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">t</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></p>
@@ -620,29 +624,29 @@ p(\mathbf{x})=\frac{1}{(2 \pi)^{d / 2}|\Sigma|^{1 / 2}} e^{-\frac{1}{2}(\mathbf{
 <ul>
 <li>
 <p>预测<br>
-<img src="https://liuxuejun123.github.io//post-images/1593592929064.png" alt="" loading="lazy"></p>
+<img src="https://liuxuejun123.github.io/post-images/1593592929064.png" alt="" loading="lazy"></p>
 </li>
 <li>
 <p>测量</p>
 </li>
 </ul>
-<figure data-type="image" tabindex="5"><img src="https://liuxuejun123.github.io//post-images/1593592940958.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="5"><img src="https://liuxuejun123.github.io/post-images/1593592940958.png" alt="" loading="lazy"></figure>
 <ul>
 <li>更新<br>
-<img src="https://liuxuejun123.github.io//post-images/1593593001076.png" alt="" loading="lazy"></li>
+<img src="https://liuxuejun123.github.io/post-images/1593593001076.png" alt="" loading="lazy"></li>
 <li>下一时刻预测：</li>
 </ul>
-<figure data-type="image" tabindex="6"><img src="https://liuxuejun123.github.io//post-images/1593593017286.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="6"><img src="https://liuxuejun123.github.io/post-images/1593593017286.png" alt="" loading="lazy"></figure>
 <ul>
 <li>
 <p>新的测量：<br>
-<img src="https://liuxuejun123.github.io//post-images/1593593034885.png" alt="" loading="lazy"></p>
+<img src="https://liuxuejun123.github.io/post-images/1593593034885.png" alt="" loading="lazy"></p>
 </li>
 <li>
 <p>新的更新：</p>
 </li>
 </ul>
-<figure data-type="image" tabindex="7"><img src="https://liuxuejun123.github.io//post-images/1593593057616.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="7"><img src="https://liuxuejun123.github.io/post-images/1593593057616.png" alt="" loading="lazy"></figure>
 <h4 id="matlab-代码">matlab 代码</h4>
 <pre><code class="language-matlab">%
 function [x,P] = kf_predict(x,P,A,Q,B,u)
@@ -715,7 +719,7 @@ end
         </link>
         <updated>2020-06-20T12:44:19.000Z</updated>
         <content type="html"><![CDATA[<h2 id="贝叶斯公式">贝叶斯公式</h2>
-<figure data-type="image" tabindex="1"><img src="https://liuxuejun123.github.io//post-images/1592657208463.PNG" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="1"><img src="https://liuxuejun123.github.io/post-images/1592657208463.PNG" alt="" loading="lazy"></figure>
 <p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>P</mi><mo>(</mo><mi>x</mi><mo separator="true">,</mo><mi>y</mi><mo>)</mo><mo>=</mo><mi>P</mi><mo>(</mo><mi>x</mi><mi mathvariant="normal">∣</mi><mi>y</mi><mo>)</mo><mi>P</mi><mo>(</mo><mi>y</mi><mo>)</mo><mo>=</mo><mi>P</mi><mo>(</mo><mi>y</mi><mi mathvariant="normal">∣</mi><mi>x</mi><mo>)</mo><mi>P</mi><mo>(</mo><mi>x</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">P(x, y)=P(x | y) P(y)=P(y | x) P(x)
 </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">P</span><span class="mopen">(</span><span class="mord mathdefault">x</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">P</span><span class="mopen">(</span><span class="mord mathdefault">x</span><span class="mord">∣</span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="mclose">)</span><span class="mord mathdefault" style="margin-right:0.13889em;">P</span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">P</span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="mord">∣</span><span class="mord mathdefault">x</span><span class="mclose">)</span><span class="mord mathdefault" style="margin-right:0.13889em;">P</span><span class="mopen">(</span><span class="mord mathdefault">x</span><span class="mclose">)</span></span></span></span></span></p>
 <p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>P</mi><mo>(</mo><mi>x</mi><mi mathvariant="normal">∣</mi><mi>y</mi><mo>)</mo><mo>=</mo><mfrac><mrow><mi>P</mi><mo>(</mo><mi>y</mi><mi mathvariant="normal">∣</mi><mi>x</mi><mo>)</mo><mi>P</mi><mo>(</mo><mi>x</mi><mo>)</mo></mrow><mrow><mi>P</mi><mo>(</mo><mi>y</mi><mo>)</mo></mrow></mfrac><mo>=</mo><mfrac><mrow><mtext> likelihood </mtext><mo>⋅</mo><mtext> prior </mtext></mrow><mtext> evidence </mtext></mfrac></mrow><annotation encoding="application/x-tex">P(x | y)=\frac{P(y | x) P(x)}{P(y)}=\frac{\text { likelihood } \cdot \text { prior }}{\text { evidence }}
@@ -802,8 +806,8 @@ bel(x_{t})=p\left(x_{t} | z_{1_{1, t}}, u_{1_{1, t}}\right) &amp;=\frac{p\left(z
         <content type="html"><![CDATA[<h4 id="1-下载python3738没尝试过感兴趣的大佬可以尝试下">1. 下载Python3.7(3.8没尝试过，感兴趣的大佬可以尝试下)</h4>
 <pre><code class="language-http">https://www.python.org/
 </code></pre>
-<p><img src="https://liuxuejun123.github.io//post-images/1590915994706.PNG" alt="" loading="lazy"><br>
-<img src="https://liuxuejun123.github.io//post-images/1590916106544.PNG" alt="" loading="lazy"><br>
+<p><img src="https://liuxuejun123.github.io/post-images/1590915994706.PNG" alt="" loading="lazy"><br>
+<img src="https://liuxuejun123.github.io/post-images/1590916106544.PNG" alt="" loading="lazy"><br>
 选择 3.7.7<br>
 接下的安装环节不多赘述。<br>
 安装后 WIN+R 输入CMD<br>
@@ -813,7 +817,7 @@ bel(x_{t})=p\left(x_{t} | z_{1_{1, t}}, u_{1_{1, t}}\right) &amp;=\frac{p\left(z
 <pre><code class="language-http">https://pypi.org/project/pip/
 </code></pre>
 <p>Navigation -&gt; Download files -&gt; pip-20.1.1.tar.gz<br>
-<img src="https://liuxuejun123.github.io//post-images/1590916399879.PNG" alt="" loading="lazy"></p>
+<img src="https://liuxuejun123.github.io/post-images/1590916399879.PNG" alt="" loading="lazy"></p>
 <h4 id="3下载依赖提供了某盘下载链接需要可直接下载">3.下载依赖，提供了某盘下载链接需要可直接下载：</h4>
 <pre><code class="language-http">https://pan.baidu.com/s/1_nGR8KRybJAeHil53KJ6jg  {ij4j} 
 </code></pre>
@@ -846,23 +850,23 @@ pip install -r requirements.txt<br>
 In Proteus in an existing project, change MOTOR-ENCODER to MOTOR-SERVO. Connect signal from MOTOR-SERVO sensor to MC ADC input.<br>
 In Keil, supplement the project for the microcontroller. Setup ADC for continuous mode and send value of MOTOR-SERVO sensor to Simulink.</p>
 <h4 id="the-simulation-block-diagram-is-as-follows">The simulation block diagram is as follows</h4>
-<figure data-type="image" tabindex="1"><img src="https://liuxuejun123.github.io//post-images/1589019498905.PNG" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="1"><img src="https://liuxuejun123.github.io/post-images/1589019498905.PNG" alt="" loading="lazy"></figure>
 <h4 id="introduction-to-adc">Introduction to ADC</h4>
 <p>The STM32F4xx series generally have 3 ADCs. These ADCs can be used independently or in dual / triple mode (increasing the sampling rate). The STM32F4 ADC is a 12-bit successive approximation type analog-to-digital converter. It has 19 channels and can measure signals from 16 external sources, 2 internal sources, and Vbat channels. The A / D conversion of these channels can be performed in single, continuous, scan or discontinuous mode. The result of ADC can be stored in 16-bit data register with left or right alignment. The analog watchdog feature allows the application to detect whether the input voltage exceeds a user-defined high / low threshold.</p>
 <h4 id="adc-cr1">ADC-CR1</h4>
-<p><img src="https://liuxuejun123.github.io//post-images/1589020471888.png" alt="" loading="lazy"><br>
+<p><img src="https://liuxuejun123.github.io/post-images/1589020471888.png" alt="" loading="lazy"><br>
 The SCAN bit of ADC_CR1, which is used to set the scan mode, is set and cleared by software. If it is set to 1, the scan mode is used, if it is 0, the scan mode is turned off. In scan mode, the channel selected by the ADC_SQRx or ADC_JSQRx register is converted. If EOCIE or JEOCIE is set, the EOC or JEOC interrupt will be generated only after the last channel conversion is completed.</p>
 <p>ADC_CR1 [25:24] is used to set the resolution of the ADC, the detailed correspondence is shown in the figure<br>
-<img src="https://liuxuejun123.github.io//post-images/1589020492776.png" alt="" loading="lazy"></p>
+<img src="https://liuxuejun123.github.io/post-images/1589020492776.png" alt="" loading="lazy"></p>
 <h4 id="adc-cr2">ADC-CR2</h4>
-<p><img src="https://liuxuejun123.github.io//post-images/1589020513687.png" alt="" loading="lazy"><br>
+<p><img src="https://liuxuejun123.github.io/post-images/1589020513687.png" alt="" loading="lazy"><br>
 The ADON bit is used to switch the AD converter. The CONT bit is used to set whether to perform continuous conversion, we use a single conversion, so the CONT bit must be 0. ALIGN is used to set the data alignment, we use right alignment, this bit is set to 0.</p>
 <p>EXTEN [1: 0] is used to set the external trigger enable of the regular channel, the detailed setting relationship is shown in the figure<br>
-<img src="https://liuxuejun123.github.io//post-images/1589020533397.png" alt="" loading="lazy"></p>
+<img src="https://liuxuejun123.github.io/post-images/1589020533397.png" alt="" loading="lazy"></p>
 <h4 id="adc-smpr1">ADC-SMPR1</h4>
-<p><img src="https://liuxuejun123.github.io//post-images/1589020550607.png" alt="" loading="lazy"><br>
+<p><img src="https://liuxuejun123.github.io/post-images/1589020550607.png" alt="" loading="lazy"><br>
 Here we list the correspondence between the pins of ADC1 ~ ADC3 and the channels. The correspondence between the 16 external sources is as follows:<br>
-<img src="https://liuxuejun123.github.io//post-images/1589020566976.png" alt="" loading="lazy"></p>
+<img src="https://liuxuejun123.github.io/post-images/1589020566976.png" alt="" loading="lazy"></p>
 <h3 id="code">Code</h3>
 <pre><code class="language-c">#include &quot;stm32f4xx.h&quot;
 #include &quot;stm32f4xx_hal_gpio.h&quot;
@@ -1150,9 +1154,9 @@ while(1)
 
 </code></pre>
 <h3 id="simulation-results">Simulation results</h3>
-<p><img src="https://liuxuejun123.github.io//post-images/1589020684510.PNG" alt="" loading="lazy"><br>
-<img src="https://liuxuejun123.github.io//post-images/1589020690747.PNG" alt="" loading="lazy"><br>
-<img src="https://liuxuejun123.github.io//post-images/1589020696109.PNG" alt="" loading="lazy"></p>
+<p><img src="https://liuxuejun123.github.io/post-images/1589020684510.PNG" alt="" loading="lazy"><br>
+<img src="https://liuxuejun123.github.io/post-images/1589020690747.PNG" alt="" loading="lazy"><br>
+<img src="https://liuxuejun123.github.io/post-images/1589020696109.PNG" alt="" loading="lazy"></p>
 ]]></content>
     </entry>
     <entry>
@@ -1161,7 +1165,7 @@ while(1)
         <link href="https://liuxuejun123.github.io/post/stm32-h-qiao-qu-dong-dian-ji-chuan-kou-kong-zhi-jie-shou-matlabproteus-lian-he-diao-shi/">
         </link>
         <updated>2020-04-29T15:23:49.000Z</updated>
-        <content type="html"><![CDATA[<figure data-type="image" tabindex="1"><img src="https://liuxuejun123.github.io//post-images/1588173952599.PNG" alt="" loading="lazy"></figure>
+        <content type="html"><![CDATA[<figure data-type="image" tabindex="1"><img src="https://liuxuejun123.github.io/post-images/1588173952599.PNG" alt="" loading="lazy"></figure>
 <h2 id="problem-description">Problem Description</h2>
 <ol>
 <li>Create motor control system<br>
@@ -1176,16 +1180,16 @@ For receive data from microcontroller use Simulink model, and show received data
 <p>After analyzing the entire task, the main solution：</p>
 <p>Enable TIM3 PWM output mode Configure channel 1 (PA6), channel 2 (PA7), and control the high and low levels of PA5 and PA6. Matlab sends a number of -100-100 to indicate the direction and speed of the motor. After the serial port receives the data, it controls the motor after the data is processed, and then processes the encoded signal output by the motor through the TIM4 encoding function to obtain the speed of the motor, and Resend to Matlab via serial communication</p>
 <h2 id="tim-pwm-mode-and-configuration-method">Tim PWM mode and configuration method</h2>
-<p><img src="https://liuxuejun123.github.io//post-images/1588173937637.png" alt="" loading="lazy"><br>
+<p><img src="https://liuxuejun123.github.io/post-images/1588173937637.png" alt="" loading="lazy"><br>
 The general-purpose timer can use the GPIO pin for pulse output. When it is configured as a comparison output or a PWM output function, the capture / compare register TIMx_CCR is used as a comparison function, which is referred to as a comparison register below.<br>
 Here is a direct example to illustrate the working process of the PWM output of the timer: if the pulse counter TIMx_CNT is configured to count up, and the reload register TIMx_ARR is configured to N, that is, the current count value X of the TIMx_CNT is continuously accumulated under the drive of the TIMxCLK clock source When the value X of TIMx_CNT is greater than N, the value of TIMx_CNT will be reset to 0 and counted again.<br>
 While counting TIMxCNT, the count value X of TIMxCNT will be compared with the value A pre-stored in the comparison register TIMx_CCR. When the value X of the pulse counter TIMx_CNT is less than the value A of the comparison register TIMx_CCR, the high level (or low Level), conversely, when the value X of the pulse counter is greater than or equal to the value A of the comparison register, a low level (or high level) is output.<br>
 In this way, the output pulse period is the value (N + 1) stored in the reload register TIMx_ARR multiplied by the clock period of the trigger pulse, and the pulse width is the value A of the comparison register TIMx_CCR multiplied by the clock period of the trigger pulse, that is The duty cycle of the output PWM is A / (N + 1).</p>
 <h2 id="encoder-interface-mode">Encoder interface mode</h2>
-<p><img src="https://liuxuejun123.github.io//post-images/1588173997249.PNG" alt="" loading="lazy"><br>
+<p><img src="https://liuxuejun123.github.io/post-images/1588173997249.PNG" alt="" loading="lazy"><br>
 When both AB are the same, a square wave is output, and the phase difference is 90 °. We can judge the forward and reverse by judging the order of the level transition of the two phases of AB, and we can also determine the number of level transitions of any one phase. Rotation speed</p>
 <h2 id="timx-capturecompare-mode-register-1-timx_ccmr1">TIMx capture/compare mode register 1 (TIMx_CCMR1)</h2>
-<figure data-type="image" tabindex="2"><img src="https://liuxuejun123.github.io//post-images/1588174028343.PNG" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="2"><img src="https://liuxuejun123.github.io/post-images/1588174028343.PNG" alt="" loading="lazy"></figure>
 <h4 id="bits-98-cc2s10-capturecompare-2-selection">Bits 9:8 CC2S[1:0]: Capture/Compare 2 selection</h4>
 <p>This bit-field defines the direction of the channel (input/output) as well as the used input.<br>
 00: CC2 channel is configured as output<br>
@@ -1203,7 +1207,7 @@ Note: CC2S bits are writable only when the channel is OFF (CC2E = 0 in TIMx_CCER
 an internal trigger input is selected through TS bit (TIMx_SMCR register)<br>
 Note: CC1S bits are writable only when the channel is OFF (CC1E = 0 in TIMx_CCER).</p>
 <h2 id="timx-capturecompare-enable-register-timx_ccer">TIMx capture/compare enable register (TIMx_CCER)</h2>
-<figure data-type="image" tabindex="3"><img src="https://liuxuejun123.github.io//post-images/1588174071967.PNG" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="3"><img src="https://liuxuejun123.github.io/post-images/1588174071967.PNG" alt="" loading="lazy"></figure>
 <h4 id="bit-4-cc2e-capturecompare-2-output-enable">Bit 4 CC2E: Capture/Compare 2 output enable.</h4>
 <p>refer to CC1E description</p>
 <h4 id="bit-0-cc1e-capturecompare-1-output-enable">Bit 0 CC1E: Capture/Compare 1 output enable.</h4>
@@ -1481,14 +1485,14 @@ while(1)
 </code></pre>
 <h3 id="simulation">Simulation</h3>
 <p>Matlab block diagram is as follows<br>
-<img src="https://liuxuejun123.github.io//post-images/1588174118895.PNG" alt="" loading="lazy"><br>
+<img src="https://liuxuejun123.github.io/post-images/1588174118895.PNG" alt="" loading="lazy"><br>
 Proteus block diagram is as follows:<br>
-<img src="https://liuxuejun123.github.io//post-images/1588174155802.png" alt="" loading="lazy"><br>
+<img src="https://liuxuejun123.github.io/post-images/1588174155802.png" alt="" loading="lazy"><br>
 The upper virtual terminal displays the output data, and the lower virtual terminal actually inputs<br>
-<img src="https://liuxuejun123.github.io//post-images/1588174192302.png" alt="" loading="lazy"><br>
-<img src="https://liuxuejun123.github.io//post-images/1588174202296.png" alt="" loading="lazy"><br>
-<img src="https://liuxuejun123.github.io//post-images/1588174210262.png" alt="" loading="lazy"><br>
-<img src="https://liuxuejun123.github.io//post-images/1588174223917.PNG" alt="" loading="lazy"></p>
+<img src="https://liuxuejun123.github.io/post-images/1588174192302.png" alt="" loading="lazy"><br>
+<img src="https://liuxuejun123.github.io/post-images/1588174202296.png" alt="" loading="lazy"><br>
+<img src="https://liuxuejun123.github.io/post-images/1588174210262.png" alt="" loading="lazy"><br>
+<img src="https://liuxuejun123.github.io/post-images/1588174223917.PNG" alt="" loading="lazy"></p>
 <h2 id="conclusion">Conclusion</h2>
 <p>Through this experiment, I mainly learned to use the stm32 output PWM to control the motor, use the data received by the serial port to modify the PWM duty cycle, thereby changing the speed of the motor, and use the encoder function of stm32 to carry out the speed of the motor. Detect and send through the serial port.</p>
 ]]></content>
@@ -1524,22 +1528,22 @@ For receive data from microcontroller use Simulink model, and show received data
 This is selected by setting the relevant bit of TIMx_SMCR. The internal clock (CK_INT) comes from the APB1 or APB2 bus</p>
 <h3 id="12-prescaler-register-timx_psc">1.2 Prescaler register (TIMx_PSC)</h3>
 <p>This register is used to divide the clock and then provide it to the counter as the clock of the counter.</p>
-<figure data-type="image" tabindex="1"><img src="https://liuxuejun123.github.io//post-images/1588173281702.PNG" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="1"><img src="https://liuxuejun123.github.io/post-images/1588173281702.PNG" alt="" loading="lazy"></figure>
 <p>The 16-bit space stores the frequency division coefficient.</p>
 <h3 id="13-timer-count-register-timx_cnt">1.3 Timer count register (TIMx_CNT)</h3>
 <p>It stores the current count value of the timer.</p>
 <h3 id="14-automatic-reload-register-timx_arr">1.4 Automatic reload register (TIMx_ARR)</h3>
-<figure data-type="image" tabindex="2"><img src="https://liuxuejun123.github.io//post-images/1588173385400.PNG" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="2"><img src="https://liuxuejun123.github.io/post-images/1588173385400.PNG" alt="" loading="lazy"></figure>
 <p>This register corresponds to two registers in the physical structure, one can be operated by the programmer, and the other is invisible and inoperable ARM called it as the shadow register. The shadow registers are actually in effect.<br>
 According to the setting of the APRE bit in the TIMx_CR1 register: when APRE = 0, the contents of the preload register can be transferred to the shadow register at any time, and the two are connected at this time; and when APRE = 1, at each update event (UEV) Before the contents of the preload register (ARR) are transferred to the shadow register.</p>
 <h3 id="15-dma-interrupt-enable-register-timx_dier">1.5 DMA / Interrupt Enable Register (TIMx_DIER)</h3>
-<figure data-type="image" tabindex="3"><img src="https://liuxuejun123.github.io//post-images/1588173450494.PNG" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="3"><img src="https://liuxuejun123.github.io/post-images/1588173450494.PNG" alt="" loading="lazy"></figure>
 <p>Here we only use the last bit: update interrupt enable (UIE: update interrupt enable), set to 1 instead to allow interrupts caused by update events</p>
 <h3 id="16-control-register-1-timx_cr1">1.6 Control Register 1 (TIMx_CR1)</h3>
-<figure data-type="image" tabindex="4"><img src="https://liuxuejun123.github.io//post-images/1588173463731.PNG" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="4"><img src="https://liuxuejun123.github.io/post-images/1588173463731.PNG" alt="" loading="lazy"></figure>
 <p>We only need to use the last bit: the counter enable bit (CEN: counter enable), instead it must be set to 1 to enable the counter to start counting.</p>
 <h3 id="17-status-register-timx_sr">1.7 Status register (TIMx_SR)</h3>
-<p><img src="https://liuxuejun123.github.io//post-images/1588173472820.PNG" alt="" loading="lazy">![]</p>
+<p><img src="https://liuxuejun123.github.io/post-images/1588173472820.PNG" alt="" loading="lazy">![]</p>
 <p>This register is used to mark whether various events / interrupts related to the current timer have occurred</p>
 <h2 id="code">Code</h2>
 <pre><code class="language-c">#include &quot;stm32f4xx.h&quot;
@@ -1724,11 +1728,11 @@ while(1)
 }
 </code></pre>
 <h3 id="simulation">Simulation</h3>
-<figure data-type="image" tabindex="5"><img src="https://liuxuejun123.github.io//post-images/1588173500577.PNG" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="5"><img src="https://liuxuejun123.github.io/post-images/1588173500577.PNG" alt="" loading="lazy"></figure>
 <p>Press the switch to change the LED on and off</p>
-<figure data-type="image" tabindex="6"><img src="https://liuxuejun123.github.io//post-images/1588173644598.png" alt="" loading="lazy"></figure>
-<figure data-type="image" tabindex="7"><img src="https://liuxuejun123.github.io//post-images/1588173757806.png" alt="" loading="lazy"></figure>
-<figure data-type="image" tabindex="8"><img src="https://liuxuejun123.github.io//post-images/1588173788729.PNG" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="6"><img src="https://liuxuejun123.github.io/post-images/1588173644598.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="7"><img src="https://liuxuejun123.github.io/post-images/1588173757806.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="8"><img src="https://liuxuejun123.github.io/post-images/1588173788729.PNG" alt="" loading="lazy"></figure>
 <h2 id="conclusion">Conclusion</h2>
 <p>Through this experiment, I learned the configuration of timers and the use of timer interrupts. And use Matlab simulink to observe the simulation situation through the virtual serial port. During the experiment, I also encountered some problems. Finding information through the Internet made me clearer about the whole process.</p>
 ]]></content>

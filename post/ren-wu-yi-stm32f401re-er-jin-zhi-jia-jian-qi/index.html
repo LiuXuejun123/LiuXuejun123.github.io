@@ -4,13 +4,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Liu Xuejun&#39;s Blog</title>
 <meta name="description" content="念念不忘，必有回响" />
-<link rel="shortcut icon" href="https://liuxuejun123.github.io//favicon.ico?v=1619259101705">
+<link rel="shortcut icon" href="https://liuxuejun123.github.io/favicon.ico?v=1619260564153">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
 
-<link rel="stylesheet" href="https://liuxuejun123.github.io//styles/main.css">
+<link rel="stylesheet" href="https://liuxuejun123.github.io/styles/main.css">
 <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
 
 
@@ -22,8 +22,8 @@
     <div class="sidebar-content">
       <div class="flex lg:block p-4 lg:px-0 items-center fixed lg:static lg:block top-0 right-0 left-0 bg-white z-50">
         <i class="ri-menu-2-line lg:mt-4 text-2xl cursor-pointer animated fadeIn" onclick="openMenu()"></i>
-        <a href="https://liuxuejun123.github.io/">
-          <img class="animated fadeInLeft avatar rounded-lg mx-4 lg:mt-32 lg:mx-0 mt-0 lg:w-24 lg:h-24 w-12 w-12" src="https://liuxuejun123.github.io//images/avatar.png?v=1619259101705" alt="">
+        <a href="https://liuxuejun123.github.io">
+          <img class="animated fadeInLeft avatar rounded-lg mx-4 lg:mt-32 lg:mx-0 mt-0 lg:w-24 lg:h-24 w-12 w-12" src="https://liuxuejun123.github.io/images/avatar.png?v=1619260564153" alt="">
         </a>
         <h1 class="animated fadeInLeft lg:text-4xl font-extrabold lg:mt-8 mt-0 text-xl" style="animation-delay: 0.2s">Liu Xuejun&#39;s Blog</h1>
       </div>
@@ -96,7 +96,7 @@ Copyright 2020 &copy
 <br><br>
 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="blank"
 <span style="color:orange">本博客采用 CC BY-NC-SA 4.0 进行许可</span></a></div>
-    <a class="rss" href="https://liuxuejun123.github.io//atom.xml" target="_blank">RSS</a>
+    <a class="rss" href="https://liuxuejun123.github.io/atom.xml" target="_blank">RSS</a>
   </div>
 </div>
 <div class="mask" onclick="closeMenu()">
@@ -124,13 +124,13 @@ Copyright 2020 &copy
 <h3 id="1hardware-circuit-construction">1.Hardware circuit construction</h3>
 <p>​     We need 8 pins for connecting the LED, 2 pins for the switch, and the pin connected to the LED outputs high level to light up the LED,and the pin connected to the switch can be triggered by a low level.</p>
 <p>The schematic diagram is as follows:<br>
-<img src="https://liuxuejun123.github.io//post-images/1586173799153.PNG" alt="" loading="lazy"><br>
+<img src="https://liuxuejun123.github.io/post-images/1586173799153.PNG" alt="" loading="lazy"><br>
 I chose PIN0-PIN7 of GPIOB as 8-bit LED output,adnPIN8 and PIN9 of GPIOA as key signal input.</p>
 <h3 id="2port-initialization">2.Port initialization</h3>
 <p>Set GPIOB_PIN0-PIN7 output mode,GPIOA_PIN8 and PIN9 input mode.</p>
 <p>Looking up the technical manual, we can know the chip uses two bits of data in the register to control the mode of the port.</p>
 <p>As shown below：<br>
-<img src="https://liuxuejun123.github.io//post-images/1586173826302.PNG" alt="" loading="lazy"></p>
+<img src="https://liuxuejun123.github.io/post-images/1586173826302.PNG" alt="" loading="lazy"></p>
 <p>we can known GPIOB MODER register control word is 0x000‭55550‬.</p>
 <p>GPIOA MODER register control word is 0x00000000.</p>
 <h3 id="3code">3.code</h3>
@@ -188,11 +188,11 @@ int main()
 </code></pre>
 <h3 id="4experimental-results">4.Experimental results</h3>
 <p>At the beginning of simulation, the initial value is 0, and the 8-bit LED is not on<br>
-<img src="https://liuxuejun123.github.io//post-images/1586173840804.PNG" alt="" loading="lazy"></p>
+<img src="https://liuxuejun123.github.io/post-images/1586173840804.PNG" alt="" loading="lazy"></p>
 <p>Press the ADDITION button to increase the value to 7. At this time, the eight bit LED displays its binary as follows</p>
-<figure data-type="image" tabindex="1"><img src="https://liuxuejun123.github.io//post-images/1586173846367.PNG" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="1"><img src="https://liuxuejun123.github.io/post-images/1586173846367.PNG" alt="" loading="lazy"></figure>
 <p>Press the SUBTRACTION button once, the value will be reduced to 6, and the LED will display as follows<br>
-<img src="https://liuxuejun123.github.io//post-images/1586173853148.PNG" alt="" loading="lazy"></p>
+<img src="https://liuxuejun123.github.io/post-images/1586173853148.PNG" alt="" loading="lazy"></p>
 <h2 id="conclusion">Conclusion</h2>
 <p>Through this experiment, I learned the initialization of the io and the control of the high and low level of the io port, and learned to use the io pin to control other io.</p>
 
@@ -237,7 +237,7 @@ int main()
       </div>
     </div>
 
-    <script src="https://liuxuejun123.github.io//media/prism.js"></script>  
+    <script src="https://liuxuejun123.github.io/media/prism.js"></script>  
 <script>
 
 Prism.highlightAll()

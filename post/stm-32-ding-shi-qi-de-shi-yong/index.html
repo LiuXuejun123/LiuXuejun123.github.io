@@ -4,13 +4,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Liu Xuejun&#39;s Blog</title>
 <meta name="description" content="念念不忘，必有回响" />
-<link rel="shortcut icon" href="https://liuxuejun123.github.io//favicon.ico?v=1619259101705">
+<link rel="shortcut icon" href="https://liuxuejun123.github.io/favicon.ico?v=1619260564153">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
 
-<link rel="stylesheet" href="https://liuxuejun123.github.io//styles/main.css">
+<link rel="stylesheet" href="https://liuxuejun123.github.io/styles/main.css">
 <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
 
 
@@ -22,8 +22,8 @@
     <div class="sidebar-content">
       <div class="flex lg:block p-4 lg:px-0 items-center fixed lg:static lg:block top-0 right-0 left-0 bg-white z-50">
         <i class="ri-menu-2-line lg:mt-4 text-2xl cursor-pointer animated fadeIn" onclick="openMenu()"></i>
-        <a href="https://liuxuejun123.github.io/">
-          <img class="animated fadeInLeft avatar rounded-lg mx-4 lg:mt-32 lg:mx-0 mt-0 lg:w-24 lg:h-24 w-12 w-12" src="https://liuxuejun123.github.io//images/avatar.png?v=1619259101705" alt="">
+        <a href="https://liuxuejun123.github.io">
+          <img class="animated fadeInLeft avatar rounded-lg mx-4 lg:mt-32 lg:mx-0 mt-0 lg:w-24 lg:h-24 w-12 w-12" src="https://liuxuejun123.github.io/images/avatar.png?v=1619260564153" alt="">
         </a>
         <h1 class="animated fadeInLeft lg:text-4xl font-extrabold lg:mt-8 mt-0 text-xl" style="animation-delay: 0.2s">Liu Xuejun&#39;s Blog</h1>
       </div>
@@ -103,7 +103,7 @@ Copyright 2020 &copy
 <br><br>
 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="blank"
 <span style="color:orange">本博客采用 CC BY-NC-SA 4.0 进行许可</span></a></div>
-    <a class="rss" href="https://liuxuejun123.github.io//atom.xml" target="_blank">RSS</a>
+    <a class="rss" href="https://liuxuejun123.github.io/atom.xml" target="_blank">RSS</a>
   </div>
 </div>
 <div class="mask" onclick="closeMenu()">
@@ -140,22 +140,22 @@ For receive data from microcontroller use Simulink model, and show received data
 This is selected by setting the relevant bit of TIMx_SMCR. The internal clock (CK_INT) comes from the APB1 or APB2 bus</p>
 <h3 id="12-prescaler-register-timx_psc">1.2 Prescaler register (TIMx_PSC)</h3>
 <p>This register is used to divide the clock and then provide it to the counter as the clock of the counter.</p>
-<figure data-type="image" tabindex="1"><img src="https://liuxuejun123.github.io//post-images/1588173281702.PNG" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="1"><img src="https://liuxuejun123.github.io/post-images/1588173281702.PNG" alt="" loading="lazy"></figure>
 <p>The 16-bit space stores the frequency division coefficient.</p>
 <h3 id="13-timer-count-register-timx_cnt">1.3 Timer count register (TIMx_CNT)</h3>
 <p>It stores the current count value of the timer.</p>
 <h3 id="14-automatic-reload-register-timx_arr">1.4 Automatic reload register (TIMx_ARR)</h3>
-<figure data-type="image" tabindex="2"><img src="https://liuxuejun123.github.io//post-images/1588173385400.PNG" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="2"><img src="https://liuxuejun123.github.io/post-images/1588173385400.PNG" alt="" loading="lazy"></figure>
 <p>This register corresponds to two registers in the physical structure, one can be operated by the programmer, and the other is invisible and inoperable ARM called it as the shadow register. The shadow registers are actually in effect.<br>
 According to the setting of the APRE bit in the TIMx_CR1 register: when APRE = 0, the contents of the preload register can be transferred to the shadow register at any time, and the two are connected at this time; and when APRE = 1, at each update event (UEV) Before the contents of the preload register (ARR) are transferred to the shadow register.</p>
 <h3 id="15-dma-interrupt-enable-register-timx_dier">1.5 DMA / Interrupt Enable Register (TIMx_DIER)</h3>
-<figure data-type="image" tabindex="3"><img src="https://liuxuejun123.github.io//post-images/1588173450494.PNG" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="3"><img src="https://liuxuejun123.github.io/post-images/1588173450494.PNG" alt="" loading="lazy"></figure>
 <p>Here we only use the last bit: update interrupt enable (UIE: update interrupt enable), set to 1 instead to allow interrupts caused by update events</p>
 <h3 id="16-control-register-1-timx_cr1">1.6 Control Register 1 (TIMx_CR1)</h3>
-<figure data-type="image" tabindex="4"><img src="https://liuxuejun123.github.io//post-images/1588173463731.PNG" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="4"><img src="https://liuxuejun123.github.io/post-images/1588173463731.PNG" alt="" loading="lazy"></figure>
 <p>We only need to use the last bit: the counter enable bit (CEN: counter enable), instead it must be set to 1 to enable the counter to start counting.</p>
 <h3 id="17-status-register-timx_sr">1.7 Status register (TIMx_SR)</h3>
-<p><img src="https://liuxuejun123.github.io//post-images/1588173472820.PNG" alt="" loading="lazy">![]</p>
+<p><img src="https://liuxuejun123.github.io/post-images/1588173472820.PNG" alt="" loading="lazy">![]</p>
 <p>This register is used to mark whether various events / interrupts related to the current timer have occurred</p>
 <h2 id="code">Code</h2>
 <pre><code class="language-c">#include &quot;stm32f4xx.h&quot;
@@ -340,11 +340,11 @@ while(1)
 }
 </code></pre>
 <h3 id="simulation">Simulation</h3>
-<figure data-type="image" tabindex="5"><img src="https://liuxuejun123.github.io//post-images/1588173500577.PNG" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="5"><img src="https://liuxuejun123.github.io/post-images/1588173500577.PNG" alt="" loading="lazy"></figure>
 <p>Press the switch to change the LED on and off</p>
-<figure data-type="image" tabindex="6"><img src="https://liuxuejun123.github.io//post-images/1588173644598.png" alt="" loading="lazy"></figure>
-<figure data-type="image" tabindex="7"><img src="https://liuxuejun123.github.io//post-images/1588173757806.png" alt="" loading="lazy"></figure>
-<figure data-type="image" tabindex="8"><img src="https://liuxuejun123.github.io//post-images/1588173788729.PNG" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="6"><img src="https://liuxuejun123.github.io/post-images/1588173644598.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="7"><img src="https://liuxuejun123.github.io/post-images/1588173757806.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="8"><img src="https://liuxuejun123.github.io/post-images/1588173788729.PNG" alt="" loading="lazy"></figure>
 <h2 id="conclusion">Conclusion</h2>
 <p>Through this experiment, I learned the configuration of timers and the use of timer interrupts. And use Matlab simulink to observe the simulation situation through the virtual serial port. During the experiment, I also encountered some problems. Finding information through the Internet made me clearer about the whole process.</p>
 
@@ -389,7 +389,7 @@ while(1)
       </div>
     </div>
 
-    <script src="https://liuxuejun123.github.io//media/prism.js"></script>  
+    <script src="https://liuxuejun123.github.io/media/prism.js"></script>  
 <script>
 
 Prism.highlightAll()
