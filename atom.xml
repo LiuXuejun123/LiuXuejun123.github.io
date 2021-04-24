@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://liuxuejun123.github.io/</id>
     <title>Liu Xuejun&apos;s Blog</title>
-    <updated>2021-04-24T10:12:53.836Z</updated>
+    <updated>2021-04-24T10:18:31.506Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://liuxuejun123.github.io/"/>
     <link rel="self" href="https://liuxuejun123.github.io/atom.xml"/>
@@ -11,12 +11,13 @@
     <icon>https://liuxuejun123.github.io/favicon.ico</icon>
     <rights>All rights reserved 2021, Liu Xuejun&apos;s Blog</rights>
     <entry>
-        <title type="html"><![CDATA[leetcode 每日一题 （368）]]></title>
+        <title type="html"><![CDATA[ Leetcode 每日一题 (368)]]></title>
         <id>https://liuxuejun123.github.io/post/leetcode-mei-ri-yi-ti-368/</id>
         <link href="https://liuxuejun123.github.io/post/leetcode-mei-ri-yi-ti-368/">
         </link>
-        <updated>2021-04-24T05:37:35.000Z</updated>
-        <content type="html"><![CDATA[<h4 id="368-最大整除子集"><a href="https://leetcode-cn.com/problems/largest-divisible-subset/">368. 最大整除子集</a></h4>
+        <updated>2021-04-24T10:17:18.000Z</updated>
+        <content type="html"><![CDATA[<h4 id="leetcode-每日一题">leetcode 每日一题</h4>
+<h4 id="368-最大整除子集"><a href="https://leetcode-cn.com/problems/largest-divisible-subset/">368. 最大整除子集</a></h4>
 <p>给你一个由 无重复 正整数组成的集合 nums ，请你找出并返回其中最大的整除子集 answer ，子集中每一元素对 (answer[i], answer[j]) 都应当满足：</p>
 <ul>
 <li>answer[i] % answer[j] == 0 ，或</li>
@@ -43,9 +44,12 @@
 <p>那么 subset ,针对新的元素n，满足如下条件</p>
 <p>n可以被subset内所有元素整除，也就是subset中最大的元素可以整除新元素n</p>
 <p>题意中需要输出最长的subset,那么需要实时记录当前最长subset的大小。</p>
-<p>dp：算法流程<br>
-<img src="https://liuxuejun123.github.io//post-images/1619242717948.PNG" alt="" loading="lazy"></p>
-<p>dp:算法</p>
+<p>dp:算法流程<br>
+<img src="https://liuxuejun123.github.io//post-images/1619259490324.PNG" alt="" loading="lazy"><br>
+<img src="https://liuxuejun123.github.io//post-images/1619259495354.PNG" alt="" loading="lazy"><br>
+<img src="https://liuxuejun123.github.io//post-images/1619259499607.PNG" alt="" loading="lazy"><br>
+<img src="https://liuxuejun123.github.io//post-images/1619259503320.PNG" alt="" loading="lazy"></p>
+<p>dp算法：</p>
 <pre><code class="language-C++">class Solution {
 public:
 vector&lt;int&gt; largestDivisibleSubset(vector&lt;int&gt;&amp; nums) {

@@ -4,7 +4,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Liu Xuejun&#39;s Blog</title>
 <meta name="description" content="念念不忘，必有回响" />
-<link rel="shortcut icon" href="https://liuxuejun123.github.io//favicon.ico?v=1619259101705">
+<link rel="shortcut icon" href="https://liuxuejun123.github.io//favicon.ico?v=1619259505905">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
@@ -23,7 +23,7 @@
       <div class="flex lg:block p-4 lg:px-0 items-center fixed lg:static lg:block top-0 right-0 left-0 bg-white z-50">
         <i class="ri-menu-2-line lg:mt-4 text-2xl cursor-pointer animated fadeIn" onclick="openMenu()"></i>
         <a href="https://liuxuejun123.github.io/">
-          <img class="animated fadeInLeft avatar rounded-lg mx-4 lg:mt-32 lg:mx-0 mt-0 lg:w-24 lg:h-24 w-12 w-12" src="https://liuxuejun123.github.io//images/avatar.png?v=1619259101705" alt="">
+          <img class="animated fadeInLeft avatar rounded-lg mx-4 lg:mt-32 lg:mx-0 mt-0 lg:w-24 lg:h-24 w-12 w-12" src="https://liuxuejun123.github.io//images/avatar.png?v=1619259505905" alt="">
         </a>
         <h1 class="animated fadeInLeft lg:text-4xl font-extrabold lg:mt-8 mt-0 text-xl" style="animation-delay: 0.2s">Liu Xuejun&#39;s Blog</h1>
       </div>
@@ -40,6 +40,7 @@
 <ul>
 <li>
 <ul>
+<li><a href="#leetcode-%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98">leetcode 每日一题</a></li>
 <li><a href="#368-%E6%9C%80%E5%A4%A7%E6%95%B4%E9%99%A4%E5%AD%90%E9%9B%86">368. 最大整除子集</a></li>
 <li><a href="#%E6%80%9D%E8%B7%AF">思路</a></li>
 </ul>
@@ -102,13 +103,14 @@ Copyright 2020 &copy
 <div class="mask" onclick="closeMenu()">
 </div>
       <div class="content-wrapper py-32 lg:p-8 lg:w-3/4 post-detail animated fadeIn">
-        <h1 class="text-3xl font-bold lg:mt-16">leetcode 每日一题 （368）</h1>
+        <h1 class="text-3xl font-bold lg:mt-16"> Leetcode 每日一题 (368)</h1>
         <div class="text-sm text-gray-700 lg:my-8">
           2021-04-24 / 2 min read
         </div>
         
         <div class="post-content yue">
-          <h4 id="368-最大整除子集"><a href="https://leetcode-cn.com/problems/largest-divisible-subset/">368. 最大整除子集</a></h4>
+          <h4 id="leetcode-每日一题">leetcode 每日一题</h4>
+<h4 id="368-最大整除子集"><a href="https://leetcode-cn.com/problems/largest-divisible-subset/">368. 最大整除子集</a></h4>
 <p>给你一个由 无重复 正整数组成的集合 nums ，请你找出并返回其中最大的整除子集 answer ，子集中每一元素对 (answer[i], answer[j]) 都应当满足：</p>
 <ul>
 <li>answer[i] % answer[j] == 0 ，或</li>
@@ -135,9 +137,12 @@ Copyright 2020 &copy
 <p>那么 subset ,针对新的元素n，满足如下条件</p>
 <p>n可以被subset内所有元素整除，也就是subset中最大的元素可以整除新元素n</p>
 <p>题意中需要输出最长的subset,那么需要实时记录当前最长subset的大小。</p>
-<p>dp：算法流程<br>
-<img src="https://liuxuejun123.github.io//post-images/1619242717948.PNG" alt="" loading="lazy"></p>
-<p>dp:算法</p>
+<p>dp:算法流程<br>
+<img src="https://liuxuejun123.github.io//post-images/1619259490324.PNG" alt="" loading="lazy"><br>
+<img src="https://liuxuejun123.github.io//post-images/1619259495354.PNG" alt="" loading="lazy"><br>
+<img src="https://liuxuejun123.github.io//post-images/1619259499607.PNG" alt="" loading="lazy"><br>
+<img src="https://liuxuejun123.github.io//post-images/1619259503320.PNG" alt="" loading="lazy"></p>
+<p>dp算法：</p>
 <pre><code class="language-C++">class Solution {
 public:
 vector&lt;int&gt; largestDivisibleSubset(vector&lt;int&gt;&amp; nums) {
