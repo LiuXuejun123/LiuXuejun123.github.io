@@ -30,27 +30,30 @@
       
         <div class="animated fadeInLeft" style="animation-delay: 0.4s">
           <p class="my-4 text-gray-600 font-light hidden lg:block">
-            文章目录
+            念念不忘，必有回响
           </p>
-          <div class="toc-container hidden lg:block">
-            <ul class="markdownIt-TOC">
-<li>
-<ul>
-<li>
-<ul>
-<li>
-<ul>
-<li><a href="#leetcode-%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98">leetcode 每日一题</a></li>
-<li><a href="#368-%E6%9C%80%E5%A4%A7%E6%95%B4%E9%99%A4%E5%AD%90%E9%9B%86">368. 最大整除子集</a></li>
-<li><a href="#%E6%80%9D%E8%B7%AF">思路</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-
+          <div class="animated fadeInLeft social-container hidden lg:block" style="animation-delay: 0.6s">
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
           </div>
         </div>
       
@@ -102,124 +105,28 @@ Copyright 2020 &copy
 </div>
 <div class="mask" onclick="closeMenu()">
 </div>
-      <div class="content-wrapper py-32 lg:p-8 lg:w-3/4 post-detail animated fadeIn">
-        <h1 class="text-3xl font-bold lg:mt-16"> Leetcode 每日一题 (368)</h1>
-        <div class="text-sm text-gray-700 lg:my-8">
-          2021-04-24 / 2 min read
-        </div>
+      <div class="content-wrapper py-32 lg:p-8 lg:w-3/4">
+        <h2 class="text-lg text-gray-700 mb-8">
+          <i class="ri-bookmark-line"></i> 数据结构与算法
+        </h2>
         
-        <div class="post-content yue">
-          <h4 id="leetcode-每日一题">leetcode 每日一题</h4>
-<h4 id="368-最大整除子集"><a href="https://leetcode-cn.com/problems/largest-divisible-subset/">368. 最大整除子集</a></h4>
-<p>给你一个由 无重复 正整数组成的集合 nums ，请你找出并返回其中最大的整除子集 answer ，子集中每一元素对 (answer[i], answer[j]) 都应当满足：</p>
-<ul>
-<li>answer[i] % answer[j] == 0 ，或</li>
-<li>answer[j] % answer[i] == 0</li>
-</ul>
-<p>如果存在多个有效解子集，返回其中任何一个均可。</p>
-<p>示例 1：</p>
-<pre><code>输入：nums = [1,2,3]
-输出：[1,2]
-解释：[1,3] 也会被视为正确答案。
-</code></pre>
-<p>示例 2：</p>
-<pre><code>输入：nums = [1,2,4,8]
-输出：[1,2,4,8]
-</code></pre>
-<p>提示：</p>
-<ul>
-<li>1 &lt;= nums.length &lt;= 1000</li>
-<li>1 &lt;= nums[i] &lt;= 2 * <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn><msup><mn>0</mn><mn>9</mn></msup></mrow><annotation encoding="application/x-tex">10^9</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord"><span class="mord">0</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">9</span></span></span></span></span></span></span></span></span></span></span></li>
-<li>nums 中的所有整数 互不相同</li>
-</ul>
-<h4 id="思路">思路</h4>
-<p>子集中的每个元素之间可以互相整除也就是互为倍数关系</p>
-<p>那么 subset ,针对新的元素n，满足如下条件</p>
-<p>n可以被subset内所有元素整除，也就是subset中最大的元素可以整除新元素n</p>
-<p>题意中需要输出最长的subset,那么需要实时记录当前最长subset的大小。</p>
-<p>dp:算法流程<br>
-<img src="https://liuxuejun123.github.io/post-images/1619259490324.PNG" alt="" loading="lazy"><br>
-<img src="https://liuxuejun123.github.io/post-images/1619259495354.PNG" alt="" loading="lazy"><br>
-<img src="https://liuxuejun123.github.io/post-images/1619259499607.PNG" alt="" loading="lazy"><br>
-<img src="https://liuxuejun123.github.io/post-images/1619259503320.PNG" alt="" loading="lazy"></p>
-<p>dp算法：</p>
-<pre><code class="language-C++">class Solution {
-public:
-vector&lt;int&gt; largestDivisibleSubset(vector&lt;int&gt;&amp; nums) {
-    int n=nums.size();
-    vector&lt;vector&lt;int&gt;&gt; dp;
-
-    sort(nums.begin(),nums.end());
-    int c=max(1,2);
-    for(int i=0;i&lt;n;i++)
-    {
-        vector&lt;int&gt; temp;
-        temp.push_back(nums[i]);
-        dp.push_back(temp);
-    }
-    int maxlen=0;
-    int maxindex=0;
-    for(int i=1;i&lt;n;i++)
-    {
-        for (int j = i-1; j &gt;= 0 ; --j) {
-            if (nums[i]%nums[j]==0&amp;&amp;dp[j].size()+1&gt;dp[i].size())
-            {
-                dp[i]=dp[j];
-                dp[i].push_back(nums[i]);
-                if(dp[i].size()&gt;maxlen)
-                {
-                    maxlen=dp[i].size();
-                    maxindex=i;
-                }
-            }
-        }
-    }
-    return dp[maxindex];
-}
-};
-</code></pre>
-
-        </div>
-
+  <section class="post-item md:flex pb-12 animated fadeIn" :style="{ 'animation-delay': `${0 * 0.2}s` }">
+    
+    <div class="content">
+      <a href="https://liuxuejun123.github.io/post/dan-xiang-lian-biao/">
+        <h2 class="post-title text-xl font-extrabold mt-5 md:mt-0">单向链表</h2>
+      </a>
+      <div class="post-abstract text-gray-700 font-light my-4">
         
-          <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="https://liuxuejun123.github.io/tag/RqfO8Ll8Q/">
-            <span class="flex-auto">LeetCode</span>
-          </a>
-        
+      </div>
+      <div class="text-gray-400 text-sm font-light">2020-11-10 / 6 min read</div>
+    </div>
+  </section>
 
-
-        <div class="flex justify-between py-8">
-          
-            <div class="prev-post">
-              <a href="https://liuxuejun123.github.io/post/unix-gao-ji-huan-jing-bian-cheng-apueh-tou-wen-jian-pei-zhi/">
-                <h3 class="post-title">
-                  <i class="ri-arrow-left-line"></i>
-                   UNIX 高级环境编程（APUE.h头文件配置）
-                </h3>
-              </a>
-            </div>
-          
-
-          
-            <div class="next-post">
-              <a href="https://liuxuejun123.github.io/post/dan-xiang-lian-biao/">
-                <h3 class="post-title">
-                  单向链表
-                  <i class="ri-arrow-right-line"></i>
-                </h3>
-              </a>
-            </div>
-          
-        </div>
-			<div id="vcomments"></div>
-			<script>
-			new Valine({
-			el: '#vcomments',
-			appId: '7PkqecRcjgS1uaF60SMWxDMH-gzGzoHsz',
-			appKey: 'Vb5bQCHJavyHDCk3mor2nHkj'
-			})
-			</script>
-        
+        <div class="pagination-container animated fadeIn">
+  
+  
+</div>
 
       </div>
     </div>
