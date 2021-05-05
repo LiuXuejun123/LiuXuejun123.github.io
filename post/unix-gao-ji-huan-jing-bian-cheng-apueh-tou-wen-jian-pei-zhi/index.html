@@ -40,10 +40,11 @@
 <ul>
 <li>
 <ul>
-<li><a href="#1%E5%88%9B%E5%BB%BAgithub-%E8%B4%A6%E5%8F%B7%E6%9C%AC%E6%95%99%E7%A8%8B%E4%B8%8D%E8%BF%87%E5%A4%9A%E8%B5%98%E8%BF%B0">1.创建Github 账号：（本教程不过多赘述）</a></li>
-<li><a href="#2%E6%96%B0%E5%BB%BA%E5%8D%9A%E5%AE%A2%E4%BB%93%E5%BA%93">2.新建博客仓库：</a></li>
-<li><a href="#3%E5%88%9B%E5%BB%BAtoken">3.创建Token</a></li>
-<li><a href="#4%E5%AE%89%E8%A3%85gridea">4.安装Gridea</a></li>
+<li><a href="#%E6%9D%90%E6%96%99">材料：</a></li>
+<li><a href="#%E5%87%86%E5%A4%87%E5%B7%A5%E4%BD%9C">准备工作</a></li>
+<li><a href="#%E5%A4%B4%E6%96%87%E4%BB%B6%E9%85%8D%E7%BD%AE">头文件配置</a></li>
+<li><a href="#%E5%87%86%E5%A4%87%E7%8E%AF%E5%A2%83">准备环境</a></li>
+<li><a href="#%E7%BC%96%E8%AF%91">编译</a></li>
 </ul>
 </li>
 </ul>
@@ -104,42 +105,42 @@ Copyright 2020 &copy
 <div class="mask" onclick="closeMenu()">
 </div>
       <div class="content-wrapper py-32 lg:p-8 lg:w-3/4 post-detail animated fadeIn">
-        <h1 class="text-3xl font-bold lg:mt-16">使用Gridea 搭建个人blog（Github服务器）</h1>
+        <h1 class="text-3xl font-bold lg:mt-16"> UNIX 高级环境编程（APUE.h头文件配置）</h1>
         <div class="text-sm text-gray-700 lg:my-8">
-          2020-10-01 / 1 min read
+          2021-05-05 / 1 min read
         </div>
         
         <div class="post-content yue">
-          <h4 id="1创建github-账号本教程不过多赘述">1.创建Github 账号：（本教程不过多赘述）</h4>
-<h4 id="2新建博客仓库">2.新建博客仓库：</h4>
-<p><img src="https://liuxuejun123.github.io/post-images/1601538146622.PNG" alt="" loading="lazy"><br>
-点击右上角头像附近的+号，新建一个仓库<br>
-<img src="https://liuxuejun123.github.io/post-images/1601538329901.PNG" alt="" loading="lazy"></p>
-<ul>
-<li>仓库名称具有固定的格式！！！（ 用户名.github.io）</li>
-<li>仓库描述可写可不写</li>
-<li>其他部分可以默认<br>
-创建后就可以的得到一个新的仓库<br>
-<img src="https://liuxuejun123.github.io/post-images/1601538583019.PNG" alt="" loading="lazy"><br>
-点击该仓库的<strong>setting</strong>,确认<strong>github pages <strong>开启<br>
-点击</strong>setting</strong>,下滑至Github pages,点击连接（只要不出现404 就行，多刷新几次）</li>
-</ul>
-<h4 id="3创建token">3.创建Token</h4>
-<p><img src="https://liuxuejun123.github.io/post-images/1601539564619.PNG" alt="" loading="lazy"><br>
-点击自己的头像，选择<strong>Settings</strong><br>
-点击路径：Settings-&gt;Developer settings-&gt;Personal access tokens<br>
-<img src="https://liuxuejun123.github.io/post-images/1601539792446.PNG" alt="" loading="lazy"><br>
-Note: 表明用途，勾选repo 拉到最下面后生成：<br>
-<img src="https://liuxuejun123.github.io/post-images/1601539969430.PNG" alt="" loading="lazy"><br>
-得到这个页面，该页面暂时不要关闭！！！！</p>
-<h4 id="4安装gridea">4.安装Gridea</h4>
-<p>https://gridea.dev/<br>
-<img src="https://liuxuejun123.github.io/post-images/1601540458974.PNG" alt="" loading="lazy"><br>
-将参数配置好就行。<br>
-<img src="https://liuxuejun123.github.io/post-images/1601540770643.PNG" alt="" loading="lazy"><br>
-使用markdown语法进行编写，语法见https://www.runoob.com/markdown/md-tutorial.html<br>
-<img src="https://liuxuejun123.github.io/post-images/1601541630444.PNG" alt="" loading="lazy"><br>
-写完后可在本地预览；或者直接同步，然后就可以去之前github pages 的连接查看网页。</p>
+          <h4 id="材料">材料：</h4>
+<p>环境：Centos 7</p>
+<h4 id="准备工作">准备工作</h4>
+<p>官网下载素材：http://www.apuebook.com/code3e.html</p>
+<figure data-type="image" tabindex="1"><img src="https://liuxuejun123.github.io/post-images/1620218946313.PNG" alt="" loading="lazy"></figure>
+<p>选择自己的版本</p>
+<p>下载后文件名为：src.3e.tar.gz</p>
+<p>解压缩 ：</p>
+<pre><code>tar zxvf src.3e.tar.gz
+</code></pre>
+<h4 id="头文件配置">头文件配置</h4>
+<p>在解压后的目录下 复制两个文件到 <strong>/usr/include</strong> 路径下</p>
+<pre><code>cp include/apue.h /usr/include/
+cp lib/error.c /usr/include/
+</code></pre>
+<p>修改 /usr/include/apue.h</p>
+<p>添加头文件‘’error.c‘’</p>
+<figure data-type="image" tabindex="2"><img src="https://liuxuejun123.github.io/post-images/1620218959666.PNG" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="3"><img src="https://liuxuejun123.github.io/post-images/1620218964797.PNG" alt="" loading="lazy"></figure>
+<h4 id="准备环境">准备环境</h4>
+<p>执行命令：</p>
+<pre><code>yum install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+</code></pre>
+<pre><code> yum install libbsd libbsd-devel
+</code></pre>
+<h4 id="编译">编译</h4>
+<p>在apue.3e文件目录下执行</p>
+<pre><code>make
+</code></pre>
+<p>编译成功</p>
 
         </div>
 
@@ -148,21 +149,12 @@ Note: 表明用途，勾选repo 拉到最下面后生成：<br>
 
         <div class="flex justify-between py-8">
           
-            <div class="prev-post">
-              <a href="https://liuxuejun123.github.io/post/dan-xiang-lian-biao/">
-                <h3 class="post-title">
-                  <i class="ri-arrow-left-line"></i>
-                  单向链表
-                </h3>
-              </a>
-            </div>
-          
 
           
             <div class="next-post">
-              <a href="https://liuxuejun123.github.io/post/qia-er-man-lu-bo-shu-xue-tui-dao/">
+              <a href="https://liuxuejun123.github.io/post/leetcode-mei-ri-yi-ti-368/">
                 <h3 class="post-title">
-                  卡尔曼滤波数学推导：
+                   Leetcode 每日一题 (368)
                   <i class="ri-arrow-right-line"></i>
                 </h3>
               </a>

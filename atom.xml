@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://liuxuejun123.github.io</id>
     <title>Liu Xuejun&apos;s Blog</title>
-    <updated>2021-04-24T10:48:33.682Z</updated>
+    <updated>2021-05-05T12:50:06.844Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://liuxuejun123.github.io"/>
     <link rel="self" href="https://liuxuejun123.github.io/atom.xml"/>
@@ -10,6 +10,44 @@
     <logo>https://liuxuejun123.github.io/images/avatar.png</logo>
     <icon>https://liuxuejun123.github.io/favicon.ico</icon>
     <rights>All rights reserved 2021, Liu Xuejun&apos;s Blog</rights>
+    <entry>
+        <title type="html"><![CDATA[ UNIX 高级环境编程（APUE.h头文件配置）]]></title>
+        <id>https://liuxuejun123.github.io/post/unix-gao-ji-huan-jing-bian-cheng-apueh-tou-wen-jian-pei-zhi/</id>
+        <link href="https://liuxuejun123.github.io/post/unix-gao-ji-huan-jing-bian-cheng-apueh-tou-wen-jian-pei-zhi/">
+        </link>
+        <updated>2021-05-05T12:48:32.000Z</updated>
+        <content type="html"><![CDATA[<h4 id="材料">材料：</h4>
+<p>环境：Centos 7</p>
+<h4 id="准备工作">准备工作</h4>
+<p>官网下载素材：http://www.apuebook.com/code3e.html</p>
+<figure data-type="image" tabindex="1"><img src="https://liuxuejun123.github.io/post-images/1620218946313.PNG" alt="" loading="lazy"></figure>
+<p>选择自己的版本</p>
+<p>下载后文件名为：src.3e.tar.gz</p>
+<p>解压缩 ：</p>
+<pre><code>tar zxvf src.3e.tar.gz
+</code></pre>
+<h4 id="头文件配置">头文件配置</h4>
+<p>在解压后的目录下 复制两个文件到 <strong>/usr/include</strong> 路径下</p>
+<pre><code>cp include/apue.h /usr/include/
+cp lib/error.c /usr/include/
+</code></pre>
+<p>修改 /usr/include/apue.h</p>
+<p>添加头文件‘’error.c‘’</p>
+<figure data-type="image" tabindex="2"><img src="https://liuxuejun123.github.io/post-images/1620218959666.PNG" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="3"><img src="https://liuxuejun123.github.io/post-images/1620218964797.PNG" alt="" loading="lazy"></figure>
+<h4 id="准备环境">准备环境</h4>
+<p>执行命令：</p>
+<pre><code>yum install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+</code></pre>
+<pre><code> yum install libbsd libbsd-devel
+</code></pre>
+<h4 id="编译">编译</h4>
+<p>在apue.3e文件目录下执行</p>
+<pre><code>make
+</code></pre>
+<p>编译成功</p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[ Leetcode 每日一题 (368)]]></title>
         <id>https://liuxuejun123.github.io/post/leetcode-mei-ri-yi-ti-368/</id>
@@ -1495,246 +1533,6 @@ The upper virtual terminal displays the output data, and the lower virtual termi
 <img src="https://liuxuejun123.github.io/post-images/1588174223917.PNG" alt="" loading="lazy"></p>
 <h2 id="conclusion">Conclusion</h2>
 <p>Through this experiment, I mainly learned to use the stm32 output PWM to control the motor, use the data received by the serial port to modify the PWM duty cycle, thereby changing the speed of the motor, and use the encoder function of stm32 to carry out the speed of the motor. Detect and send through the serial port.</p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[STM 32 定时器的使用]]></title>
-        <id>https://liuxuejun123.github.io/post/stm-32-ding-shi-qi-de-shi-yong/</id>
-        <link href="https://liuxuejun123.github.io/post/stm-32-ding-shi-qi-de-shi-yong/">
-        </link>
-        <updated>2020-04-29T15:10:10.000Z</updated>
-        <content type="html"><![CDATA[<p>In Proteus in an existing project, remove virtual terminal, add COMPIM (COM port Physical interface model) and connect it to the microcontroller. In COMPIM set correct real physical port and baudrates.<br>
-Devices in project:<br>
-• Microcontroller;<br>
-• 2 LEDs;<br>
-• Button;<br>
-• COMPIM.<br>
-In Keil, supplement the project for the microcontroller. Setup 2 timers with interrupt on update, one for reading states of button, second for periodic send data to other device (program in out case).<br>
-Parts of task:</p>
-<ol>
-<li>Setup first timer with interrupt on update. In interrupt read state of button and change LEDs state depend on button.</li>
-<li>Setup second timer with interrupt on update. It must be 100 interrupts is 1 second. In the interrupt handler increase some variables and call USART send function for send array (one item of the array must be increased variable).<br>
-For receive data from microcontroller use Simulink model, and show received data in scope.</li>
-</ol>
-<p>This experiment is mainly to learn the timer configuration using stm32.</p>
-<h2 id="1introduction-to-tim">1.Introduction to TIM</h2>
-<p>Among them the basic timer includes TIM6, TIM7, its structure is the simplest, also has the most basic timing function, one is for basic timing, generating time base, and the other is for driving DAC digital-to-analog converter. Among them, there are 10 general-purpose timers including TIME2-TIME5 and TIME9-TIME14. In addition to the functions of the basic timer, the general-purpose timer also has input capture, output comparison, and PWM functions. he advanced timers include TIM1, TIM8; The related common register functions of the timer are as follows:</p>
-<h3 id="11-clock-source-selection-register-timx_smcr">1.1 Clock source selection register (TIMx_SMCR)</h3>
-<p>There are 4 clock sources for the timer:<br>
--Internal clock (CK_INT)<br>
--External clock mode 1: External input pin (TIx)<br>
--External clock mode 2: External trigger input (ETR), only applicable to TIM2, TIM3, TIM4<br>
--Internal trigger input (ITRx): Make A timer to be prescaler of B timer (A provides clock for B)<br>
-This is selected by setting the relevant bit of TIMx_SMCR. The internal clock (CK_INT) comes from the APB1 or APB2 bus</p>
-<h3 id="12-prescaler-register-timx_psc">1.2 Prescaler register (TIMx_PSC)</h3>
-<p>This register is used to divide the clock and then provide it to the counter as the clock of the counter.</p>
-<figure data-type="image" tabindex="1"><img src="https://liuxuejun123.github.io/post-images/1588173281702.PNG" alt="" loading="lazy"></figure>
-<p>The 16-bit space stores the frequency division coefficient.</p>
-<h3 id="13-timer-count-register-timx_cnt">1.3 Timer count register (TIMx_CNT)</h3>
-<p>It stores the current count value of the timer.</p>
-<h3 id="14-automatic-reload-register-timx_arr">1.4 Automatic reload register (TIMx_ARR)</h3>
-<figure data-type="image" tabindex="2"><img src="https://liuxuejun123.github.io/post-images/1588173385400.PNG" alt="" loading="lazy"></figure>
-<p>This register corresponds to two registers in the physical structure, one can be operated by the programmer, and the other is invisible and inoperable ARM called it as the shadow register. The shadow registers are actually in effect.<br>
-According to the setting of the APRE bit in the TIMx_CR1 register: when APRE = 0, the contents of the preload register can be transferred to the shadow register at any time, and the two are connected at this time; and when APRE = 1, at each update event (UEV) Before the contents of the preload register (ARR) are transferred to the shadow register.</p>
-<h3 id="15-dma-interrupt-enable-register-timx_dier">1.5 DMA / Interrupt Enable Register (TIMx_DIER)</h3>
-<figure data-type="image" tabindex="3"><img src="https://liuxuejun123.github.io/post-images/1588173450494.PNG" alt="" loading="lazy"></figure>
-<p>Here we only use the last bit: update interrupt enable (UIE: update interrupt enable), set to 1 instead to allow interrupts caused by update events</p>
-<h3 id="16-control-register-1-timx_cr1">1.6 Control Register 1 (TIMx_CR1)</h3>
-<figure data-type="image" tabindex="4"><img src="https://liuxuejun123.github.io/post-images/1588173463731.PNG" alt="" loading="lazy"></figure>
-<p>We only need to use the last bit: the counter enable bit (CEN: counter enable), instead it must be set to 1 to enable the counter to start counting.</p>
-<h3 id="17-status-register-timx_sr">1.7 Status register (TIMx_SR)</h3>
-<p><img src="https://liuxuejun123.github.io/post-images/1588173472820.PNG" alt="" loading="lazy">![]</p>
-<p>This register is used to mark whether various events / interrupts related to the current timer have occurred</p>
-<h2 id="code">Code</h2>
-<pre><code class="language-c">#include &quot;stm32f4xx.h&quot;
-#include &quot;stm32f4xx_hal_gpio.h&quot;
-#include &quot;stm32f4xx_hal_rcc.h&quot;
-#include &lt;math.h&gt;
-//define Internal RC frequencies
-#define XTAL 16000000UL
-
-//define busses prescalers
-#define AHB_PRE 1
-#define APB1_PRE 2
-#define APB2_PRE 1
-#define SysTickClk 10000
-
-//calculate peripheral frequencies
-#define SYSCLK 84000000
-#define AHB SYSCLK/AHB_PRE
-#define APB1 AHB/APB1_PRE
-#define APB1_TIM APB1*2
-#define APB2 AHB/APB2_PRE
-#define APB2_TIM APB2*1
-#define SysTicks AHB/SysTickClk
-
-//usart
-#define USART_BAUDRATE 19200
-#define BUFFER_LENGTH 3
-uint16_t buffer_size=0,current_send_byte;
-uint8_t buffer[BUFFER_LENGTH];
-//math
-#define M_pi 3.1415926535897323846
-
-void clock_set()
-{
-FLASH-&gt;ACR|=FLASH_ACR_PRFTEN;
-FLASH-&gt;ACR|=FLASH_ACR_LATENCY_2WS;//FLASH PREFETCH
-RCC-&gt;CFGR&amp;=~RCC_CFGR_HPRE_Msk;
-RCC-&gt;CFGR|=RCC_CFGR_HPRE_DIV1;
-RCC-&gt;CFGR&amp;=~RCC_CFGR_PPRE1_Msk;
-RCC-&gt;CFGR|=RCC_CFGR_PPRE1_DIV2;
-RCC-&gt;CFGR&amp;=~RCC_CFGR_PPRE2_Msk;
-RCC-&gt;CFGR|=RCC_CFGR_PPRE2_DIV1;//set AHB APB1 APB2
-RCC-&gt;PLLCFGR&amp;=~RCC_PLLCFGR_PLLM_Msk;
-RCC-&gt;PLLCFGR|=8&lt;&lt;RCC_PLLCFGR_PLLM_Pos;
-RCC-&gt;PLLCFGR&amp;=~RCC_PLLCFGR_PLLN_Msk;
-RCC-&gt;PLLCFGR|=84&lt;&lt;RCC_PLLCFGR_PLLN_Pos;
-RCC-&gt;PLLCFGR&amp;=~RCC_PLLCFGR_PLLP_Msk; //SET PLLM PLLN PLLP
-RCC-&gt;CR|=RCC_CR_PLLON;//OPEN PLL
-while((RCC-&gt;CR&amp;RCC_CR_PLLRDY)==0)//WAIT PLL START
-{}
-RCC-&gt;CFGR&amp;=(uint32_t)((uint32_t)~(RCC_CFGR_SW));
-RCC-&gt;CFGR|=RCC_CFGR_SW_PLL;
-while((RCC-&gt;CFGR&amp;RCC_CFGR_SWS)!=RCC_CFGR_SWS_PLL)
-{}
-}
-
-void usart2_Init(uint32_t baud)
-{
-RCC-&gt;AHB1ENR |= RCC_AHB1ENR_GPIOAEN|
-	              RCC_AHB1ENR_GPIOBEN;//open clock
-GPIOA-&gt;MODER =0x000000A0;//pa2 pa3 	Multiple function mode
-GPIOA-&gt;AFR[0]=0x00007700;//
-GPIOB-&gt;MODER=0x00005555;//GPIOB
-RCC-&gt;APB1ENR |= RCC_APB1ENR_USART2EN;//usart2 enable
-USART2-&gt;BRR = APB1/baud;//Baudrate
-USART2-&gt;CR1 = USART_CR1_UE|//usart2enable
-	            USART_CR1_TE|//
-	            USART_CR1_RE|//transmit receive enable
-	            USART_CR1_RXNEIE;//Interrupt enable
-NVIC_EnableIRQ(USART2_IRQn);//Configuration interrupt	
-}
-
-void SendByte(uint8_t dat)
-{
-	USART2-&gt;DR = dat;
-	while((USART2-&gt;SR &amp; USART_SR_TC) == 0);
-}
-
-void Send_buffer(uint8_t *buff,uint16_t count)
-{
-for (int i=0;i&lt;count;i++)
-	{
-		SendByte(*buff);
-		*buff++;
-	}
-}
-
-void delay_ms(uint16_t time)     
-{    
-  uint16_t i=0;    
-  while(time--)     
-  {    
-    i=12000;    
-    while(i--);    
-  }    
-}
-void USART2_IRQHandler(void)
-{
-	if(USART2-&gt;SR &amp; USART_SR_RXNE)
-	{
-		buffer[buffer_size] = USART2-&gt;DR;
-		buffer_size++;
-		if(buffer[buffer_size-1] == 'k')
-		{
-			GPIOB-&gt;ODR &amp;= ~(1 &lt;&lt;0); //LEN0 OFF
-			buffer_size = 0;
-			USART2-&gt;CR1 &amp;= ~USART_CR1_RE;
-		}
-		else if(USART2-&gt;DR == 'l')
-		{
-			GPIOB-&gt;ODR |= 1 &lt;&lt; 0; // LED0 ON
-			buffer_size = 0;
-			USART2-&gt;CR1 &amp;= ~USART_CR1_RE;
-		}
-	}
-}
-void TIM1_BRK_TIM9_IRQHandler(void)
-{
-TIM9-&gt;SR &amp;=~TIM_SR_UIF;
-	if(!(GPIOB-&gt;IDR &amp; GPIO_IDR_ID9))
-	{
-	GPIOB-&gt;BSRR |= GPIO_BSRR_BS1;
-	GPIOB-&gt;BSRR |= GPIO_BSRR_BR0;
-	}
-	else
-	{
-	GPIOB-&gt;BSRR |= GPIO_BSRR_BS0;
-	GPIOB-&gt;BSRR |= GPIO_BSRR_BR1;
-	}
-}
-void TIM1_UP_TIM10_IRQHandler(void)
-{
-  TIM10-&gt;SR &amp;=~TIM_SR_UIF;
-	static uint8_t i=0;
-	if(++i==100) i=0;
-	double s=sin(i*2*M_pi/100);
-	buffer[0]='A';
-	buffer[1]=i;
-	buffer[2]=(int8_t)(s*100);
-	if(1)
-	{
-	Send_buffer(buffer,3);
-	}
-}
-void Init_tim9(uint16_t arr,uint16_t psc)
-{
-	//OPEN TIM9
-	RCC-&gt;APB2ENR |=1&lt;&lt;16;
-	TIM9-&gt;CNT=0;//CLEAR 
-	TIM9-&gt;PSC = psc;
-	TIM9-&gt;ARR = arr;
-/*Allow update interrupt enable*/
-	TIM9-&gt;DIER |= 1&lt;&lt;0;
-/*Enable basic timer interrupt*/
-  NVIC_EnableIRQ(TIM1_BRK_TIM9_IRQn);
-/*Turn on counter enable*/
-  TIM9-&gt;CR1 |= 1&lt;&lt;0;
-}
-void Init_tim10(uint16_t arr,uint16_t psc)
-{
-	//OPEN TIM10
-	RCC-&gt;APB2ENR |=1&lt;&lt;17;
-	TIM10-&gt;CNT=0;//CLEAR 
-	TIM10-&gt;PSC = psc;
-	TIM10-&gt;ARR = arr;
-/*Allow update interrupt enable*/
-	TIM10-&gt;DIER |= 1&lt;&lt;0;
-/*Enable basic timer interrupt*/
-  NVIC_EnableIRQ(TIM1_UP_TIM10_IRQn);
-/*Turn on counter enable*/
-  TIM10-&gt;CR1 |= 1&lt;&lt;0;
-}
-
-int main()
-{
-	clock_set();
-	usart2_Init(USART_BAUDRATE);
-	Init_tim9(1000,84-1);//fre=84000000/84/1000    1000hz
-	Init_tim10(10000,84-1);//fre=84000000/84/10000 100hz
-while(1)
-{}
-}
-</code></pre>
-<h3 id="simulation">Simulation</h3>
-<figure data-type="image" tabindex="5"><img src="https://liuxuejun123.github.io/post-images/1588173500577.PNG" alt="" loading="lazy"></figure>
-<p>Press the switch to change the LED on and off</p>
-<figure data-type="image" tabindex="6"><img src="https://liuxuejun123.github.io/post-images/1588173644598.png" alt="" loading="lazy"></figure>
-<figure data-type="image" tabindex="7"><img src="https://liuxuejun123.github.io/post-images/1588173757806.png" alt="" loading="lazy"></figure>
-<figure data-type="image" tabindex="8"><img src="https://liuxuejun123.github.io/post-images/1588173788729.PNG" alt="" loading="lazy"></figure>
-<h2 id="conclusion">Conclusion</h2>
-<p>Through this experiment, I learned the configuration of timers and the use of timer interrupts. And use Matlab simulink to observe the simulation situation through the virtual serial port. During the experiment, I also encountered some problems. Finding information through the Internet made me clearer about the whole process.</p>
 ]]></content>
     </entry>
 </feed>
