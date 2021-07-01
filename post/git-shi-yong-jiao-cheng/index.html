@@ -30,30 +30,28 @@
       
         <div class="animated fadeInLeft" style="animation-delay: 0.4s">
           <p class="my-4 text-gray-600 font-light hidden lg:block">
-            念念不忘，必有回响
+            文章目录
           </p>
-          <div class="animated fadeInLeft social-container hidden lg:block" style="animation-delay: 0.6s">
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
+          <div class="toc-container hidden lg:block">
+            <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#1%E5%88%86%E5%B8%83%E5%BC%8F%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6%E5%99%A8git">1.分布式版本控制器(Git)</a></li>
+<li><a href="#2%E5%9B%9E%E6%BB%9A">2.回滚</a></li>
+<li><a href="#3%E5%88%86%E6%94%AF">3.分支</a>
+<ul>
+<li><a href="#31-%E7%B4%A7%E6%80%A5%E4%BF%AE%E5%A4%8D%E7%BA%BF%E4%B8%8Abug%E7%9A%84%E6%80%9D%E8%B7%AF">3.1 紧急修复线上bug的思路</a></li>
+</ul>
+</li>
+<li><a href="#4-%E5%91%BD%E4%BB%A4%E6%80%BB%E7%BB%93%E5%92%8C%E5%B7%A5%E4%BD%9C%E6%B5%81">4 命令总结和工作流</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
           </div>
         </div>
       
@@ -105,28 +103,100 @@ Copyright 2020 &copy
 </div>
 <div class="mask" onclick="closeMenu()">
 </div>
-      <div class="content-wrapper py-32 lg:p-8 lg:w-3/4">
-        <h2 class="text-lg text-gray-700 mb-8">
-          <i class="ri-bookmark-line"></i> 数据结构与算法
-        </h2>
+      <div class="content-wrapper py-32 lg:p-8 lg:w-3/4 post-detail animated fadeIn">
+        <h1 class="text-3xl font-bold lg:mt-16">Git 使用教程</h1>
+        <div class="text-sm text-gray-700 lg:my-8">
+          2021-07-01 / 2 min read
+        </div>
         
-  <section class="post-item md:flex pb-12 animated fadeIn" :style="{ 'animation-delay': `${0 * 0.2}s` }">
-    
-    <div class="content">
-      <a href="https://liuxuejun123.github.io/post/dan-xiang-lian-biao/">
-        <h2 class="post-title text-xl font-extrabold mt-5 md:mt-0">单向链表</h2>
-      </a>
-      <div class="post-abstract text-gray-700 font-light my-4">
-        
-      </div>
-      <div class="text-gray-400 text-sm font-light">2020-11-10 / 6 min read</div>
-    </div>
-  </section>
+        <div class="post-content yue">
+          <h3 id="1分布式版本控制器git">1.分布式版本控制器(Git)</h3>
+<p>1.安装方式见：https://git-scm.com/book/zh/v2/%E8%B5%B7%E6%AD%A5-%E5%AE%89%E8%A3%85-Git</p>
+<p>2.文件管理：</p>
+<p>文件git初始化</p>
+<pre><code class="language-shell">git init
+</code></pre>
+<p>查看当前文件夹下状态：</p>
+<pre><code class="language-shell">git status
+</code></pre>
+<p>对文件进行管理</p>
+<pre><code class="language-shell">git add 文件名
+</code></pre>
+<p>对所有文件管理</p>
+<pre><code class="language-shell">git add .
+</code></pre>
+<p>个人信息配置</p>
+<pre><code class="language-shell">git config --global user.email &quot;you@example.com&quot;
+git config --global user.name &quot;Your Name&quot;
+</code></pre>
+<p>生成版本</p>
+<pre><code class="language-shell">git commit -m '版本描述'
+</code></pre>
+<p>查看版本</p>
+<pre><code class="language-shell">git log
+</code></pre>
+<h3 id="2回滚">2.回滚</h3>
+<p>回滚实现，类似ctrl Z  重置为之前的版本</p>
+<pre><code class="language-shell">git reset --hard 版本号
+</code></pre>
+<p>前向回滚(可以看到全部的提交记录)</p>
+<pre><code class="language-shell">git reflog 
+git reset --hard 版本号
+</code></pre>
+<figure data-type="image" tabindex="1"><img src="https://liuxuejun123.github.io/post-images/1625151590573.PNG" alt="" loading="lazy"></figure>
+<h3 id="3分支">3.分支</h3>
+<p>分支，将统一版本代码形成多个分支，同时进行开发。最后可以合并到一起</p>
+<h4 id="31-紧急修复线上bug的思路">3.1 紧急修复线上bug的思路</h4>
+<p>分支的概念能够较好的实现对线上bug的修复。</p>
+<p>主干线叫master(main)</p>
+<p>分支可以自己定义</p>
+<p>具体过程如下：</p>
+<p>获取当前分支</p>
+<pre><code class="language-shell">git branch
+</code></pre>
+<p>创建分支：</p>
+<pre><code class="language-shell">git branch dev(分支名称)
+</code></pre>
+<p>切换到新的分支</p>
+<pre><code class="language-shell">git checkout dev(分支名称)
+</code></pre>
+<p>删除分支</p>
+<pre><code class="language-shell">git branch -d dev(分支名称)
+</code></pre>
+<p>合并分支：</p>
+<pre><code class="language-shell">git merge dev(分支名称)
+</code></pre>
+<h3 id="4-命令总结和工作流">4 命令总结和工作流</h3>
+<figure data-type="image" tabindex="2"><img src="https://liuxuejun123.github.io/post-images/1625151583635.PNG" alt="" loading="lazy"></figure>
 
-        <div class="pagination-container animated fadeIn">
-  
-  
-</div>
+        </div>
+
+        
+
+
+        <div class="flex justify-between py-8">
+          
+
+          
+            <div class="next-post">
+              <a href="https://liuxuejun123.github.io/post/mian-shi-zong-jie-jin-cheng-xian-cheng-yu-duo-xian-cheng/">
+                <h3 class="post-title">
+                  [面试总结-进程、线程与多线程]
+                  <i class="ri-arrow-right-line"></i>
+                </h3>
+              </a>
+            </div>
+          
+        </div>
+			<div id="vcomments"></div>
+			<script>
+			new Valine({
+			el: '#vcomments',
+			appId: '7PkqecRcjgS1uaF60SMWxDMH-gzGzoHsz',
+			appKey: 'Vb5bQCHJavyHDCk3mor2nHkj'
+			})
+			</script>
+        
 
       </div>
     </div>
