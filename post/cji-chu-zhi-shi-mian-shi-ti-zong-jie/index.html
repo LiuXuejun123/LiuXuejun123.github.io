@@ -1,0 +1,520 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Liu Xuejun&#39;s Blog</title>
+<meta name="description" content="念念不忘，必有回响" />
+<link rel="shortcut icon" href="https://liuxuejun123.github.io/favicon.ico?v=1625141109710">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+<link rel="stylesheet" href="https://liuxuejun123.github.io/styles/main.css">
+<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+
+
+  </head>
+  <body>
+    <div id="app" class="main px-4 flex flex-col lg:flex-row">
+      <div id="sidebar" class="sidebar-wrapper lg:static lg:w-1/4">
+  <div class="lg:sticky top-0">
+    <div class="sidebar-content">
+      <div class="flex lg:block p-4 lg:px-0 items-center fixed lg:static lg:block top-0 right-0 left-0 bg-white z-50">
+        <i class="ri-menu-2-line lg:mt-4 text-2xl cursor-pointer animated fadeIn" onclick="openMenu()"></i>
+        <a href="https://liuxuejun123.github.io">
+          <img class="animated fadeInLeft avatar rounded-lg mx-4 lg:mt-32 lg:mx-0 mt-0 lg:w-24 lg:h-24 w-12 w-12" src="https://liuxuejun123.github.io/images/avatar.png?v=1625141109710" alt="">
+        </a>
+        <h1 class="animated fadeInLeft lg:text-4xl font-extrabold lg:mt-8 mt-0 text-xl" style="animation-delay: 0.2s">Liu Xuejun&#39;s Blog</h1>
+      </div>
+      
+        <div class="animated fadeInLeft" style="animation-delay: 0.4s">
+          <p class="my-4 text-gray-600 font-light hidden lg:block">
+            文章目录
+          </p>
+          <div class="toc-container hidden lg:block">
+            <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#1-%E5%A4%9A%E6%80%81%E7%9A%84%E5%AE%9E%E7%8E%B0">1、多态的实现</a></li>
+<li><a href="#2-%E8%AF%B4%E8%AF%B4cc%E7%9A%84%E5%8C%BA%E5%88%AB">2、说说C/C++的区别</a></li>
+<li><a href="#3-const%E5%85%B3%E9%94%AE%E5%AD%97">3、const关键字</a></li>
+<li><a href="#4-%E8%AF%B4%E8%AF%B4mallocfree-%E5%92%8C-newdelete%E5%8C%BA%E5%88%AB">4、说说malloc/free 和 new/delete区别</a></li>
+<li><a href="#5-%E6%8C%87%E9%92%88%E5%92%8C%E5%BC%95%E7%94%A8%E7%9A%84%E5%8C%BA%E5%88%AB">5、指针和引用的区别</a></li>
+<li><a href="#6-c%E4%B8%AD%E5%A0%86%E5%92%8C%E6%A0%88%E7%9A%84%E5%8C%BA%E5%88%AB">6、C++中堆和栈的区别</a></li>
+<li><a href="#7-%E5%85%B3%E9%94%AE%E5%AD%97static">7、关键字static</a></li>
+<li><a href="#8-%E5%9C%A8c%E7%A8%8B%E5%BA%8F%E4%B8%AD%E8%B0%83%E7%94%A8%E8%A2%ABc%E8%AF%AD%E8%A8%80%E4%BF%AE%E9%A5%B0%E7%9A%84%E5%87%BD%E6%95%B0%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E5%8A%A0extern-c">8、在C++程序中调用被C语言修饰的函数，为什么要加extern “C”</a></li>
+<li><a href="#9-%E5%A6%82%E4%BD%95%E9%98%B2%E6%AD%A2%E5%A4%B4%E6%96%87%E4%BB%B6%E8%A2%AB%E9%87%8D%E5%A4%8D%E5%8C%85%E5%90%AB">9、如何防止头文件被重复包含</a></li>
+<li><a href="#10-%E4%BB%80%E4%B9%88%E6%98%AF%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F%E4%BB%80%E4%B9%88%E6%98%AF%E9%87%8E%E6%8C%87%E9%92%88%E4%BB%80%E4%B9%88%E6%98%AF%E5%86%85%E5%AD%98%E8%B6%8A%E7%95%8C%E5%A6%82%E4%BD%95%E9%81%BF%E5%85%8D">10、什么是内存泄漏？什么是野指针？什么是内存越界？如何避免？</a></li>
+<li><a href="#11-%E6%8F%8F%E8%BF%B0%E4%B8%80%E4%B8%8B%E5%B0%81%E8%A3%85-%E7%BB%A7%E6%89%BF-%E5%A4%9A%E6%80%81">11、描述一下封装、继承、多态</a></li>
+<li><a href="#12-%E5%A0%86%E6%A0%88%E7%BC%93%E5%AD%98%E6%96%B9%E5%BC%8F%E7%9A%84%E5%8C%BA%E5%88%AB">12、堆栈缓存方式的区别</a></li>
+<li><a href="#13-stl%E5%AE%B9%E5%99%A8%E6%9C%89%E5%93%AA%E4%BA%9B%E5%B8%B8%E7%94%A8%E7%9A%84%E7%AE%97%E6%B3%95">13、STL容器有哪些，常用的算法</a></li>
+<li><a href="#14-%E4%BB%80%E4%B9%88%E6%98%AF%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1">14、什么是面向对象</a></li>
+<li><a href="#15-%E7%94%A8%E8%BF%87%E7%9A%84%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E7%AE%80%E5%8D%95%E4%B8%BE%E5%87%A0%E4%B8%AA%E4%BE%8B%E5%AD%90">15、用过的设计模式，简单举几个例子</a></li>
+<li><a href="#16-%E5%A6%82%E4%BD%95%E7%90%86%E8%A7%A3%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88%E4%BB%80%E4%B9%88%E6%97%B6%E5%80%99%E6%94%B9%E5%8F%98%E5%BC%95%E7%94%A8%E8%AE%A1%E6%95%B0">16、如何理解智能指针,什么时候改变引用计数</a></li>
+<li><a href="#17-share_ptr%E4%B8%8Eweak_ptr%E7%9A%84%E5%8C%BA%E5%88%AB%E4%B8%8E%E8%81%94%E7%B3%BB">17、share_ptr与weak_ptr的区别与联系</a></li>
+<li><a href="#18-%E8%A1%A8%E8%BF%B0%E4%B8%8Bstring%E7%9A%84copy-on-write%E6%8A%80%E6%9C%AF%E5%86%99%E6%97%B6copy">18、表述下string的Copy-On-Write技术，写时copy</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+<div class="menu-container">
+  <i class="ri-arrow-left-line text-2xl cursor-pointer animated fadeIn close-menu-btn" onclick="closeMenu()"></i>
+  <div>
+    
+      
+        <a href="/" class="menu" style="animation-delay: 0s">
+          首页
+        </a>
+      
+    
+      
+        <a href="\achieve" class="menu" style="animation-delay: 0.2s">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu" style="animation-delay: 0.4s">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu" style="animation-delay: 0.6000000000000001s">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="site-footer">
+    <div class="py-4 text-gray-700">Powered by 
+<a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+<br><br>
+Copyright 2020 &copy 
+<a href="https://twitter.com/mei_samson" target="_blank">
+<span style="color:blue">Liuxuejun</span></a>
+<br><br>
+<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="blank"
+<span style="color:orange">本博客采用 CC BY-NC-SA 4.0 进行许可</span></a></div>
+    <a class="rss" href="https://liuxuejun123.github.io/atom.xml" target="_blank">RSS</a>
+  </div>
+</div>
+<div class="mask" onclick="closeMenu()">
+</div>
+      <div class="content-wrapper py-32 lg:p-8 lg:w-3/4 post-detail animated fadeIn">
+        <h1 class="text-3xl font-bold lg:mt-16">C++基础知识面试题总结</h1>
+        <div class="text-sm text-gray-700 lg:my-8">
+          2021-06-28 / 16 min read
+        </div>
+        
+        <div class="post-content yue">
+          <h4 id="1-多态的实现">1、多态的实现</h4>
+<p>1、覆盖(重写)</p>
+<p>覆盖是指子类重新定义父类的虚函数的做法。</p>
+<p>2、重载</p>
+<p>重载是指允许存在多个同名函数，而这些函数的参数表不同（或许参数个数不同，或许参数类型不同，或许两者都不同）。</p>
+<h4 id="2-说说cc的区别">2、说说C/C++的区别</h4>
+<p>太大</p>
+<h4 id="3-const关键字">3、const关键字</h4>
+<p>const 是 constant 的缩写，本意是不变的，不易改变的意思。在 C++ 中是用来修饰内置类型变量，自定义对象，成员函数，返回值，函数参数。</p>
+<p>C++ const 允许指定一个语义约束，编译器会强制实施这个约束，允许程序员告诉编译器某值是保持不变的。如果在编程中确实有某个值保持不变，就应该明确使用const，这样可以获得编译器的帮助。</p>
+<ul>
+<li>
+<p>const修饰普通类型的变量</p>
+</li>
+<li>
+<p>const 修饰指针变量</p>
+</li>
+<li>
+<p>const参数传递和函数返回值</p>
+</li>
+<li>
+<p>const修饰类成员函数</p>
+</li>
+</ul>
+<h4 id="4-说说mallocfree-和-newdelete区别">4、说说malloc/free 和 new/delete区别</h4>
+<ul>
+<li>new 、delete 是操作符，可以重载，只能在C++ 中使用。</li>
+<li>malloc、free 是函数，可以覆盖，C、C++ 中都可以使用。</li>
+<li>new 可以调用对象的构造函数，对应的delete 调用相应的析构函数。</li>
+<li>malloc 仅仅分配内存，free 仅仅回收内存，并不执行构造和析构函数</li>
+<li>new 、delete 返回的是某种数据类型指针，malloc、free 返回的是void 指针。<br>
+注意： m a l l o c 申请的内存空间要用f r e e 释放， 而n e w 申请的内存空间要用<br>
+d e l e t e 释放， 不要混用。</li>
+</ul>
+<h4 id="5-指针和引用的区别">5、指针和引用的区别</h4>
+<ul>
+<li>
+<p>引用只是c++语法糖，可以看作编译器自动完成取地址、解引用的常量指针</p>
+</li>
+<li>
+<p>引用区别于指针的特性都是编译器约束完成的，一旦编译成汇编就喝指针一样</p>
+</li>
+<li>
+<p>由于引用只是指针包装了下，所以也存在风险，比如如下代码:</p>
+<p>int *a = new int;<br>
+int &amp;b = *a;<br>
+delete a;<br>
+b = 12;    <em>// 对已经释放的内存解引用</em></p>
+</li>
+<li>
+<p>引用由编译器保证初始化，使用起来较为方便(如不用检查空指针等)</p>
+</li>
+<li>
+<p>尽量用引用代替指针</p>
+</li>
+<li>
+<p>引用没有顶层const即<code>int &amp; const</code>，因为引用本身就不可变，所以在加顶层const也没有意义； 但是可以有底层const即 <code>const int&amp;</code>，这表示引用所引用的对象本身是常量</p>
+</li>
+<li>
+<p>指针既有顶层const(<code>int * const</code>--指针本身不可变)，也有底层const(<code>int * const</code>--指针所指向的对象不可变)</p>
+</li>
+<li>
+<p>有指针引用--是引用，绑定到指针， 但是没有引用指针--这很显然，因为很多时候指针存在的意义就是间接改变对象的值，但是引用本身的值我们上面说过了是所引用对象的地址，但是引用不能更改所引用的对象，也就当然不能有引用指针了。</p>
+</li>
+<li>
+<p>指针和引用的自增(++）和自减含义不同，指针是指针运算, 而引用是代表所指向的对象对象执行++或--</p>
+</li>
+</ul>
+<h4 id="6-c中堆和栈的区别">6、C++中堆和栈的区别</h4>
+<ul>
+<li>堆和栈的区别
+<ul>
+<li>管理方式不同<br>
+栈，由编译器自动管理，无需程序员手工控制；堆：产生和释放由程序员控制</li>
+<li>空间大小不同<br>
+栈的空间有限；堆内存可以达到4G，。</li>
+<li>能否产生碎片不同<br>
+栈不会产生碎片，因为栈是种先进后出的队列。堆则容易产生碎片，多次的new/delete<br>
+会造成内存的不连续，从而造成大量的碎片。</li>
+<li>生长方向不同<br>
+堆的生长方式是向上的，栈是向下的。</li>
+<li>分配方式不同<br>
+堆是动态分配的。栈可以是静态分配和动态分配两种，但是栈的动态分配由编译器释放。</li>
+<li>分配效率不同<br>
+栈是机器系统提供的数据结构，计算机底层对栈提供支持：分配专门的寄存器存放栈的地址，压栈出栈都有专门的指令。堆则是由C/C++函数库提供，库函数会按照一定的算法在堆内存中搜索可用的足够大小的空间，如果没有足够大小的空间（可能是由于内存碎片太多），就有可能调用系统功能去增加程序数据段的内存空间，这样就有机会分到足够大小的内存，然后进行返回。显然，堆的效率比栈要低得多。<br>
+堆和栈相比，由于大量new/delete的使用，容易造成大量的内存碎片；由于没有专门的系统支持，效率很低；由于可能引发用户态和核心态的切换，内存的申请，代价变得更加昂贵。所以栈在程序中是应用最广泛的，就算是函数的调用也利用栈去完成，函数调用过程中的参数，返回地址，EBP和局部变量都采用栈的方式存放。所以，我们推荐大家尽量用栈，而不是用堆。<br>
+栈和堆相比不是那么灵活，有时候分配大量的内存空间，还是用堆好一些。<br>
+无论是堆还是栈，都要防止越界现象的发生。</li>
+</ul>
+</li>
+</ul>
+<h4 id="7-关键字static">7、关键字static</h4>
+<ul>
+<li>
+<p><strong>第一条也是最重要的一条：隐藏</strong>。（static函数，static变量均可）</p>
+<p>当同时编译多个文件时，所有未加static前缀的全局变量和函数都具有全局可见性。</p>
+</li>
+<li>
+<p><strong>static的第二个作用是保持变量内容的持久</strong>。（static变量中的记忆功能和全局生存期）</p>
+<p>存储在静态数据区的变量会在程序刚开始运行时就完成初始化，也是唯一的一次初始化。共有两种变量存储在静态存储区：全局变量和static变量，只不过和全局变量比起来，static可以控制变量的可见范围，说到底static还是用来隐藏的。虽然这种用法不常见</p>
+<p>PS：如果作为static局部变量在函数内定义，它的生存期为整个源程序，但是其作用域仍与自动变量相同，只能在定义该变量的函数内使用该变量。退出该函数后， 尽管该变量还继续存在，但不能使用它。</p>
+</li>
+<li>
+<p><strong>static的第三个作用是默认初始化为0（static变量）</strong></p>
+<p>其实全局变量也具备这一属性，因为全局变量也存储在静态数据区。在静态数据区，内存中所有的字节默认值都是0x00，某些时候这一特点可以减少程序员的工作量。比如初始化一个稀疏矩阵，我们可以一个一个地把所有元素都置0，然后把不是0的几个元素赋值。如果定义成静态的，就省去了一开始置0的操作。再比如要把一个字符数组当字符串来用，但又觉得每次在字符数组末尾加‘\0’;太麻烦。如果把字符串定义成静态的，就省去了这个麻烦，因为那里本来就是‘\0’;</p>
+</li>
+<li>
+<p><strong>static的第四个作用：C++中的类成员声明static</strong>（有些地方与以上作用重叠）</p>
+<p>在类中声明static变量或者函数时，初始化时使用作用域运算符来标明它所属类，因此，静态数据成员是类的成员，而不是对象的成员，这样就出现以下作用：</p>
+<p>(1)类的静态成员函数是属于整个类而非类的对象，所以它没有this指针，这就导致 了它仅能访问类的静态数据和静态成员函数。</p>
+<p>(2)不能将静态成员函数定义为虚函数。</p>
+<p>(3)由于静态成员声明于类中，操作于其外，所以对其取地址操作，就多少有些特殊 ，变量地址是指向其数据类型的指针 ，函数地址类型是一个“nonmember函数指针”。</p>
+<p>(4)由于静态成员函数没有this指针，所以就差不多等同于nonmember函数，结果就 产生了一个意想不到的好处：成为一个callback函数，使得我们得以将C++和C-based X W indow系统结合，同时也成功的应用于线程函数身上。 （这条没遇见过）</p>
+<p>(5)static并没有增加程序的时空开销，相反她还缩短了子类对父类静态成员的访问 时间，节省了子类的内存空间。</p>
+<p>(6)静态数据成员在&lt;定义或说明&gt;时前面加关键字static。</p>
+<p>(7)静态数据成员是静态存储的，所以必须对它进行初始化。 （程序员手动初始化，否则编译时一般不会报错，但是在Link时会报错误）</p>
+<p>(8)静态成员初始化与一般数据成员初始化不同:</p>
+<p>初始化在类体外进行，而前面不加static，以免与一般静态变量或对象相混淆；<br>
+初始化时不加该成员的访问权限控制符private，public等；<br>
+初始化时使用作用域运算符来标明它所属类；<br>
+所以我们得出静态数据成员初始化的格式：<br>
+&lt;数据类型&gt;&lt;类名&gt;::&lt;静态数据成员名&gt;=&lt;值&gt;</p>
+<p>(9)为了防止父类的影响，可以在子类定义一个与父类相同的静态变量，以屏蔽父类的影响。这里有一点需要注意：我们说静态成员为父类和子类共享，但我们有重复定义了静态成员，这会不会引起错误呢？不会，我们的编译器采用了一种绝妙的手法：name-mangling 用以生成唯一的标志。</p>
+</li>
+</ul>
+<h4 id="8-在c程序中调用被c语言修饰的函数为什么要加extern-c">8、在C++程序中调用被C语言修饰的函数，为什么要加extern “C”</h4>
+<p>首先，extern是C/C++语言中表明函数和全局变量作用范围的关键字，该关键字告诉编译器，其声明的函数和变量可以在本模块或其它模块中使用。</p>
+<p>通常，在模块的头文件中对本模块提供给其它模块引用的函数和全局变量以关键字extern声明。extern &quot;C&quot;是连接申明(linkage declaration),被extern &quot;C&quot;修饰的变量和函数是按照C语言方式编译和连接的。作为一种面向对象的语言，C++支持函数重载，而过程式语言C则不支持。函数被C++编译后在符号库中的名字与C语言的不同。例如，假设某个函数的原型为：void foo( int x, int y );该函数被C编译器编译后在符号库中的名字为_foo，而C++编译器则会产生像_foo_int_int之类的名字。这样的名字包含了函数名、函数参数数量及类型信息，C++就是靠这种机制来实现函数重载的。</p>
+<h4 id="9-如何防止头文件被重复包含">9、如何防止头文件被重复包含</h4>
+<p>1.<strong>条件编译语句#ifndef#define#endif</strong></p>
+<pre><code class="language-C++">#ifndef _TEST_H_    //——1
+#define _TEST_H_    //——2
+//加入各种变量，函数声明
+#endif
+</code></pre>
+<p>2.<strong>#pragma once语句</strong></p>
+<pre><code class="language-C++">#pragma once
+//... ... // 一些声明语句
+</code></pre>
+<h4 id="10-什么是内存泄漏什么是野指针什么是内存越界如何避免">10、什么是内存泄漏？什么是野指针？什么是内存越界？如何避免？</h4>
+<ul>
+<li>
+<p>内存泄漏：①访问已经释放的内存   ②访问没有权限的内存</p>
+</li>
+<li>
+<p>野指针：指向内存被释放的内存或者没有访问权限的内存的指针。</p>
+<p>① 指针变量没有被初始化。任何指针变量刚被创建时不会自动成为NULL指针，它的缺省值是随机的，它会乱指一气。所以，指针变量在创建的同时应当被初始化，要么将指针设置为NULL，要么让它指向合法的内存。</p>
+<pre><code class="language-C++">char *p = NULL;
+char *str = new char(100);
+</code></pre>
+<p>②指针p被free或者delete之后，没有置为NULL。</p>
+<p>③指针操作超越了变量的作用范围。</p>
+<pre><code class="language-C++">class A 
+{ 
+  public:
+    void Func(void){ cout &lt;&lt; “Func of class A” &lt;&lt; endl; }
+};
+
+void Test(void)
+{
+     A  *p;
+     if(...)
+     {
+        A  a;
+        p = &amp;a; // 注意 a 的生命期
+     }
+     p-&gt;Func(); // p是“野指针”
+}
+</code></pre>
+</li>
+<li>
+<p>内存越界： 打个比方 就是你有一个500ml的水瓶,然后你倒在瓶里的水大于500ml 那个多余的就会流出来...</p>
+</li>
+<li>
+<p>解决方法</p>
+<p>一、<strong>对指针进行初始化</strong></p>
+<p>①将指针初始化为NULL。</p>
+<p>char *  p  = NULL;</p>
+<p>②用malloc分配内存</p>
+<p>char * p = (char * )malloc(sizeof(char));</p>
+<p>③用已有合法的可访问的内存地址对指针初始化</p>
+<p>char num[ 30] = {0};</p>
+<p>char *p = num;</p>
+<p>二、<strong>指针用完后释放内存，将指针赋NULL</strong></p>
+<p>delete(p);</p>
+<p>p = NULL;</p>
+<p>注：</p>
+<p>malloc函数分配完内存后需注意：</p>
+<p>①检查是否分配成功（若分配成功，返回内存的首地址；分配不成功，返回NULL。可以通过if语句来判断</p>
+<p>②清空内存中的数据（malloc分配的空间里可能存在垃圾值，用memset或bzero 函数清空内存）</p>
+<p>void bzero（void *s, int n）;<br>
+s是 需要置零的空间的起始地址； n是 要置零的数据字节个数。</p>
+<p>void memset(void *start, int value, int size);<br>
+如果要清空空间的首地址为p，value为值，size为字节数</p>
+</li>
+</ul>
+<h4 id="11-描述一下封装-继承-多态">11、描述一下封装、继承、多态</h4>
+<p><em><strong>*面向对象的三个基本特征*</strong></em></p>
+<p>面向对象的三个基本特征是：封装、继承、多态。其中，封装可以隐藏实现细节，使得代码模块化；继承可以扩展已存在的代码模块（类）；它们的目的都是为了——代码重用。而多态则是为了实现另一个目的——接口重用！</p>
+<ul>
+<li>封装</li>
+</ul>
+<p>封装可以隐藏实现细节，使得代码模块化；封装是把过程和数据包围起来，对数据的访问只能通过已定义的界面。面向对象计算始于这个基本概念，即现实世界可以被描绘成一系列完全自治、封装的对象，这些对象通过一个受保护的接口访问其他对象。在面向对象编程上可理解为：把客观事物封装成抽象的类，并且类可以把自己的数据和方法只让可信的类或者对象操作，对不可信的进行信息隐藏。</p>
+<ul>
+<li>
+<p>继承</p>
+<ul>
+<li>
+<p>什么是继承</p>
+<p>继承是指这样一种能力：它可以使用现有类的所有功能，并在无需重新编写原来的类的情况下对这些功能进行扩展。其继承的过程，就是从一般到特殊的过程。</p>
+<p>通过继承创建的新类称为“子类”或“派生类”。被继承的类称为“基类”、“父类”或“超类”。要实现继承，可以通过“继承”（Inheritance）和“组合”（Composition）来实现。在某些 OOP 语言中，一个子类可以继承多个基类。但是一般情况下，一个子类只能有一个基类，要实现多重继承，可以通过多级继承来实现。</p>
+</li>
+<li>
+<p>继承的实现方式</p>
+<p>继承概念的实现方式有三类：实现继承、接口继承和可视继承。</p>
+<ol>
+<li>
+<p>实现继承是指使用基类的属性和方法而无需额外编码的能力；</p>
+</li>
+<li>
+<p>接口继承是指仅使用属性和方法的名称、但是子类必须提供实现的能力；</p>
+</li>
+<li>
+<p>可视继承是指子窗体（类）使用基窗体（类）的外观和实现代码的能力。</p>
+</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="12-堆栈缓存方式的区别">12、堆栈缓存方式的区别</h4>
+<p>栈使用的是一级缓存， 它们通常都是被调用时处于存储空间中，调用完毕立即释放。</p>
+<p>堆则是存放在二级缓存中，生命周期由虚拟机的垃圾回收算法来决定（并不是一旦成为孤儿对象就能被回收）。所以调用这些对象的速度要相对来得低一些。</p>
+<h4 id="13-stl容器有哪些常用的算法">13、STL容器有哪些，常用的算法</h4>
+<p>https://en.cppreference.com/w/cpp/container</p>
+<p>https://en.cppreference.com/w/cpp/algorithm</p>
+<h4 id="14-什么是面向对象">14、什么是面向对象</h4>
+<p>面向过程的通常是动宾形式结构（操作符，运算对象。函数，参数），从自然语法角度看就是谓语加宾语。</p>
+<p>面向对象的通常是主谓宾结构（对象，方法，参数）。</p>
+<p>面向对象更符合自然语言的思维习惯，程序结构的组织就是独立的个体，通过消息（参数）传递进行交互。</p>
+<p>封装，个体独立，不需要具体了解其工作实现，熟悉接口即可。</p>
+<p>继承，个体功能扩展。</p>
+<p>多态，个体在不同场景下的处理方式。</p>
+<h4 id="15-用过的设计模式简单举几个例子">15、用过的设计模式，简单举几个例子</h4>
+<p>？？？？ 补充</p>
+<h4 id="16-如何理解智能指针什么时候改变引用计数">16、如何理解智能指针,什么时候改变引用计数</h4>
+<p>？？？？如何理解智能指针,什么时候改变引用计数</p>
+<p>https://blog.csdn.net/weixin_41066529/article/details/89473474</p>
+<h4 id="17-share_ptr与weak_ptr的区别与联系">17、share_ptr与weak_ptr的区别与联系</h4>
+<p>https://blog.csdn.net/weixin_41066529/article/details/89480260</p>
+<h4 id="18-表述下string的copy-on-write技术写时copy">18、表述下string的Copy-On-Write技术，写时copy</h4>
+<p>string类中必有一个私有成员，其是一个char*，用户记录从堆上分配内存的地址，其在构造时分配内存，在析构时释放内存。因为是从堆上分配内存，所以string类在维护这块内存上是格外小心的，string类在返回这块内存地址时，只返回const char*，也就是只读的，如果你要写，你只能通过string提供的方法进行数据的改写。</p>
+
+        </div>
+
+        
+
+
+        <div class="flex justify-between py-8">
+          
+            <div class="prev-post">
+              <a href="https://liuxuejun123.github.io/post/tcpip-wang-luo-bian-cheng-mian-shi-ti-zong-jie/">
+                <h3 class="post-title">
+                  <i class="ri-arrow-left-line"></i>
+                  TCP/IP网络编程面试题总结
+                </h3>
+              </a>
+            </div>
+          
+
+          
+            <div class="next-post">
+              <a href="https://liuxuejun123.github.io/post/unix-gao-ji-huan-jing-bian-cheng-biao-zhun-io/">
+                <h3 class="post-title">
+                  Unix 高级环境编程 ----标准IO
+                  <i class="ri-arrow-right-line"></i>
+                </h3>
+              </a>
+            </div>
+          
+        </div>
+			<div id="vcomments"></div>
+			<script>
+			new Valine({
+			el: '#vcomments',
+			appId: '7PkqecRcjgS1uaF60SMWxDMH-gzGzoHsz',
+			appKey: 'Vb5bQCHJavyHDCk3mor2nHkj'
+			})
+			</script>
+        
+
+      </div>
+    </div>
+
+    <script src="https://liuxuejun123.github.io/media/prism.js"></script>  
+<script>
+
+Prism.highlightAll()
+let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+// This should probably be throttled.
+// Especially because it triggers during smooth scrolling.
+// https://lodash.com/docs/4.17.10#throttle
+// You could do like...
+// window.addEventListener("scroll", () => {
+//    _.throttle(doThatStuff, 100);
+// });
+// Only not doing it here to keep this Pen dependency-free.
+
+window.addEventListener("scroll", event => {
+  let fromTop = window.scrollY;
+
+  mainNavLinks.forEach((link, index) => {
+    let section = document.getElementById(decodeURI(link.hash).substring(1));
+    let nextSection = null
+    if (mainNavLinks[index + 1]) {
+      nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+    }
+    if (section.offsetTop <= fromTop) {
+      if (nextSection) {
+        if (nextSection.offsetTop > fromTop) {
+          link.classList.add("current");
+        } else {
+          link.classList.remove("current");    
+        }
+      } else {
+        link.classList.add("current");
+      }
+    } else {
+      link.classList.remove("current");
+    }
+  });
+});
+
+
+document.addEventListener("DOMContentLoaded", function() {
+  var lazyImages = [].slice.call(document.querySelectorAll(".post-feature-image.lazy"));
+
+  if ("IntersectionObserver" in window) {
+    let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          let lazyImage = entry.target
+          lazyImage.style.backgroundImage = `url(${lazyImage.dataset.bg})`
+          lazyImage.classList.remove("lazy")
+          lazyImageObserver.unobserve(lazyImage)
+        }
+      });
+    });
+
+    lazyImages.forEach(function(lazyImage) {
+      lazyImageObserver.observe(lazyImage)
+    })
+  } else {
+    // Possibly fall back to a more compatible method here
+  }
+});
+
+const menuContainer = document.querySelector('.menu-container')
+const menus = document.querySelectorAll('.menu-container .menu')
+const mask = document.querySelector('.mask')
+const contentWrapper = document.querySelector('.content-wrapper')
+const latestArticle = document.querySelector('.latest-article')
+const readMore = document.querySelector('.read-more')
+const indexPage = document.querySelector('.index-page')
+
+const isHome = location.pathname === '/'
+if (latestArticle) {
+  latestArticle.style.display = isHome ? 'block' : 'none'
+  readMore.style.display = isHome ? 'block' : 'none'
+  indexPage.style.display = isHome ? 'none' : 'block'
+}
+
+const openMenu = () => {
+  menuContainer.classList.add('open')
+  menus.forEach(menu => {
+    menu.classList.add('animated', 'fadeInLeft')
+  })
+  mask.classList.add('open')
+  contentWrapper.classList.add('is-second')
+}
+
+const closeMenu = () => {
+  menuContainer.classList.remove('open')
+  menus.forEach(menu => {
+    menu.classList.remove('animated', 'fadeInLeft')
+  })
+  mask.classList.remove('open')
+  contentWrapper.classList.remove('is-second')
+}
+</script>
+  
+  </body>
+</html>

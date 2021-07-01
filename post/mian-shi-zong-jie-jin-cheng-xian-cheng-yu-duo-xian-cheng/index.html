@@ -1,0 +1,710 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Liu Xuejun&#39;s Blog</title>
+<meta name="description" content="念念不忘，必有回响" />
+<link rel="shortcut icon" href="https://liuxuejun123.github.io/favicon.ico?v=1625141109710">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+<link rel="stylesheet" href="https://liuxuejun123.github.io/styles/main.css">
+<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+
+
+  </head>
+  <body>
+    <div id="app" class="main px-4 flex flex-col lg:flex-row">
+      <div id="sidebar" class="sidebar-wrapper lg:static lg:w-1/4">
+  <div class="lg:sticky top-0">
+    <div class="sidebar-content">
+      <div class="flex lg:block p-4 lg:px-0 items-center fixed lg:static lg:block top-0 right-0 left-0 bg-white z-50">
+        <i class="ri-menu-2-line lg:mt-4 text-2xl cursor-pointer animated fadeIn" onclick="openMenu()"></i>
+        <a href="https://liuxuejun123.github.io">
+          <img class="animated fadeInLeft avatar rounded-lg mx-4 lg:mt-32 lg:mx-0 mt-0 lg:w-24 lg:h-24 w-12 w-12" src="https://liuxuejun123.github.io/images/avatar.png?v=1625141109710" alt="">
+        </a>
+        <h1 class="animated fadeInLeft lg:text-4xl font-extrabold lg:mt-8 mt-0 text-xl" style="animation-delay: 0.2s">Liu Xuejun&#39;s Blog</h1>
+      </div>
+      
+        <div class="animated fadeInLeft" style="animation-delay: 0.4s">
+          <p class="my-4 text-gray-600 font-light hidden lg:block">
+            文章目录
+          </p>
+          <div class="toc-container hidden lg:block">
+            <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#1-%E4%BD%BF%E7%94%A8%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%9A%84%E6%84%8F%E4%B9%89">1. <strong>使用多线程的意义</strong></a></li>
+<li><a href="#2-%E5%88%9B%E5%BB%BA%E7%BA%BF%E7%A8%8B%E7%9A%84%E6%96%B9%E5%BC%8F">2 <strong>创建线程的方式</strong></a></li>
+<li><a href="#3-%E4%BB%80%E4%B9%88%E6%98%AF%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8">3** 什么是线程安全**</a></li>
+<li><a href="#4-%E4%B8%80%E4%B8%AA%E7%BA%BF%E7%A8%8B%E5%A6%82%E6%9E%9C%E5%87%BA%E7%8E%B0%E4%BA%86%E8%BF%90%E8%A1%8C%E6%97%B6%E5%BC%82%E5%B8%B8%E4%BC%9A%E6%80%8E%E4%B9%88%E6%A0%B7">4 <strong>一个线程如果出现了运行时异常会怎么样</strong></a></li>
+<li><a href="#5-%E7%94%9F%E4%BA%A7%E8%80%85%E6%B6%88%E8%B4%B9%E8%80%85%E6%A8%A1%E5%9E%8B%E7%9A%84%E4%BD%9C%E7%94%A8%E6%98%AF%E4%BB%80%E4%B9%88">5 <strong>生产者消费者模型的作用是什么</strong></a></li>
+<li><a href="#6-%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E4%BD%BF%E7%94%A8%E7%BA%BF%E7%A8%8B%E6%B1%A0">6  <strong>为什么要使用线程池</strong></a></li>
+<li><a href="#7-%E7%BA%BF%E7%A8%8B%E5%90%8C%E6%AD%A5%E9%97%AE%E9%A2%98">7 <strong>线程同步问题</strong></a></li>
+<li><a href="#8-%E5%A6%82%E4%BD%95%E8%A7%A3%E5%86%B3%E6%AD%BB%E9%94%81">8 <strong>如何解决死锁</strong></a></li>
+<li><a href="#9-%E8%BF%9B%E7%A8%8B%E5%92%8C%E7%BA%BF%E7%A8%8B%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB">9. <strong>进程和线程有什么区别？</strong></a></li>
+<li><a href="#10-%E5%A4%9A%E7%BA%BF%E7%A8%8B%E9%94%81%E7%9A%84%E7%A7%8D%E7%B1%BB%E6%9C%89%E5%93%AA%E4%BA%9B">10 <strong>多线程锁的种类有哪些？</strong></a></li>
+<li><a href="#11-%E8%87%AA%E6%97%8B%E9%94%81%E5%92%8C%E4%BA%92%E6%96%A5%E9%94%81%E7%9A%84%E5%8C%BA%E5%88%AB">11 <strong>自旋锁和互斥锁的区别？</strong></a></li>
+<li><a href="#12-%E8%BF%9B%E7%A8%8B%E9%97%B4%E9%80%9A%E4%BF%A1%E5%92%8C%E7%BA%BF%E7%A8%8B%E9%97%B4%E9%80%9A%E4%BF%A1">12 <strong>进程间通信和线程间通信</strong></a></li>
+<li><a href="#13-%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%A8%8B%E5%BA%8F%E6%9E%B6%E6%9E%84%E7%BA%BF%E7%A8%8B%E6%95%B0%E9%87%8F%E5%BA%94%E8%AF%A5%E5%A6%82%E4%BD%95%E8%AE%BE%E7%BD%AE">13 <strong>多线程程序架构，线程数量应该如何设置？</strong></a></li>
+<li><a href="#14-%E4%BB%80%E4%B9%88%E6%98%AF%E5%8E%9F%E5%AD%90%E6%93%8D%E4%BD%9Cgcc%E6%8F%90%E4%BE%9B%E7%9A%84%E5%8E%9F%E5%AD%90%E6%93%8D%E4%BD%9C%E5%8E%9F%E8%AF%AD%E4%BD%BF%E7%94%A8%E8%BF%99%E4%BA%9B%E5%8E%9F%E8%AF%AD%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E8%AF%BB%E5%86%99%E9%94%81">14 <strong>什么是原子操作，gcc提供的原子操作原语，使用这些原语如何实现读写锁？</strong></a></li>
+<li><a href="#15-%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8Freactorproactor%E5%8D%8A%E5%90%8C%E6%AD%A5%E5%8D%8A%E5%BC%82%E6%AD%A5%E6%A8%A1%E5%BC%8F">15 <strong>网络编程设计模式，reactor/proactor/半同步半异步模式？</strong></a></li>
+<li><a href="#16-%E6%9C%89%E4%B8%80%E4%B8%AA%E8%AE%A1%E6%95%B0%E5%99%A8%E5%A4%9A%E4%B8%AA%E7%BA%BF%E7%A8%8B%E9%83%BD%E9%9C%80%E8%A6%81%E6%9B%B4%E6%96%B0%E4%BC%9A%E9%81%87%E5%88%B0%E4%BB%80%E4%B9%88%E9%97%AE%E9%A2%98%E5%8E%9F%E5%9B%A0%E6%98%AF%E4%BB%80%E4%B9%88%E5%BA%94%E8%AF%A5%E5%A6%82%E4%BD%95%E5%81%9A%E5%A6%82%E4%BD%95%E4%BC%98%E5%8C%96">16 <strong>有一个计数器，多个线程都需要更新，会遇到什么问题，原因是什么，应该如何做？如何优化？</strong></a></li>
+<li><a href="#17-%E5%A6%82%E6%9E%9Cselect%E8%BF%94%E5%9B%9E%E5%8F%AF%E8%AF%BB%E7%BB%93%E6%9E%9C%E5%8F%AA%E8%AF%BB%E5%88%B00%E5%AD%97%E8%8A%82%E4%BB%80%E4%B9%88%E6%83%85%E5%86%B5">17 ** 如果select返回可读，结果只读到0字节，什么情况？**</a></li>
+<li><a href="#18-connect%E5%8F%AF%E8%83%BD%E4%BC%9A%E9%95%BF%E6%97%B6%E9%97%B4%E9%98%BB%E5%A1%9E%E6%80%8E%E4%B9%88%E8%A7%A3%E5%86%B3">18 <strong>connect可能会长时间阻塞，怎么解决?</strong></a></li>
+<li><a href="#19-keepalive-%E6%98%AF%E4%BB%80%E4%B9%88%E4%B8%9C%E8%A5%BF%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8">19 <strong>keepalive</strong> <strong>是什么东西？如何使用？</strong></a></li>
+<li><a href="#20-socket%E4%BB%80%E4%B9%88%E6%83%85%E5%86%B5%E4%B8%8B%E5%8F%AF%E8%AF%BB">20 <strong>socket什么情况下可读？</strong></a></li>
+<li><a href="#21-udp%E8%B0%83%E7%94%A8connect%E6%9C%89%E4%BB%80%E4%B9%88%E4%BD%9C%E7%94%A8">21 <strong>udp调用connect有什么作用？</strong></a></li>
+<li><a href="#22-socket%E7%BC%96%E7%A8%8B%E5%A6%82%E6%9E%9Cclient%E6%96%AD%E7%94%B5%E4%BA%86%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%A6%82%E4%BD%95%E5%BF%AB%E9%80%9F%E7%9F%A5%E9%81%93">22 <strong>socket编程，如果client断电了，服务器如何快速知道？</strong></a></li>
+<li><a href="#23-%E7%A8%8B%E5%BA%8F%E4%BB%80%E4%B9%88%E6%97%B6%E5%80%99%E5%BA%94%E8%AF%A5%E4%BD%BF%E7%94%A8%E7%BA%BF%E7%A8%8B%E4%BB%80%E4%B9%88%E6%97%B6%E5%80%99%E5%8D%95%E7%BA%BF%E7%A8%8B%E6%95%88%E7%8E%87%E9%AB%98">23、程序什么时候应该使用线程，什么时候单线程效率高**</a></li>
+<li><a href="#24-%E6%83%8A%E7%BE%A4%E7%8E%B0%E8%B1%A1">24、惊群现象</a></li>
+<li><a href="#25-c%E5%87%BD%E6%95%B0%E5%86%85%E7%9A%84%E9%9D%99%E6%80%81%E5%8F%98%E9%87%8F%E5%88%9D%E5%A7%8B%E5%8C%96%E4%BB%A5%E5%8F%8A%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8%E9%97%AE%E9%A2%98">25、C++函数内的静态变量初始化以及线程安全问题</a></li>
+<li><a href="#26-c%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8%E7%9A%84%E5%8D%95%E4%BE%8B%E7%B1%BB">26、C++线程安全的单例类</a></li>
+<li><a href="#27-%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%8E%AF%E5%A2%83%E5%B8%A6%E6%9C%89%E7%8A%B6%E6%80%81%E7%9A%84%E5%AF%B9%E8%B1%A1%E7%9A%84%E8%AE%A8%E8%AE%BA">27、多线程环境带有状态的对象的讨论</a></li>
+<li><a href="#28-c%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%8A%A0volatile%E7%9A%84%E9%94%99%E8%AF%AF%E8%AE%A4%E8%AF%86">28、C++多线程加volatile的错误认识</a></li>
+<li><a href="#29-%E5%B9%B6%E8%A1%8C%E7%BC%96%E7%A8%8B%E4%B8%AD%E5%A4%9A%E8%BF%9B%E7%A8%8B%E5%92%8C%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%BB%80%E4%B9%88%E6%83%85%E5%86%B5%E4%B8%8B%E5%A4%9A%E8%BF%9B%E7%A8%8B%E8%83%BD%E8%A7%A3%E5%86%B3%E7%9A%84%E5%A4%9A%E7%BA%BF%E7%A8%8B%E6%97%A0%E6%B3%95%E8%A7%A3%E5%86%B3">29、并行编程中多进程和多线程，什么情况下多进程能解决的多线程无法解决</a></li>
+<li><a href="#30-%E5%A6%82%E4%BD%95%E8%AF%81%E6%98%8E%E4%B8%80%E4%B8%AA%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E6%98%AF%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8%E7%9A%84">30、如何证明一个数据结构是线程安全的</a></li>
+<li><a href="#31-lock-free%E7%9A%84%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F">31、lock-free的实现方式</a></li>
+<li><a href="#32-%E9%94%81%E7%9A%84%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F">32、锁的实现方式</a></li>
+<li><a href="#33-%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%BC%96%E7%A8%8B%E7%9A%84%E6%97%B6%E5%80%99%E4%BD%BF%E7%94%A8%E6%97%A0%E9%94%81%E7%BB%93%E6%9E%84%E4%BC%9A%E4%B8%8D%E4%BC%9A%E6%AF%94%E6%9C%89%E9%94%81%E7%BB%93%E6%9E%84%E6%9B%B4%E5%8A%A0%E5%BF%AB">33、多线程编程的时候，使用无锁结构会不会比有锁结构更加快</a></li>
+<li><a href="#34-linux%E7%BA%BF%E7%A8%8B%E6%98%AF%E5%A6%82%E4%BD%95%E8%BF%9B%E8%A1%8C%E5%88%87%E6%8D%A2%E7%9A%84">34、linux线程是如何进行切换的</a></li>
+<li><a href="#35-linux-%E5%BC%80%E5%8F%91%E4%BD%BF%E7%94%A8%E5%A4%9A%E7%BA%BF%E7%A8%8B%E8%BF%98%E6%98%AF%E7%94%A8-io-%E5%A4%8D%E7%94%A8-selectepoll">35、Linux 开发，使用多线程还是用 IO 复用 select/epoll</a></li>
+<li><a href="#36-%E5%BC%82%E6%AD%A5%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%92%8C%E5%B9%B6%E8%A1%8C%E7%9A%84%E5%8C%BA%E5%88%AB">36、异步，多线程和并行的区别</a></li>
+<li><a href="#36-linux-%E4%B8%8B%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%92%8C%E5%A4%9A%E8%BF%9B%E7%A8%8B%E7%A8%8B%E5%BA%8F%E7%9A%84%E4%BC%98%E7%BC%BA%E7%82%B9%E5%90%84%E8%87%AA%E9%80%82%E5%90%88%E4%BB%80%E4%B9%88%E6%A0%B7%E7%9A%84%E4%B8%9A%E5%8A%A1%E5%9C%BA%E6%99%AF">36、Linux 下多线程和多进程程序的优缺点，各自适合什么样的业务场景</a></li>
+<li><a href="#37-%E5%BC%80%E5%8F%91%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%9A%84%E7%A8%8B%E5%BA%8F%E5%BA%94%E8%AF%A5%E6%B3%A8%E6%84%8F%E5%93%AA%E4%BA%9B%E9%97%AE%E9%A2%98">37、开发多线程的程序应该注意哪些问题</a></li>
+<li><a href="#38-%E5%A6%82%E4%BD%95%E6%B5%8B%E8%AF%95%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E6%80%A7%E8%83%BD">38、如何测试线程池的性能</a></li>
+<li><a href="#39-%E6%AD%BB%E9%94%81%E7%9A%84%E5%8E%9F%E5%9B%A0%E5%92%8C%E9%81%BF%E5%85%8D">39、死锁的原因和避免</a></li>
+<li><a href="#40-%E5%A6%82%E4%BD%95%E7%90%86%E8%A7%A3%E4%BA%92%E6%96%A5%E9%94%81%E6%9D%A1%E4%BB%B6%E9%94%81%E8%AF%BB%E5%86%99%E9%94%81%E4%BB%A5%E5%8F%8A%E8%87%AA%E6%97%8B%E9%94%81">40、如何理解互斥锁，条件锁，读写锁以及自旋锁</a></li>
+<li><a href="#41-%E4%BA%92%E6%96%A5%E9%94%81%E5%90%8C%E6%AD%A5%E9%94%81%E4%B8%B4%E7%95%8C%E5%8C%BA%E4%BA%92%E6%96%A5%E9%87%8F%E4%BF%A1%E5%8F%B7%E9%87%8F%E8%87%AA%E6%97%8B%E9%94%81%E4%B9%8B%E9%97%B4%E8%81%94%E7%B3%BB%E6%98%AF%E4%BB%80%E4%B9%88">41、互斥锁，同步锁，临界区，互斥量，信号量，自旋锁之间联系是什么</a></li>
+<li><a href="#42-pthread_cond_wait-%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81%E4%BC%A0%E9%80%92-mutex-%E5%8F%82%E6%95%B0">42、pthread_cond_wait 为什么需要传递 mutex 参数</a></li>
+<li><a href="#43-%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B%E4%B8%AD%E5%A6%82%E4%BD%95%E5%90%88%E7%90%86%E5%9C%B0%E9%80%89%E6%8B%A9%E7%BA%BF%E7%A8%8B%E6%95%B0">43、多线程网络编程中如何合理地选择线程数</a></li>
+<li><a href="#44-malloc%E5%92%8Cfree%E6%98%AF%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8%E7%9A%84%E5%90%97%E5%9C%A8%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%BC%80%E5%8F%91%E6%97%B6%E7%94%A8%E8%BF%99%E4%B8%A4%E4%B8%AA%E5%87%BD%E6%95%B0%E5%BA%94%E8%AF%A5%E6%B3%A8%E6%84%8F%E4%BB%80%E4%B9%88">44、malloc和free是线程安全的吗，在多线程开发时用这两个函数应该注意什么</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+<div class="menu-container">
+  <i class="ri-arrow-left-line text-2xl cursor-pointer animated fadeIn close-menu-btn" onclick="closeMenu()"></i>
+  <div>
+    
+      
+        <a href="/" class="menu" style="animation-delay: 0s">
+          首页
+        </a>
+      
+    
+      
+        <a href="\achieve" class="menu" style="animation-delay: 0.2s">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu" style="animation-delay: 0.4s">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu" style="animation-delay: 0.6000000000000001s">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="site-footer">
+    <div class="py-4 text-gray-700">Powered by 
+<a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+<br><br>
+Copyright 2020 &copy 
+<a href="https://twitter.com/mei_samson" target="_blank">
+<span style="color:blue">Liuxuejun</span></a>
+<br><br>
+<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="blank"
+<span style="color:orange">本博客采用 CC BY-NC-SA 4.0 进行许可</span></a></div>
+    <a class="rss" href="https://liuxuejun123.github.io/atom.xml" target="_blank">RSS</a>
+  </div>
+</div>
+<div class="mask" onclick="closeMenu()">
+</div>
+      <div class="content-wrapper py-32 lg:p-8 lg:w-3/4 post-detail animated fadeIn">
+        <h1 class="text-3xl font-bold lg:mt-16">[面试总结-进程、线程与多线程]</h1>
+        <div class="text-sm text-gray-700 lg:my-8">
+          2021-06-28 / 41 min read
+        </div>
+        
+        <div class="post-content yue">
+          <h4 id="1-使用多线程的意义">1. <strong>使用多线程的意义</strong></h4>
+<p>（1）发挥多核CPU的优势</p>
+<p>（2）防止阻塞</p>
+<p>（3）便于建模</p>
+<h4 id="2-创建线程的方式">2 <strong>创建线程的方式</strong></h4>
+<p>C++ 11 Thread类 继承</p>
+<p>实现Runnable接口</p>
+<p>面向接口编程；</p>
+<h4 id="3-什么是线程安全">3** 什么是线程安全**</h4>
+<p>又是一个理论的问题，各式各样的答案有很多，我给出一个个人认为解释地最好的：如果你的代码在多线程下执行和在单线程下执行永远都能获得一样的结果，那么你的代码就是线程安全的。</p>
+<p>这个问题有值得一提的地方，就是线程安全也是有几个级别的：</p>
+<p>（1）不可变</p>
+<p>像String、Int、Long这些，都是final类型的类，任何一个线程都改变不了它们的值，要改变除非新创建一个，因此这些不可变对象不需要任何同步手段就可以直接在多线程环境下使用</p>
+<p>（2）绝对线程安全</p>
+<p>不管运行时环境如何，调用者都不需要额外的同步措施。要做到这一点通常需要付出许多额外的代价，Java中标注自己是线程安全的类，实际上绝大多数都不是线程安全的，不过绝对线程安全的类，Java中也有，比方说CopyOnWriteArrayList、CopyOnWriteArraySet</p>
+<p>（3）相对线程安全</p>
+<p>相对线程安全也就是我们通常意义上所说的线程安全，像Vector这种，add、remove方法都是原子操作，不会被打断，但也仅限于此，如果有个线程在遍历某个Vector、有个线程同时在add这个Vector，99%的情况下都会出现ConcurrentModificationException，也就是fail-fast机制。</p>
+<h4 id="4-一个线程如果出现了运行时异常会怎么样">4 <strong>一个线程如果出现了运行时异常会怎么样</strong></h4>
+<p>如果这个异常没有被捕获的话，这个线程就停止执行了。另外重要的一点是：如果这个线程持有某个某个对象的监视器，那么这个对象监视器会被立即释放</p>
+<h4 id="5-生产者消费者模型的作用是什么">5 <strong>生产者消费者模型的作用是什么</strong></h4>
+<p>这个问题很理论，但是很重要：</p>
+<p>（1）通过平衡生产者的生产能力和消费者的消费能力来提升整个系统的运行效率，这是生产者消费者模型最重要的作用</p>
+<p>（2）解耦，这是生产者消费者模型附带的作用，解耦意味着生产者和消费者之间的联系少，联系越少越可以独自发展而不需要收到相互的制约</p>
+<h4 id="6-为什么要使用线程池">6  <strong>为什么要使用线程池</strong></h4>
+<p>避免频繁地创建和销毁线程，达到线程对象的重用。另外，使用线程池还可以根据项目灵活地控制并发的数目。</p>
+<h4 id="7-线程同步问题">7 <strong>线程同步问题</strong></h4>
+<p>一个进程内的资源供所有线程访问，有的资源可以同时被访问，有的资源一次只能被一个线程访问，比如一个静态全局变量a，线程1负责往里面写数据，线程2需要读取其中的数据，那么线程2在读取之前必须是线程1已经写入了数据，如果没有，那么线程2必须停下来等待线程1操作结束。这就是线程之间在某些地方上的合作关系，协同进行嘛，线程同步的“同”的意思也就是协同协作的意思。</p>
+<p>那么怎么等待，就需要在线程1使用这个变量a之前加锁控制，保证这个时候a只被线程1使用，使用完之后释放锁，释放之后其他线程就可以排队使用a了。</p>
+<p>接着上一段，若此时线程一在加锁后未释放该锁，那么其他待使用变量a的线程都将进入等待阻塞状态，若线程1中一直不释放锁，只锁不开，那么就是死锁的一种状态，一旦释放，那么将解决死锁 。这也是最简单的一种造成并解决死锁的方法。</p>
+<h4 id="8-如何解决死锁">8 <strong>如何解决死锁</strong></h4>
+<p>解决死锁的原则：如果另外一个线程会依赖当前线程，那么就不要再让当前线程依赖那个线程了，即使有多层关系，原则不变。</p>
+<p>(1)，如果两个线程，都是先锁锁A，再锁锁B，那么就避免了死锁的发生。如果线程1先锁所A，等待锁B，线程2先锁锁B，等待锁A，就造成死锁，互相等待。<br>
+(2)，可以用std::lock(mutex1,mutex2);来替代 mutex1.lock(); mutex2.lock();这两句。<br>
+因为std::lock(mutex1,mutex2);的作用是，同时将mutex1和mutex2锁成功，一旦有一个互斥量不能锁，线程就会卡在这里，直到两个锁可以被同时锁成功，这样就避免了死锁的现象。</p>
+<h4 id="9-进程和线程有什么区别">9. <strong>进程和线程有什么区别？</strong></h4>
+<p>a.进程是资源分配的基本单位;线程是cpu调度，或者说是程序执行的最小单位。在Mac、Windows NT等采用微内核结构的操作系统中，进程的功能发生了变化：它只是资源分配的单位，而不再是调度运行的单位。在微内核系统中，真正调度运行的基本单位是线程。因此，实现并发功能的单位是线程。</p>
+<p>b.进程有独立的地址空间，比如在linux下面启动一个新的进程，系统必须分配给它独立的地址空间，建立众多的数据表来维护它的代码段、堆栈段和数据段，这是一种非常昂贵的多任务工作方式。而运行一个进程中的线程，它们之间共享大部分数据，使用相同的地址空间，因此启动一个线程，切换一个线程远比进程操作要快，花费也要小得多。当然，线程是拥有自己的局部变量和堆栈（注意不是堆）的，比如在windows中用<a href="http://blog.csdn.net/morewindows/article/details/7421759">_beginthreadex</a>创建一个新进程就会在调用CreateThread的同时申请一个专属于线程的数据块（_tiddata)。</p>
+<p>c.线程之间的通信比较方便。统一进程下的线程共享数据（比如全局变量，静态变量），通过这些数据来通信不仅快捷而且方便，当然如何处理好这些访问的同步与互斥正是编写多线程程序的难点。而进程之间的通信只能通过<a href="http://baike.baidu.com/view/549640.htm">进程通信</a>的方式进行。</p>
+<p>d.由b，可以轻易地得到结论：多进程比多线程程序要健壮。一个线程死掉整个进程就死掉了，但是在<a href="http://blog.csdn.net/wukaiyu/article/details/1766804">保护模式</a>下，一个进程死掉对另一个进程没有直接影响。</p>
+<p>e.线程的执行与进程是有区别的。每个独立的线程有有自己的一个程序入口，顺序执行序列和程序的出口，但是线程不能独立执行，必须依附与程序之中，由应用程序提供多个线程的并发控制。</p>
+<p>1）进程数据是分开的:共享复杂，需要用IPC，同步简单；多线程共享进程数据：共享简单，同步复杂</p>
+<p>2）进程创建销毁、切换复杂，速度慢 ；线程创建销毁、切换简单，速度快</p>
+<p>3）进程占用内存多， CPU利用率低；线程占用内存少， CPU利用率高</p>
+<p>4）进程编程简单，调试简单；线程 编程复杂，调试复杂</p>
+<p>5）进程间不会相互影响 ；线程一个线程挂掉将导致整个进程挂掉</p>
+<p>6）进程适应于多核、多机分布；线程适用于多核</p>
+<p>线程所私有的：</p>
+<p>线程id、寄存器的值、栈、线程的优先级和调度策略、线程的私有数据、信号屏蔽字、errno变量、</p>
+<h4 id="10-多线程锁的种类有哪些">10 <strong>多线程锁的种类有哪些？</strong></h4>
+<p>a.互斥锁（mutex）b.递归锁 c.自旋锁 d.读写锁</p>
+<h4 id="11-自旋锁和互斥锁的区别">11 <strong>自旋锁和互斥锁的区别？</strong></h4>
+<p>当锁被其他线程占用时，其他线程并不是睡眠状态，而是不停的消耗CPU，获取锁；互斥锁则不然，保持睡眠，直到互斥锁被释放激活。</p>
+<p>自旋锁，递归调用容易造成死锁，对长时间才能获得到锁的情况，使用自旋锁容易造成CPU效率低，只有内核可抢占式或SMP情况下才真正需要自旋锁。</p>
+<h4 id="12-进程间通信和线程间通信">12 <strong>进程间通信和线程间通信</strong></h4>
+<p>1）.管道 2）消息队列 3)共享内存 4)信号量 5)套接字 6)条件变量</p>
+<h4 id="13-多线程程序架构线程数量应该如何设置">13 <strong>多线程程序架构，线程数量应该如何设置？</strong></h4>
+<p>应尽量和CPU核数相等或者为CPU核数+1的个数</p>
+<h4 id="14-什么是原子操作gcc提供的原子操作原语使用这些原语如何实现读写锁">14 <strong>什么是原子操作，gcc提供的原子操作原语，使用这些原语如何实现读写锁？</strong></h4>
+<p>原子操作是指不会被线程调度机制打断的操作；这种操作一旦开始，就一直运行到结束，中间不会有任何 context switch。</p>
+<h4 id="15-网络编程设计模式reactorproactor半同步半异步模式">15 <strong>网络编程设计模式，reactor/proactor/半同步半异步模式？</strong></h4>
+<p>reactor模式：同步阻塞I/O模式，注册对应读写事件处理器，等待事件发生进而调用事件处理器处理事件。 proactor模式：异步I/O模式。Reactor和Proactor模式的主要区别就是真正的读取和写入操作是有谁来完成的，Reactor中需要应用程序自己读取或者写入数据，Proactor模式中，应用程序不需要进行实际读写过程。</p>
+<p>Reactor是：</p>
+<p>主线程往epoll内核上注册socket读事件，主线程调用epoll_wait等待socket上有数据可读，当socket上有数据可读的时候，主线程把socket可读事件放入请求队列。睡眠在请求队列上的某个工作线程被唤醒，处理客户请求，然后往epoll内核上注册socket写请求事件。主线程调用epoll_wait等待写请求事件，当有事件可写的时候，主线程把socket可写事件放入请求队列。睡眠在请求队列上的工作线程被唤醒，处理客户请求。</p>
+<p>Proactor:</p>
+<p>主线程调用aio_read函数向内核注册socket上的读完成事件，并告诉内核用户读缓冲区的位置，以及读完成后如何通知应用程序，主线程继续处理其他逻辑，当socket上的数据被读入用户缓冲区后，通过信号告知应用程序数据已经可以使用。应用程序预先定义好的信号处理函数选择一个工作线程来处理客户请求。工作线程处理完客户请求之后调用aio_write函数向内核注册socket写完成事件，并告诉内核写缓冲区的位置，以及写完成时如何通知应用程序。主线程处理其他逻辑。当用户缓存区的数据被写入socket之后内核向应用程序发送一个信号，以通知应用程序数据已经发送完毕。应用程序预先定义的数据处理函数就会完成工作。</p>
+<p>半同步半异步模式：</p>
+<p>上层的任务（如：数据库查询，文件传输）使用同步I/O模型，简化了编写并行程序的难度。<br>
+而底层的任务（如网络控制器的中断处理）使用异步I/O模型，提供了执行效率。</p>
+<h4 id="16-有一个计数器多个线程都需要更新会遇到什么问题原因是什么应该如何做如何优化">16 <strong>有一个计数器，多个线程都需要更新，会遇到什么问题，原因是什么，应该如何做？如何优化？</strong></h4>
+<p>有可能一个线程更新的数据已经被另外一个线程更新了，更新的数据就会出现异常，可以加锁，保证数据更新只会被一个线程完成。</p>
+<h4 id="17-如果select返回可读结果只读到0字节什么情况">17 ** 如果select返回可读，结果只读到0字节，什么情况？**</h4>
+<p>某个套接字集合中没有准备好，可能会select内存用FD_CLR清为0.</p>
+<h4 id="18-connect可能会长时间阻塞怎么解决">18 <strong>connect可能会长时间阻塞，怎么解决?</strong></h4>
+<p>1.使用定时器；（最常用也最有效的一种方法）</p>
+<p>2.采用非阻塞模式：设置非阻塞，返回之后用select检测状态。</p>
+<h4 id="19-keepalive-是什么东西如何使用">19 <strong>keepalive</strong> <strong>是什么东西？如何使用？</strong></h4>
+<p>keepalive，是在TCP中一个可以检测死连接的机制。</p>
+<p>1）.如果主机可达，对方就会响应ACK应答，就认为是存活的。</p>
+<p>2）.如果可达，但应用程序退出，对方就发RST应答，发送TCP撤消连接。</p>
+<p>3）.如果可达，但应用程序崩溃，对方就发FIN消息。</p>
+<p>4）.如果对方主机不响应ack, rst，继续发送直到超时，就撤消连接。默认二个小时。</p>
+<h4 id="20-socket什么情况下可读">20 <strong>socket什么情况下可读？</strong></h4>
+<p>1.socket接收缓冲区中已经接收的数据的字节数大于等于socket接收缓冲区低潮限度的当前值;对这样的socket的读操作不会阻塞,并返回一个大于0的值(准备好读入的数据的字节数).</p>
+<p>2.连接的读一半关闭(即:接收到对方发过来的FIN的TCP连接),并且返回0;<br>
+3.socket收到了对方的connect请求已经完成的连接数为非0.这样的soocket处于可读状态；<br>
+4.异常的情况下socket的读操作将不会阻塞,并且返回一个错误(-1)。</p>
+<h4 id="21-udp调用connect有什么作用">21 <strong>udp调用connect有什么作用？</strong></h4>
+<p>1).因为UDP可以是一对一，多对一，一对多，或者多对多的通信，所以每次调用sendto()/recvfrom()时都必须指定目标IP和端口号。通过调用connect()建立一个端到端的连接，就可以和TCP一样使用send()/recv()传递数据，而不需要每次都指定目标IP和端口号。但是它和TCP不同的是它没有三次握手的过程。</p>
+<p>2).可以通过在已建立连接的UDP套接字上，调用connect()实现指定新的IP地址和端口号以及断开连接。</p>
+<h4 id="22-socket编程如果client断电了服务器如何快速知道">22 <strong>socket编程，如果client断电了，服务器如何快速知道？</strong></h4>
+<p>使用定时器（适合有数据流动的情况）；</p>
+<p>使用socket选项SO_KEEPALIVE（适合没有数据流动的情况）;</p>
+<p>1）、自己编写心跳包程序,简单的说就是自己的程序加入一条线程,定时向对端发送数据包,查看是否有ACK,根据ACK的返回情况来管理连接。此方法比较通用,一般使用业务层心跳处理,灵活可控,但改变了现有的协议;<br>
+2）、使用TCP的keepalive机制,UNIX网络编程不推荐使用SO_KEEPALIVE来做心）跳检测。<br>
+keepalive原理:TCP内嵌有心跳包,以服务端为例,当server检测到超过一定时间(/proc/sys/net/ipv4/tcp_keepalive_time 7200 即2小时)没有数据传输,那么会向client端发送一个keepalive packet。</p>
+<h4 id="23-程序什么时候应该使用线程什么时候单线程效率高">23、程序什么时候应该使用线程，什么时候单线程效率高**</h4>
+<p>1．耗时的操作使用线程，提高应用程序响应。</p>
+<p>2．并行操作时使用线程，如C/S架构的服务器端并发线程响应用户的请求。</p>
+<p>3．多CPU系统中，使用线程提高CPU利用率</p>
+<p>4．改善程序结构。一个既长又复杂的进程可以考虑分为多个线程，成为几个独立或半独立的运行部分，这样的程序会利于理解和修改。</p>
+<p>对于处理<strong>时间短的服务</strong>或者<strong>启动频率高</strong>的要用单线程，相反用多线程！</p>
+<h4 id="24-惊群现象">24、惊群现象</h4>
+<p>当多个进程和线程在同时阻塞等待同一个事件时，如果这个事件发生，会唤醒所有的进程，但最终只可能有一个进程/线程对该事件进行处理，其他进程/线程会在失败后重新休眠，这种性能浪费就是惊群</p>
+<h4 id="25-c函数内的静态变量初始化以及线程安全问题">25、C++函数内的静态变量初始化以及线程安全问题</h4>
+<ol>
+<li>如果是编译时和加载时初始化, 是不会存在线程安全这个issue的;</li>
+</ol>
+<p>​    因为这两种初始化一定发生在Main函数执行之前, 这个时候尚未进入程序运行空间; 而这些初始化一定是在单线程环境下操作的!  都是在执行C Runtime的startup代码中的void  main CRT Startup(void)函数时所在的OS系统加载程序时的主线程空间上发生的!</p>
+<ol start="2">
+<li>如果是运行时初始化, 因为无法保证访问这个静态变量所在的局部函数/全局函数/类成员函数/类静态成员函数  一定只会从某个特定的线程中被访问, 因此, 就一定会存在&quot;线程安全&quot;的issue!</li>
+</ol>
+<p>怎么避免：加锁解锁</p>
+<h4 id="26-c线程安全的单例类">26、C++线程安全的单例类</h4>
+<p>1.懒汉模式：即第一次调用该类实例的时候才产生一个新的该类实例，并在以后仅返回此实例。需要用锁，来保证其线程安全性：原因：多个线程可能进入判断是否已经存在实例的if语句，从而non thread safety.使用double-check来保证thread safety.但是如果处理大量数据时，该锁才成为严重的性能瓶颈。</p>
+<p>（1）静态成员实例的懒汉模式：</p>
+<pre><code class="language-cpp">class Singleton
+{
+private:
+    static Singleton* m_instance;
+    Singleton(){}
+public:
+    static Singleton* getInstance();
+};
+Singleton* Singleton::getInstance()
+{
+    if(NULL == m_instance)
+    {
+        Lock();//借用其它类来实现，如boost
+        if(NULL == m_instance)
+        {
+            m_instance = new Singleton;
+        }
+        UnLock();
+    }
+    return m_instance;
+}
+</code></pre>
+<p>（2）内部静态实例的懒汉模式</p>
+<pre><code class="language-cpp">class SingletonInside
+{
+private:
+    SingletonInside(){}
+public:
+    static SingletonInside* getInstance()
+    {
+        Lock(); // not needed after C++0x
+        static SingletonInside instance;
+        UnLock(); // not needed after C++0x
+        return instance; 
+    }
+};
+</code></pre>
+<p>2.饿汉模式：即无论是否调用该类的实例，在程序开始时就会产生一个该类的实例，并在以后仅返回此实例。由静态初始化实例保证其线程安全性，WHY？因为静态实例初始化在程序开始时进入主函数之前就由主线程以单线程方式完成了初始化，不必担心多线程问题。故在性能需求较高时，应使用这种模式，避免频繁的锁争夺</p>
+<pre><code class="language-cpp">class SingletonStatic
+{
+private:
+    static const SingletonStatic* m_instance;
+    SingletonStatic(){}
+public:
+    static const SingletonStatic* getInstance()
+    {
+        return m_instance;
+    }
+};
+//外部初始化 before invoke main
+const SingletonStatic* SingletonStatic::m_instance = new SingletonStatic;
+</code></pre>
+<h4 id="27-多线程环境带有状态的对象的讨论">27、多线程环境带有状态的对象的讨论</h4>
+<p>有状态对象指的是有数据存储功能的类的对象。（就是类含有字段或属性，他的对象含有实例变量，可以保存数据）<br>
+有状态对象（Stateful Bean），就是有实例变量的对象，可以保存数据，是非线程安全的。</p>
+<p>无状态对象就是一次操作的对象，不能保存数据的对象。<br>
+无状态对象（Stateless Bean），指的就是没有实例变量的对象，不能保存数据，是不可变类，是线程安全的对象。</p>
+<p>1、无状态对象一定是线程安全的</p>
+<p>无状态对象因为不包含任何域，也不包含任何对其他类中域的引用，计算过程中的临时状态仅存在于线程栈的局部变量中，并且只能由正在执行的线程访问，当前线程不会影响到其他正在运行的线程，所以无状态对象一定是线程安全的。</p>
+<p>2、有状态对象不一定是线程不安全的</p>
+<p>（1）对象成员变量没有被操作：</p>
+<pre><code>public class StatefulBean {
+ 
+	public int status;
+ 
+	public int getStatus() {
+		return status;
+	}
+ 
+	public void test(){
+		System.out.println(&quot;此方法不操作成员变量status&quot;);
+	}
+}
+</code></pre>
+<p>上述代码中，虽然StatefulBean类有、成员变量status，但是因为该类中的方法没有操作该成员变量，所以即使该类的对象存在成员变量，也没有线程安全。</p>
+<p>（2）成员变量是无状态对象的话，该对象也是线程安全的</p>
+<pre><code>public class StatefulTest {
+	public static void main(String[] args) throws Exception {	
+		Value value = new Value();	
+		ThreadTest t1 = new ThreadTest(value, 1);
+		ThreadTest t2 = new ThreadTest(value, 2);	
+		t1.start();
+		Thread.sleep(200);
+		t2.start();	
+	}
+}
+ 
+class ThreadTest extends Thread{
+	private Value value;
+	private int num;
+	public ThreadTest(Value value, int num) {
+		this.value = value;
+		this.num = num;
+	}
+	@Override
+	public void run() {
+		value.test(num);
+	}
+}
+ 
+class Value {
+	public void test(int num) {
+		int i = 0;
+		if (num == 1) {
+			i = 10;
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		} else if (num == 2) {
+			i = 20;
+		}
+		System.out.println(&quot;num = &quot; + num + &quot;, value = &quot; + i);
+	}
+}
+</code></pre>
+<h4 id="28-c多线程加volatile的错误认识">28、C++多线程加volatile的错误认识</h4>
+<p>C/C++多线程编程中不要使用volatile。<br>
+（注：这里的意思指的是指望volatile解决多线程竞争问题是有很大风险的，除非所用的环境系统不可靠才会为了保险加上volatile，或者是从极限效率考虑来实现很底层的接口。这要求编写者对程序逻辑走向很清楚才行，不然就会出错）</p>
+<p>C++11标准中明确指出解决多线程的数据竞争问题应该使用原子操作或者互斥锁。</p>
+<p>C和C++中的volatile并不是用来解决多线程竞争问题的，而是用来修饰一些因为程序<br>
+不可控因素导致变化的变量，比如访问底层硬件设备的变量，以提醒编译器不要对该 变量的访问擅自进行优化。</p>
+<p>简单的来说，对访问共享数据的代码块加锁，已经足够保证数据访问的同步性，再加 volatile完全是多此一举。如果光对共享变量使用volatile修饰而在可能存在竞争的</p>
+<p>操作中不加锁或使用原子操作对解决多线程竞争没有任何卵用，<br>
+volatile并不能保证操作的原子性，在读取、写入变量的过程中仍然可能被其他线程打断导致意外结果发生。</p>
+<h4 id="29-并行编程中多进程和多线程什么情况下多进程能解决的多线程无法解决">29、并行编程中多进程和多线程，什么情况下多进程能解决的多线程无法解决</h4>
+<p>异：running态的线程的退出只受函数的执行完毕，不能用任何方法中断一个执行中的线程。<br>
+进程就可以被父进程轻易杀死(尽管有时候可能导致结果异常)，在进程中由数据异常，或者并发太高而引起的崩溃还可以被守护进程自动拉起。而错误的线程编程可能导致整个进程的崩溃。<br>
+同：线程之间的数据是可以互相独立（thread_local），可以互相共享。子父进程也是如此(fork,vfork)但在IPC上面处理略复杂。</p>
+<p>例子？？？？</p>
+<h4 id="30-如何证明一个数据结构是线程安全的">30、如何证明一个数据结构是线程安全的</h4>
+<p>定义：一个不论运行时（Runtime）如何调度线程都不需要调用方提供额外的同步和协调机制还能正确地运行的类是线程安全的<br>
+多线程的场景很多很复杂，难以穷尽地说那些条件下是或者不是线程安全的，但是有一些常用的肯定线程安全的场景：<br>
+1.无状态的一定是线程安全的。这个很好理解，因为所谓线程不安全也就是一个线程修改了状态，而另一个线程的操作依赖于这个被修改的状态。<br>
+2.只有一个状态，而且这个状态是由一个线程安全的对象维护的，那这个类也是线程安全的。比如你在数据结构里只用一个AtomicLong来作为计数器，那递增计数的操作都是线程安全的，不会漏掉任何一次计数，而如果你用普通的long做++操作则不一样，因为++操作本身涉及到取数、递增、赋值 三个操作，某个线程可能取到了另外一个线程还没来得及写回的数就会导致上一次写入丢失。<br>
+3.有多个状态的情况下，维持不变性（invariant）的所有可变（mutable）状态都用同一个锁来守护的类是线程安全的。这一段有些拗口，首先类不变性的意思是指这个类在多线程状态下能正确运行的状态，其次用锁守护的意思是所有对该状态的操作都需要获取这个锁，而用同一个锁守护的作用就是所有对这些状态的修改实际最后都是串行的，不会存在某个操作中间状态被其他操作可见，继而导致线程不安全。所以这里的关键在于如何确定不变性，可能你的类的某些状态对于类的正确运行是无关紧要的，那就不需要用和其他状态一样的锁来守护。因此我们常可以看到有的类里面会创建一个新的对象作为锁来守护某些和原类本身不变性无关的状态。</p>
+<h4 id="31-lock-free的实现方式">31、lock-free的实现方式</h4>
+<p>？？？？</p>
+<h4 id="32-锁的实现方式">32、锁的实现方式</h4>
+<ul>
+<li>基于<strong>数据库</strong>实现分布式锁</li>
+<li>基于缓存（<strong>Redis</strong>）实现分布式锁</li>
+<li>基于<strong>Zookeeper</strong>实现分布式锁</li>
+</ul>
+<h4 id="33-多线程编程的时候使用无锁结构会不会比有锁结构更加快">33、多线程编程的时候，使用无锁结构会不会比有锁结构更加快</h4>
+<p>这个问题不能一概而论：<br>
+多线程编程的时候，采用无锁结构的目的，主要是为了解决以下一个或几个问题：<br>
+1：异常情况下可能导致的死锁<br>
+2：加锁粒度太大导致的阻塞<br>
+3：加解锁导致的资源消耗和上下文切换消耗<br>
+4：出现优先级反转，或者锁护送的现象<br>
+5：等等...<br>
+可以看到，无锁结构比有锁结构减少资源消耗（某种意义上也就是时间消耗）只是一方面。<br>
+从程序设计上来说，实现无锁结构的代码要比有锁结构更为复杂，复杂度的增加也会导致执行时间增加。这个无法一概而论。最重要的还是根据你自己的业务场景和需要来选择有锁还是无锁</p>
+<h4 id="34-linux线程是如何进行切换的">34、linux线程是如何进行切换的</h4>
+<p>一个进程的上下文可以分为三个部分:用户级上下文、寄存器上下文以及系统级上下文。</p>
+<p>用户级上下文: 正文、数据、用户堆栈以及共享存储区；</p>
+<p>寄存器上下文: 通用寄存器、程序寄存器(IP)、处理器状态寄存器(EFLAGS)、栈指针(ESP)；</p>
+<p>系统级上下文: 进程控制块task_struct、内存管理信息(mm_struct、vm_area_struct、pgd、pte)、内核栈。</p>
+<p>当发生进程调度时，进行进程切换就是上下文切换(context  switch).操作系统必须对上面提到的全部信息进行切换，新调度的进程才能运行。而系统调用进行的模式切换(mode  switch)。模式切换与进程切换比较起来，容易很多，而且节省时间，因为模式切换最主要的任务只是切换进程寄存器上下文的切换。系统中的每一个进程都有自己的上下文。一个正在使用处理器运行的进程称为当前进程(current)。当前进程因时间片用完或者因等待某个事件而阻塞时，进程调度需要把处理器的使用权从当前进程交给另一个进程，这个过程叫做进程切换。此时，被调用进程成为当前进程。在进程切换时系统要把当前进程的上下文保存在指定的内存区域（该进程的任务状态段TSS中），然后把下一个使用处理器运行的进程的上下文设置成当前进程的上下文。当一个进程经过调度再次使用CPU运行时，系统要恢复该进程保存的上下文。所以，进程的切换也就是上下文切换。在系统内核为用户进程服务时，通常是进程通过系统调用执行内核代码，这时进程的执行状态由用户态转换为内核态。但是，此时内核的运行是为用户进程服务，也可以说内核在代替当前进程执行某种服务功能。在这种情况下，内核的运行仍是进程运行的一部分，所以说这时内核是运行在进程上下文中。内核运行在进程上下文中时可以访问和修改进程的系统数据。此外，若内核运行在进程上下文中需要等待资源和设备时，系统可以阻塞当前进程。</p>
+<p>Linux下的线程实质上是轻量级进程(light weighted  process),线程生成时会生成对应的进程控制结构，只是该结构与父线程的进程控制结构共享了同一个进程内存空间。  同时新线程的进程控制结构将从父线程（进程）处复制得到同样的进程信息，如打开文件列表和信号阻塞掩码等。创建线程比创建新进程成本低，因为新创建的线程使用的是当前进程的地址空间。相对于在进程之间切换，在线程之间进行切换所需的时间更少，因为后者不包括地址空间之间的切换。</p>
+<p>线程切换上下文切换的原理与此类似，只是线程在同一地址空间中，不需要MMU等切换，只需要切换必要的CPU寄存器，因此，线程切换比进程切换快的多。</p>
+<h4 id="35-linux-开发使用多线程还是用-io-复用-selectepoll">35、Linux 开发，使用多线程还是用 IO 复用 select/epoll</h4>
+<h4 id="36-异步多线程和并行的区别">36、异步，多线程和并行的区别</h4>
+<p>先搞懂概念：</p>
+<p>多线程是对cpu剩余劳动力的压榨，是一种技术，强调的是并发（想想web server 需要处理大量并发请求的场景。<br>
+异步强调的是非阻塞，是一种编程模式（pattern），主要解决了UI响应被阻塞的问题，可借助线程技术或者硬件本身的计算能力解决。</p>
+<p>并行虽然同样也是对cpu剩余劳动力的压榨，且基于多线程技术，但它强调的是高效完成计算任务，而不是并发数量。</p>
+<p>问题比较抽象，举个例子：</p>
+<p>背景：作为一个北漂，准备结束北漂生涯，谋划如何搬家。其余家当都变买了，就剩下有一辆小轿车，和一辆摩托车需要带回家。</p>
+<p>\1. 阻塞式编程：先开其中一辆回去，再回来开另一辆车回去。</p>
+<p>\2. 传统异步式编程：摩托车办理快递，我开汽车回去。注意，快递公司派件（回调）时我不一定已经开车到家，如果必须本人签收，就比较麻烦了。----此种通过回调进行异步编程的方式，没法编写符合思维顺序的代码。</p>
+<p>\3. 基于多线程的异步编程：我获得了瞬间移动的超能力（cpu计算速度提升），以毫秒级的速度在汽车与摩托车之间切换驾驶。汽车（主线程）上有车载电话，可以使用处理其它事情。----期间频繁的上下文切换，会造成额外的损耗，造成反应能力比较差，只能开到60迈。</p>
+<p>4.并行编程：我获得了分身的超能力（多核cpu的出现），两个我同时开两辆车回家。----充分发挥了cpu的能力，没有额外切换上下文的损耗，精力充沛，在120的时速狂飙。</p>
+<h4 id="36-linux-下多线程和多进程程序的优缺点各自适合什么样的业务场景">36、Linux 下多线程和多进程程序的优缺点，各自适合什么样的业务场景</h4>
+<p>判断的原则非常简单：<br>
+<strong>在能使用多进程解决一个问题的时候不要使用多线程。</strong></p>
+<p><strong>多线程的优点：</strong></p>
+<ul>
+<li>方便高效的内存共享 - 多进程下内存共享比较不便，且会抵消掉多进程编程的好处</li>
+<li>较轻的上下文切换开销 - 不用切换地址空间，不用更改CR3寄存器，不用清空TLB。</li>
+</ul>
+<p><strong>多进程的优点：</strong></p>
+<ul>
+<li>更强的容错性 - 一个进程crash不会导致整个系统崩溃</li>
+<li>更好的多核可伸缩性 - 进程的使用将许多内核资源（如地址空间，页表，打开的文件）隔离，在多核系统上的可伸缩性强于多线程程序</li>
+</ul>
+<p>综上，当你的不同任务间需要大量共享数据或频繁通信时，使用多线程，其他情况下尽量使用多进程。</p>
+<p><strong>提高多线程程序效率的一般方法：</strong></p>
+<ul>
+<li>不要频繁创建，销毁线程，使用线程池</li>
+<li>减少线程间同步和通信（最为关键）</li>
+<li>避免需要频繁共享写的数据</li>
+<li>合理安排共享数据结构，避免伪共享（false sharing）</li>
+<li>使用非阻塞数据结构/算法</li>
+<li>避免可能产生可伸缩性问题的系统调用（比如mmap）</li>
+<li>避免产生大量缺页异常，尽量使用Huge Page</li>
+<li>可以的话使用用户态轻量级线程代替内核线程</li>
+</ul>
+<h4 id="37-开发多线程的程序应该注意哪些问题">37、开发多线程的程序应该注意哪些问题</h4>
+<p>程序的线程模型应该能在一张 A4 纸上画出来，有哪些线程，干什么活，<br>
+各路消息来了经过哪些处理步骤，涉及哪些线程，会访问哪些共享数据，等等。</p>
+<p>这样就算最初的作者离开团队，后面的维护者也不会轻易破坏这个设计。</p>
+<p>要知道，一个看似无害的局部代码修改，有可能造成 data race，如果混过了<br>
+code review，那么就埋雷了，轻则程序崩溃，重则破坏数据。<br>
+理解程序的线程设计，才能最大限度地防止这一情况的出现。</p>
+<h4 id="38-如何测试线程池的性能">38、如何测试线程池的性能</h4>
+<h4 id="39-死锁的原因和避免">39、死锁的原因和避免</h4>
+<p>死锁：<br>
+我们先来思考一个问题：我们加锁以后，再次进行加锁，这样会发生什么？</p>
+<p>当我们第二次申请锁的时候，这个时候锁已经被占用了，该线程就会被挂起，但是刚好这个线程就是拥有锁的线程了，那么这个线程就永远挂起等待了，这个我们就叫死锁。</p>
+<p>1.死锁发生的情形：<br>
+（1）一个线程两次申请锁。</p>
+<p>（2）两个线程互相申请对方的锁，但是对方都不释放锁。</p>
+<p>2.死锁产生的必要条件：<br>
+（1） 互斥：一次只有一个进程可以使用一个资源。其他进程不能访问已分配给其他进程的资源。</p>
+<p>（2）占有且等待：当一个进程在等待分配得到其他资源时，其继续占有已分配得到的资源。</p>
+<p>（3）非抢占：不能强行抢占进程中已占有的资源。</p>
+<p>（4）循环等待：存在一个封闭的进程链，使得每个资源至少占有此链中下一个进程所需要的一个资源。</p>
+<p>3.处理死锁的四种方法：<br>
+（1）死锁预防：通过确保死锁的一个必要条件不会满足，保证不会发生死锁</p>
+<p>（2）死锁检测：允许死锁的发生，但是可以通过系统设置的检测结构及时的检测出死锁的发生，采取一些措施，将死锁清除掉</p>
+<p>（3）死锁避免：在资源分配过程中，使用某种方法避免系统进入不安全的状态，从而避免发生死锁</p>
+<p>（4）死锁解除：与死锁检测相配套的一种措施。当检测到系统中已发生死锁，需将进程从死锁状态中解脱出来。</p>
+<p>常用方法：撤销或挂起一些进程，以便回收一些资源，再将这些资源分配给已处于阻塞状态的进程。</p>
+<p>4.处理死锁的具体细节：<br>
+一、死锁预防：破坏死锁的四个条件中的一个或几个<br>
+(1)互斥：它是设备的固有属性所决定的，不仅不能改变，还应该加以保证。<br>
+(2)占有且等待：为预防占有且等待条件，可以要求进程一次性的请求所有需要的资源，并且阻塞这个进程直到所有请求都同时满足。这个方法比较低效。<br>
+(3)不可抢占：预防这个条件的方法：<br>
+*如果占有某些资源的一个进程进行进一步资源请求时被拒绝，则该进程必须释放它最初占有的资源。<br>
+*如果一个进程请求当前被另一个进程占有的一个资源，则操作系统可以抢占另外一个进程，要求它释放资源。<br>
+(4)循环等待：通过定义资源类型的线性顺序来预防。<br>
+*如果一个进程已经分配了R类资源，那么接下来请求的资源只能是那些排在R类型之后的资源类型。该方法比较低效。</p>
+<p>二、死锁避免：<br>
+两种死锁避免算法：<br>
+*进程启动拒绝：如果一个进程的请求会导致死锁，则不启动该进程。<br>
+*资源分配拒绝：如果一个进程增加的资源请求会导致死锁，则不允许此分配(银行家算法)。</p>
+<p>银行家算法：<br>
+1.如果request&lt;=need，转向步骤2；否则认为出错，因为请求资源大于需要资源。<br>
+2.如果request&lt;=available，转向步骤3,；否则尚无足够资源，进程p阻塞；<br>
+3.系统尝试为把资源分配给进程P，并修改available、allocation和need的数值。<br>
+4.系统执行安全性算法，检查此次分配后系统是否处于安全状态，若安全，才正式将资源分配给进程P，否则将本次试探性分配作废，让进程P等待。<br>
+*安全状态：系统能按照某种进程顺序，为每个进程分配资源，直至满足每个进程对资源的最大需求，使每个进程都可顺利完成。</p>
+<p>三、死锁检测<br>
+一个简单的死锁检测算法：<br>
+每个进程、每个资源制定唯一编号      设定一张资源分配表，记录各进程与占用资源之间的关系      设置一张进程等待表，记录各进程与要申请资源之间的关系</p>
+<p>四、两种常用的死锁解除方法：</p>
+<ol>
+<li>资源剥夺法。挂起某些死锁进程，并抢占它的资源，将这些资源分配给其他的死锁进程。但应防止被挂起的进程长时间得不到资源，而处于资源匮乏的状态。</li>
+<li>撤销进程法。强制撤销部分、甚至全部死锁进程并剥夺这些进程的资源。撤销的原则可以按进程优先级和撤销进程代价的高低进行。</li>
+</ol>
+<h4 id="40-如何理解互斥锁条件锁读写锁以及自旋锁">40、如何理解互斥锁，条件锁，读写锁以及自旋锁</h4>
+<ul>
+<li>
+<p><strong>互斥锁</strong>加锁失败后，线程会<strong>释放 CPU</strong> ，给其他线程；</p>
+</li>
+<li>
+<p><strong>自旋锁</strong>加锁失败后，线程会<strong>忙等待</strong>，直到它拿到锁；</p>
+<p>一般加锁的过程，包含两个步骤：</p>
+<ul>
+<li>第一步，查看锁的状态，如果锁是空闲的，则执行第二步；</li>
+<li>第二步，将锁设置为当前线程持有；</li>
+</ul>
+</li>
+</ul>
+<p>CAS 函数就把这两个步骤合并成一条硬件级指令，形成<strong>原子指令</strong>，这样就保证了这两个步骤是不可分割的，要么一次性执行完两个步骤，要么两个步骤都不执行。</p>
+<p>使用自旋锁的时候，当发生多线程竞争锁的情况，加锁失败的线程会「忙等待」，直到它拿到锁。这里的「忙等待」可以用 <code>while</code> 循环等待实现，不过最好是使用 CPU 提供的 <code>PAUSE</code> 指令来实现「忙等待」，因为可以减少循环等待时的耗电量。</p>
+<p><strong>当加锁失败时，互斥锁用「线程切换」来应对，自旋锁则用「忙等待」来应对</strong>。</p>
+<ul>
+<li>条件锁 这就是条件变量（condition variable），也就是问题里的条件锁。它解决的问题不是「互斥」，而是「等待」。</li>
+</ul>
+<h4 id="41-互斥锁同步锁临界区互斥量信号量自旋锁之间联系是什么">41、互斥锁，同步锁，临界区，互斥量，信号量，自旋锁之间联系是什么</h4>
+<p>互斥锁和互斥量在我的理解里没啥区别，不同叫法。广义上讲可以值所有实现互斥作用的同步机制。狭义上讲指的就是mutex这种特定的二元锁机制。</p>
+<p>互斥锁的作用就是互斥，mutual exclusive，是用来保护临界区(critical section)的。所谓临界区就是代码的一个区间，如果两个线程同时执行就有可能出问题，所以需要互斥锁来保护。</p>
+<p>信号量（semaphore）是一种更高级的同步机制，mutex可以说是semaphore在仅取值0/1时的特例。Semaphore可以有更多的取值空间，用来实现更加复杂的同步，而不单单是线程间互斥。</p>
+<p>自旋锁是一种互斥锁的实现方式而已，相比一般的互斥锁会在等待期间放弃cpu，自旋锁（spinlock）则是不断循环并测试锁的状态，这样就一直占着cpu。</p>
+<p>同步锁好像没啥特殊说法，你可以理解为能实现同步作用的都可以叫同步锁，比如信号量。</p>
+<p>先写观点，这些词的内在逻辑如下：</p>
+<ol>
+<li>核心矛盾是**“竞态条件”，<strong>即多个线程同时读写某个字段</strong>。**</li>
+<li>竞态条件下多线程争抢的是**“竞态资源”**。</li>
+<li>涉及读写竟态资源的代码片段叫**“临界区”**。</li>
+<li>保证竟态资源安全的最朴素的一个思路就是让临界区代码**“互斥”**，即同一时刻最多只能有一个线程进入临界区。</li>
+<li>最朴素的互斥手段：在进入临界区之前，用if检查一个bool值，条件不满足就**“忙等”<strong>。这叫</strong>“锁变量”**。</li>
+<li>但锁变量不是线程安全的。因为“检查-占锁”这个动作不具备**“原子性”**。</li>
+<li>**“TSL指令”**就是原子性地完成“检查-占锁”的动作。</li>
+<li>就算不用TSL指令，也可以设计出线程安全的代码，有一种既巧妙又简洁的结构叫**“自旋锁”**。当然还有其他更复杂的锁比如“Peterson锁”。</li>
+<li>但自旋锁的缺点是条件不满足时会**“忙等待”**，需要后台调度器重新分配时间片，效率低。</li>
+<li>解决忙等待问题的是：“**sleep”**和“**wakeup”**两个原语。sleep阻塞当前线程的同时会让出它占用的锁。wakeup可以唤醒在目标锁上睡眠的线程。</li>
+<li>使用sleep和wakeup原语，保证同一时刻只有一个线程进入临界区代码片段的锁叫**“互斥量”**。</li>
+<li>把互斥锁推广到&quot;N&quot;的空间，同时允许有N个线程进入临界区的锁叫**“信号量”**。</li>
+<li>互斥量和信号量的实现都依赖TSL指令保证“检查-占锁”动作的原子性。</li>
+<li>把互斥量交给程序员使用太危险，有些编程语言实现了**“管程”**的特性，从编译器的层面保证了临界区的互斥，比如Java的synchronized关键字。</li>
+<li>并没有“同步锁”这个名词，Java的synchronized正确的叫法应该是“互斥锁”，“独占锁”或者“内置锁”。但有的人“顾名思义”叫它同步锁。</li>
+</ol>
+<h4 id="42-pthread_cond_wait-为什么需要传递-mutex-参数">42、pthread_cond_wait 为什么需要传递 mutex 参数</h4>
+<p>pthread_cond_wait() 所做的第一件事就是同时对互斥对象解锁（于是其它线程可以修改已链接列表），并等待条件 g_ConVar发生（这样当 pthread_cond_wait() 接收到另一个线程的“信号”时，它将苏醒）。现在互斥对象已被解锁，其它线程可以访问和修改已链接列表，可能还会添加项。<br>
+此时，pthread_cond_wait() 调用还未返回。对互斥对象解锁会立即发生，但等待条件 g_ConVar通常是一个阻塞操作，这意味着线程将睡眠，在它苏醒之前不会消耗 CPU 周期。这正是我们期待发生的情况。线程将一直睡眠，直到特定条件发生，在这期间不会发生任何浪费 CPU 时间的繁忙查询。从线程的角度来看，它只是在等待 pthread_cond_wait() 调用返回。</p>
+<p>pthread_cond_wait()函数传入的参数mutex用于保护条件，因为我们在调用pthread_cond_wait时，如果条件不成立我们就进入阻塞，但是进入阻塞这个期间，如果条件变量改变了的话，那我们就漏掉了这个条件。因为这个线程还没有放到等待队列上，所以调用pthread_cond_wait前要先锁互斥量，即调用pthread_mutex_lock(),pthread_cond_wait再把线程放进阻塞队列后，自动对mutex进行解锁，使得其它线程可以获得加锁的权利。这样其它线程才能对临界资源进行访问并在适当的时候唤醒这个阻塞的进程。当pthread_cond_wait返回的时候又自动给mutex加锁。</p>
+<h4 id="43-多线程网络编程中如何合理地选择线程数">43、多线程网络编程中如何合理地选择线程数</h4>
+<p>cup 计算形，和CPU核心数目一致</p>
+<p>IO密集型，多一点</p>
+<h4 id="44-malloc和free是线程安全的吗在多线程开发时用这两个函数应该注意什么">44、malloc和free是线程安全的吗，在多线程开发时用这两个函数应该注意什么</h4>
+<p>多线程高并发请使用内存池；或者（如果可以）直接一次性分配好内存，后面复用。</p>
+<p>1.malloc/free会导致系统用户态/核心态切换，消耗大。<br>
+2.malloc/free线程安全意味着他要加锁，那么你会看到任务管理器里cpu锯齿形状。<br>
+3.不断的malloc/free运行久了会内存碎片。当然现在64位系统地址空间够大，要求不是很苛刻的话问题不大</p>
+
+        </div>
+
+        
+
+
+        <div class="flex justify-between py-8">
+          
+
+          
+            <div class="next-post">
+              <a href="https://liuxuejun123.github.io/post/wang-pan-xiang-mu/">
+                <h3 class="post-title">
+                  网盘项目
+                  <i class="ri-arrow-right-line"></i>
+                </h3>
+              </a>
+            </div>
+          
+        </div>
+			<div id="vcomments"></div>
+			<script>
+			new Valine({
+			el: '#vcomments',
+			appId: '7PkqecRcjgS1uaF60SMWxDMH-gzGzoHsz',
+			appKey: 'Vb5bQCHJavyHDCk3mor2nHkj'
+			})
+			</script>
+        
+
+      </div>
+    </div>
+
+    <script src="https://liuxuejun123.github.io/media/prism.js"></script>  
+<script>
+
+Prism.highlightAll()
+let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+// This should probably be throttled.
+// Especially because it triggers during smooth scrolling.
+// https://lodash.com/docs/4.17.10#throttle
+// You could do like...
+// window.addEventListener("scroll", () => {
+//    _.throttle(doThatStuff, 100);
+// });
+// Only not doing it here to keep this Pen dependency-free.
+
+window.addEventListener("scroll", event => {
+  let fromTop = window.scrollY;
+
+  mainNavLinks.forEach((link, index) => {
+    let section = document.getElementById(decodeURI(link.hash).substring(1));
+    let nextSection = null
+    if (mainNavLinks[index + 1]) {
+      nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+    }
+    if (section.offsetTop <= fromTop) {
+      if (nextSection) {
+        if (nextSection.offsetTop > fromTop) {
+          link.classList.add("current");
+        } else {
+          link.classList.remove("current");    
+        }
+      } else {
+        link.classList.add("current");
+      }
+    } else {
+      link.classList.remove("current");
+    }
+  });
+});
+
+
+document.addEventListener("DOMContentLoaded", function() {
+  var lazyImages = [].slice.call(document.querySelectorAll(".post-feature-image.lazy"));
+
+  if ("IntersectionObserver" in window) {
+    let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          let lazyImage = entry.target
+          lazyImage.style.backgroundImage = `url(${lazyImage.dataset.bg})`
+          lazyImage.classList.remove("lazy")
+          lazyImageObserver.unobserve(lazyImage)
+        }
+      });
+    });
+
+    lazyImages.forEach(function(lazyImage) {
+      lazyImageObserver.observe(lazyImage)
+    })
+  } else {
+    // Possibly fall back to a more compatible method here
+  }
+});
+
+const menuContainer = document.querySelector('.menu-container')
+const menus = document.querySelectorAll('.menu-container .menu')
+const mask = document.querySelector('.mask')
+const contentWrapper = document.querySelector('.content-wrapper')
+const latestArticle = document.querySelector('.latest-article')
+const readMore = document.querySelector('.read-more')
+const indexPage = document.querySelector('.index-page')
+
+const isHome = location.pathname === '/'
+if (latestArticle) {
+  latestArticle.style.display = isHome ? 'block' : 'none'
+  readMore.style.display = isHome ? 'block' : 'none'
+  indexPage.style.display = isHome ? 'none' : 'block'
+}
+
+const openMenu = () => {
+  menuContainer.classList.add('open')
+  menus.forEach(menu => {
+    menu.classList.add('animated', 'fadeInLeft')
+  })
+  mask.classList.add('open')
+  contentWrapper.classList.add('is-second')
+}
+
+const closeMenu = () => {
+  menuContainer.classList.remove('open')
+  menus.forEach(menu => {
+    menu.classList.remove('animated', 'fadeInLeft')
+  })
+  mask.classList.remove('open')
+  contentWrapper.classList.remove('is-second')
+}
+</script>
+  
+  </body>
+</html>
