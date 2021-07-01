@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://liuxuejun123.github.io</id>
     <title>Liu Xuejun&apos;s Blog</title>
-    <updated>2021-07-01T15:01:36.047Z</updated>
+    <updated>2021-07-01T15:10:03.611Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://liuxuejun123.github.io"/>
     <link rel="self" href="https://liuxuejun123.github.io/atom.xml"/>
@@ -11,7 +11,7 @@
     <icon>https://liuxuejun123.github.io/favicon.ico</icon>
     <rights>All rights reserved 2021, Liu Xuejun&apos;s Blog</rights>
     <entry>
-        <title type="html"><![CDATA[Git 使用教程]]></title>
+        <title type="html"><![CDATA[Git 使用教程（1）初步命令]]></title>
         <id>https://liuxuejun123.github.io/post/git-shi-yong-jiao-cheng/</id>
         <link href="https://liuxuejun123.github.io/post/git-shi-yong-jiao-cheng/">
         </link>
@@ -77,7 +77,7 @@ git reset --hard 版本号
 ]]></content>
     </entry>
     <entry>
-        <title type="html"><![CDATA[[面试总结-进程、线程与多线程]]]></title>
+        <title type="html"><![CDATA[[操作系统面试总结-进程、线程与多线程]]]></title>
         <id>https://liuxuejun123.github.io/post/mian-shi-zong-jie-jin-cheng-xian-cheng-yu-duo-xian-cheng/</id>
         <link href="https://liuxuejun123.github.io/post/mian-shi-zong-jie-jin-cheng-xian-cheng-yu-duo-xian-cheng/">
         </link>
@@ -1028,7 +1028,7 @@ s是 需要置零的空间的起始地址； n是 要置零的数据字节个数
 ]]></content>
     </entry>
     <entry>
-        <title type="html"><![CDATA[Unix 高级环境编程 ----标准IO]]></title>
+        <title type="html"><![CDATA[Unix 高级环境编程（1） ----标准IO]]></title>
         <id>https://liuxuejun123.github.io/post/unix-gao-ji-huan-jing-bian-cheng-biao-zhun-io/</id>
         <link href="https://liuxuejun123.github.io/post/unix-gao-ji-huan-jing-bian-cheng-biao-zhun-io/">
         </link>
